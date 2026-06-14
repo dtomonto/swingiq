@@ -71,6 +71,7 @@ export function AnalysisDebugPanel({ session }: Props) {
   const ot = session.objectTracking;
   const kc = session.kineticChain;
   const tp = session.temporal;
+  const vq = session.videoQuality;
 
   return (
     <details className="rounded-xl border border-border bg-card group">
@@ -98,6 +99,37 @@ export function AnalysisDebugPanel({ session }: Props) {
             ]}
           />
         </Section>
+
+        {/* Video-quality profile (preflight): tier, measured signals, issues. */}
+        {vq && (
+          <Section title="Video quality profile">
+            <KV
+              items={[
+                ['Quality tier', vq.tier.replace(/_/g, ' ')],
+                ['Profile score', `${vq.score}/100`],
+                ['Analysis level', `${vq.recommendedAnalysisLevel}/5`],
+                ['Subject coverage', pct(vq.subjectCoverage)],
+                ['Brightness', vq.pixelSignalsAvailable ? pct(vq.brightnessScore) : 'n/a'],
+                ['Contrast', vq.pixelSignalsAvailable ? pct(vq.contrastScore) : 'n/a'],
+                ['Sharpness', vq.pixelSignalsAvailable ? pct(vq.sharpnessScore) : 'n/a'],
+                ['Camera stability', vq.pixelSignalsAvailable ? pct(vq.cameraStabilityScore) : 'n/a'],
+                ['Full body', vq.fullBodyVisible ? 'yes' : 'no'],
+                ['Multiple people', vq.multiplePeople ? 'yes' : 'no'],
+              ]}
+            />
+            <p className="text-[11px] text-foreground/90 mt-1">{vq.headline}</p>
+            {vq.issues.length > 0 && (
+              <ul className="list-disc list-inside text-[10px] text-muted-foreground mt-1 space-y-0.5">
+                {vq.issues.map((iss, i) => (
+                  <li key={i}>
+                    <span className="font-medium text-foreground">{iss.code.replace(/_/g, ' ')}</span>{' '}
+                    <span className="uppercase">({iss.severity})</span> — {iss.userMessage}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </Section>
+        )}
 
         {/* Per-frame pose confidence — a tiny inline bar chart of mean visibility. */}
         {track.frames.length > 0 && (

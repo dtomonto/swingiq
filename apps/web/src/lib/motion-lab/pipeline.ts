@@ -13,7 +13,9 @@
 // ============================================================
 
 import { extractSwingFrames } from '@/lib/frame-extraction';
-import { detectPoses, type PoseDetectInput, type PoseModelQuality } from '@/lib/pose';
+import { detectPoses, type PoseDetectInput, type PoseFrame, type PoseModelQuality } from '@/lib/pose';
+import { planEnhancement, enhanceFrameDataUrl, type GrayLumaStats } from '@/lib/frame-enhance';
+import { profileVideoQuality, type VideoQualityProfile } from './preflight';
 import { liftAvailable, enrichFrameWithLift, rigPreset, syncViews, selfCalibrate, type RigPreset } from '@/lib/pose3d';
 import type { ViewLandmarks } from './multiview';
 import type {
@@ -64,6 +66,61 @@ export interface PipelineOptions {
   onProgress?: (stage: MotionStage) => void;
 }
 
+// Landmark indices (MediaPipe 33-point) for the full-body visibility check.
+const L_HIP = 23;
+const R_HIP = 24;
+const L_ANKLE = 27;
+const R_ANKLE = 28;
+
+/** Mean landmark visibility across detected frames (0–1). */
+function trackVisibility(detected: PoseFrame[]): number {
+  let sum = 0;
+  let n = 0;
+  for (const d of detected) {
+    for (const lm of d.landmarks) {
+      sum += lm.visibility;
+      n++;
+    }
+  }
+  return n > 0 ? sum / n : 0;
+}
+
+/** Mean visibility of a single landmark index across the track. */
+function meanVisAt(frames: MotionPoseFrame[], idx: number): number {
+  let s = 0;
+  let n = 0;
+  for (const f of frames) {
+    const lm = f.landmarks[idx];
+    if (lm) {
+      s += lm.v;
+      n++;
+    }
+  }
+  return n ? s / n : 0;
+}
+
+/** Whether head-to-feet appears visible (mirrors the quality gate's thresholds). */
+function fullBodyVisibleFrom(frames: MotionPoseFrame[]): boolean {
+  const ankleVis = (meanVisAt(frames, L_ANKLE) + meanVisAt(frames, R_ANKLE)) / 2;
+  const hipVis = (meanVisAt(frames, L_HIP) + meanVisAt(frames, R_HIP)) / 2;
+  return ankleVis > 0.45 && hipVis > 0.5;
+}
+
+/** Mean of each luma field across frames, or null when no stats were measured. */
+function aggregateStats(frameStats: GrayLumaStats[] | undefined): GrayLumaStats | null {
+  if (!frameStats || frameStats.length === 0) return null;
+  const n = frameStats.length;
+  const sum = frameStats.reduce(
+    (a, s) => ({
+      brightness: a.brightness + s.brightness,
+      contrast: a.contrast + s.contrast,
+      sharpness: a.sharpness + s.sharpness,
+    }),
+    { brightness: 0, contrast: 0, sharpness: 0 },
+  );
+  return { brightness: sum.brightness / n, contrast: sum.contrast / n, sharpness: sum.sharpness / n };
+}
+
 /** Light moving-average smoothing on landmark positions to reduce jitter. */
 function smoothTrack(track: MotionPoseTrack, window = 2): MotionPoseTrack {
   const frames = track.frames;
@@ -110,17 +167,51 @@ export async function runMotionAnalysis(
     trimEndSeconds: options.trimEndSeconds ?? undefined,
   });
 
-  // 2) On-device pose detection (real MediaPipe x/y/z). Best-effort.
+  // 2) On-device pose detection (real MediaPipe x/y/z). Best-effort. Detect up
+  //    to two people and keep the PRIMARY athlete so a bystander in frame can't
+  //    capture the track.
   onProgress?.('detecting');
   const detectInput: PoseDetectInput[] = extraction.frames.map((f) => ({
     dataUrl: f.dataUrl,
     timestampSeconds: f.timestampSeconds,
   }));
-  const detected = await detectPoses(detectInput, modelQuality);
+  const detectOpts = { numPoses: 2, selectPrimary: true } as const;
+  let detected = await detectPoses(detectInput, modelQuality, detectOpts);
+  const attempted = extraction.frames.length;
+
+  // 2a) WORST-CASE RECOVERY: when the first pass found few or low-confidence
+  //     poses AND the clip reads dark/flat, ENHANCE the frames on-device (gamma +
+  //     contrast stretch) and retry. We adopt the retry only when it recovers
+  //     MORE real poses — enhancement changes whether the detector can SEE the
+  //     athlete, never where the landmarks land, so the track stays honest.
+  let enhancementApplied = false;
+  const aggregate = aggregateStats(extraction.frameStats);
+  const enhancePlan = aggregate ? planEnhancement(aggregate) : null;
+  const firstPassWeak =
+    attempted > 0 &&
+    (detected.length < Math.ceil(attempted * 0.6) || trackVisibility(detected) < 0.5);
+  if (enhancePlan && firstPassWeak) {
+    const enhancedInput: PoseDetectInput[] = await Promise.all(
+      extraction.frames.map(async (f) => ({
+        dataUrl: await enhanceFrameDataUrl(f.dataUrl, enhancePlan),
+        timestampSeconds: f.timestampSeconds,
+      })),
+    );
+    const retry = await detectPoses(enhancedInput, modelQuality, detectOpts);
+    const better =
+      retry.length > detected.length ||
+      (retry.length === detected.length && trackVisibility(retry) > trackVisibility(detected) + 0.03);
+    if (better) {
+      detected = retry;
+      enhancementApplied = true;
+    }
+  }
 
   let visSum = 0;
   let visCount = 0;
+  let multiplePeople = false;
   const frames: MotionPoseFrame[] = detected.map((d) => {
+    if ((d.personCount ?? 1) > 1) multiplePeople = true;
     for (const lm of d.landmarks) {
       visSum += lm.visibility;
       visCount++;
@@ -162,6 +253,24 @@ export async function runMotionAnalysis(
     };
     depthModel += '+lift3d';
   }
+  if (enhancementApplied) depthModel += '+enhanced';
+
+  // Build the honest video-quality profile (tier, issues, dynamic capture fixes)
+  // from the signals we actually measured. Surfaced in the result and folded into
+  // the capture recommendations so the user always knows what to fix next.
+  const videoQuality = profileVideoQuality({
+    frameStats: extraction.frameStats ?? [],
+    subjectCoverage: attempted > 0 ? frames.length / attempted : 0,
+    fullBodyVisible: fullBodyVisibleFrom(frames),
+    trackingConfidence: track.trackingConfidence,
+    multiplePeople,
+    resolution: extraction.resolution,
+    estimatedFps: options.estimatedFps ?? null,
+    durationSeconds: extraction.durationSeconds,
+    swingWindowDetected: extraction.swingWindowDetected,
+    sport: capture.sport,
+    view: capture.view,
+  });
 
   return assembleSession(track, capture, {
     resolution: extraction.resolution,
@@ -169,7 +278,7 @@ export async function runMotionAnalysis(
     attemptedFrames: extraction.frames.length,
     swingWindowDetected: extraction.swingWindowDetected,
     estimatedFps: options.estimatedFps ?? null,
-  }, depthModel, startedAt, onProgress);
+  }, depthModel, startedAt, onProgress, { videoQuality });
 }
 
 export type { RigPreset };
@@ -302,6 +411,7 @@ function assembleSession(
   modelVersion: string,
   startedAt: number,
   onProgress?: (stage: MotionStage) => void,
+  extras: { videoQuality?: VideoQualityProfile } = {},
 ): MotionSession {
   onProgress?.('segmenting');
   const series = computeSeries(track, capture);
@@ -315,6 +425,13 @@ function assembleSession(
   const drills = prescribeDrills(metrics, capture);
   const report = buildReport(capture, metrics, phases, scoreboard, drills);
   const quality = assessQuality(track, qualitySource, capture);
+  // Lead the capture recommendations with the profiler's dynamic, problem-specific
+  // fixes (deduped) so the most actionable retest guidance shows first.
+  if (extras.videoQuality) {
+    quality.recommendations = [
+      ...new Set([...extras.videoQuality.recommendedFixes, ...quality.recommendations]),
+    ].slice(0, 6);
+  }
   // Estimated implement (club/bat/racket) path + contact zone. Never throws.
   const objectTracking = estimateImplementPath({ track, capture, series, phases });
   // Kinetic chain sequencing (lower body → torso → arms → implement). Never throws.
@@ -342,6 +459,7 @@ function assembleSession(
     emoji: sport.emoji,
     poseTrack: track,
     quality,
+    videoQuality: extras.videoQuality,
     phases,
     metrics,
     scoreboard,

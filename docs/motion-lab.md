@@ -156,6 +156,57 @@ If no pose is detected (bad lighting, body out of frame), the pipeline does **no
 fabricate data — it returns an honest low-confidence result and the 3D viewer
 shows a "no pose detected" message with capture guidance.
 
+## Robustness: worst-case video recovery (2026-06)
+
+Real uploads are dark, flat, blurry, low-res, or have a bystander in frame. The
+pipeline now defends against that **on-device**, without ever fabricating data:
+
+1. **Video-quality profiler** — `preflight.ts` turns the signals we can honestly
+   measure (per-frame brightness / contrast / sharpness from the 32×32 motion
+   signatures `frame-extraction.ts` already computes, plus pose coverage,
+   tracking confidence, resolution, fps, duration, multi-person) into a
+   `VideoQualityProfile`: a **tier** (excellent → good → usable → poor → terrible
+   → not-defensible), a 0–100 score, a defensible **analysis level (1–5)**, a
+   structured list of capture **issues** (`LOW_LIGHT`, `SOFT_OR_BLURRED`,
+   `BODY_CROPPED`, `MULTIPLE_PEOPLE`, `LOW_FPS`, …) each with a severity +
+   affected-metric families + an athlete-facing message, and **dynamic,
+   problem-specific capture fixes** for the retest. Where a signal can't be
+   measured (canvas read blocked) it is honestly reported as unavailable rather
+   than assumed. It is pure + unit-tested and never returns a blank result.
+2. **Low-light / low-contrast recovery + retry** — `frame-enhance.ts` plans a
+   conservative tone transform (gamma + contrast-stretch) from the clip's luma
+   stats. When the first detection pass finds **few or low-confidence** poses
+   *and* the clip reads dark/flat, the pipeline enhances the frames and **re-runs
+   detection**, adopting the retry **only when it recovers more real poses**.
+   Enhancement changes whether MediaPipe can *see* the athlete — it never moves
+   or invents landmarks (the original frames are kept; `modelVersion` is tagged
+   `+enhanced`). We deliberately do **not** aggressively sharpen (that can
+   hallucinate edges and pull landmarks off the body).
+3. **Primary-athlete selection** — `detectPoses` can detect up to two people and
+   keep the **primary** one (largest + most central + best-tracked, via the pure
+   `selectPrimaryPose`) so a bystander can't capture the track. This is **opt-in**
+   (the Motion Lab pipeline enables it); the live-camera and prepare-swing
+   callers keep the original single-pose default.
+
+The profile is attached to the `MotionSession` (`session.videoQuality`), its
+fixes lead the capture recommendations, and the validation panel
+(`AnalysisDebugPanel`) shows the tier, measured signals, and issues.
+
+### Why on-device (and the server-path roadmap)
+
+A heavier brief proposed a **server** pipeline (job tables, `/api/motion-lab/*`
+endpoints, server-side multi-model fusion, a cloud video-understanding fallback).
+That is intentionally **not** built here: Motion Lab's load-bearing promise is
+that *the video never leaves the device*, and the house rules are reuse-and-extend
+over rebuild + keyless-first. The work above delivers the brief's **intent**
+(robust extraction from bad video, confidence everywhere, "what we saw / didn't /
+how to recapture", never fail silently) inside the on-device architecture. The
+clean seams for a future opt-in cloud path already exist: the `PoseProvider`
+interface (`lib/motion/`), the `ObjectTrackingProvider` seam, and the
+`NEXT_PUBLIC_POSE_CLOUD_URL` / `NEXT_PUBLIC_MEDIAPIPE_*_BASE` env knobs. A second
+pose engine (MoveNet/YOLO) or a semantic fallback can drop in behind those
+without touching the product — and should stay OFF until a key/endpoint is set.
+
 ## The 3D viewer
 
 `components/motion-lab/Motion3DViewer.tsx` is a **dependency-free** 3D renderer on

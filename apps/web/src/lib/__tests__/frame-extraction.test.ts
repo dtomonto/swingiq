@@ -4,6 +4,7 @@ import {
   motionProfile,
   findSwingWindow,
   selectFrameIndices,
+  grayStats,
 } from '../frame-extraction';
 
 describe('frameDifference', () => {
@@ -74,5 +75,51 @@ describe('selectFrameIndices', () => {
     expect(inWindow).toBeGreaterThanOrEqual(3);
     expect(new Set(idx).size).toBe(idx.length); // unique
     expect(idx.length).toBeLessThanOrEqual(6);
+  });
+});
+
+describe('grayStats', () => {
+  const W = 4;
+  const H = 4;
+
+  test('uniform mid-gray -> mid brightness, zero contrast, zero sharpness', () => {
+    const flat = new Array(W * H).fill(128);
+    const s = grayStats(flat, W, H);
+    expect(s.brightness).toBeCloseTo(128 / 255, 2);
+    expect(s.contrast).toBe(0);
+    expect(s.sharpness).toBe(0);
+  });
+
+  test('black vs white buffers bracket brightness', () => {
+    const black = grayStats(new Array(W * H).fill(0), W, H);
+    const white = grayStats(new Array(W * H).fill(255), W, H);
+    expect(black.brightness).toBe(0);
+    expect(white.brightness).toBe(1);
+  });
+
+  test('a checkerboard reads as high contrast and high sharpness', () => {
+    const checker = Array.from({ length: W * H }, (_, i) => {
+      const x = i % W;
+      const y = Math.floor(i / W);
+      return (x + y) % 2 === 0 ? 0 : 255;
+    });
+    const s = grayStats(checker, W, H);
+    expect(s.contrast).toBeGreaterThan(0.8);
+    expect(s.sharpness).toBeGreaterThan(0.8);
+  });
+
+  test('a soft gradient is far less sharp than a checkerboard', () => {
+    const gradient = Array.from({ length: W * H }, (_, i) => Math.round(((i % W) / (W - 1)) * 60) + 90);
+    const soft = grayStats(gradient, W, H);
+    const checker = grayStats(
+      Array.from({ length: W * H }, (_, i) => ((i % W) + Math.floor(i / W)) % 2 === 0 ? 0 : 255),
+      W,
+      H,
+    );
+    expect(soft.sharpness).toBeLessThan(checker.sharpness);
+  });
+
+  test('empty buffer is safe', () => {
+    expect(grayStats([], 0, 0)).toEqual({ brightness: 0, contrast: 0, sharpness: 0 });
   });
 });

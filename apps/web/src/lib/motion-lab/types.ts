@@ -240,6 +240,12 @@ export interface MotionSession {
   /** Compact pose track for replay + comparison (subsampled). */
   poseTrack: MotionPoseTrack;
   quality: CameraQualityReport;
+  /**
+   * Video-quality profile: tier, structured capture issues, and dynamic retest
+   * fixes derived from the measured signals. Optional so older saved sessions
+   * (and the multi-view / synthetic-track paths) remain valid. See lib/motion-lab/preflight.
+   */
+  videoQuality?: import('./preflight').VideoQualityProfile;
   phases: MotionPhaseSegment[];
   metrics: MotionMetric[];
   scoreboard: MotionScoreboard;

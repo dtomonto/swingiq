@@ -51,6 +51,15 @@ export {
   type VisionGateDecision,
   type VisionGateSeverity,
 } from './quality';
+export {
+  profileVideoQuality,
+  type VideoQualityProfile,
+  type VideoQualityTier,
+  type VideoQualityIssue,
+  type VideoQualityIssueCode,
+  type IssueSeverity,
+  type PreflightInput,
+} from './preflight';
 export { compareSessions } from './comparison';
 export {
   runMotionAnalysis,

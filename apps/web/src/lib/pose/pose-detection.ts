@@ -58,6 +58,8 @@ export interface PoseLandmark {
 export interface PoseFrame {
   timestampSeconds: number;
   landmarks: PoseLandmark[];
+  /** How many people MediaPipe detected in this frame (1 unless numPoses > 1). */
+  personCount?: number;
 }
 
 export interface PoseDetectInput {
@@ -65,13 +67,78 @@ export interface PoseDetectInput {
   timestampSeconds: number;
 }
 
-// Memoize one landmarker per quality tier (each downloads a different model).
-const landmarkerPromises = new Map<PoseModelQuality, Promise<PoseLandmarker | null>>();
+/** Per-call detection options. Defaults preserve the original single-pose behaviour. */
+export interface PoseDetectOptions {
+  /** Max people to detect per frame. >1 enables primary-athlete selection. */
+  numPoses?: number;
+  /**
+   * When multiple people are detected, pick the primary athlete (largest +
+   * most central + best-tracked) instead of MediaPipe's first result. Requires
+   * numPoses > 1 to have any effect.
+   */
+  selectPrimary?: boolean;
+}
 
-/** Lazily create (and memoize) the pose landmarker for a quality. Null on failure. */
-async function getLandmarker(quality: PoseModelQuality): Promise<PoseLandmarker | null> {
+/**
+ * Pick the primary athlete among several detected poses: the one that is
+ * largest, most central, and best-tracked. Pure + deterministic so it is
+ * unit-tested. Returns the index of the chosen pose (0 when only one).
+ */
+export function selectPrimaryPose(
+  poses: ReadonlyArray<ReadonlyArray<{ x: number; y: number; visibility?: number }>>,
+): number {
+  if (poses.length <= 1) return 0;
+  let best = 0;
+  let bestScore = -Infinity;
+  for (let i = 0; i < poses.length; i++) {
+    const lm = poses[i];
+    if (!lm || lm.length === 0) continue;
+    let minX = 1;
+    let minY = 1;
+    let maxX = 0;
+    let maxY = 0;
+    let visSum = 0;
+    let visN = 0;
+    for (const p of lm) {
+      const v = p.visibility ?? 0;
+      if (v > 0.3) {
+        minX = Math.min(minX, p.x);
+        minY = Math.min(minY, p.y);
+        maxX = Math.max(maxX, p.x);
+        maxY = Math.max(maxY, p.y);
+      }
+      visSum += v;
+      visN++;
+    }
+    const area = Math.max(0, maxX - minX) * Math.max(0, maxY - minY); // 0–1
+    const cx = (minX + maxX) / 2;
+    const cy = (minY + maxY) / 2;
+    const centrality = 1 - Math.min(1, Math.hypot(cx - 0.5, cy - 0.5) / 0.707);
+    const meanVis = visN > 0 ? visSum / visN : 0;
+    // Size dominates (the athlete is usually nearest the camera), nudged by how
+    // central and how confidently-tracked the candidate is.
+    const score = area * (0.5 + 0.5 * centrality) * (0.3 + 0.7 * meanVis);
+    if (score > bestScore) {
+      bestScore = score;
+      best = i;
+    }
+  }
+  return best;
+}
+
+// Memoize one landmarker per (quality, numPoses). Each quality downloads a
+// different model; numPoses is baked into createFromOptions so it keys the cache
+// too. Default callers (numPoses 1) keep their original single shared instance.
+const landmarkerPromises = new Map<string, Promise<PoseLandmarker | null>>();
+
+/** Lazily create (and memoize) the pose landmarker. Null on failure. */
+async function getLandmarker(
+  quality: PoseModelQuality,
+  numPoses: number,
+): Promise<PoseLandmarker | null> {
   if (!mediapipeEnabled()) return null;
-  const existing = landmarkerPromises.get(quality);
+  const key = `${quality}:${numPoses}`;
+  const existing = landmarkerPromises.get(key);
   if (existing) return existing;
   const promise = (async () => {
     try {
@@ -81,7 +148,7 @@ async function getLandmarker(quality: PoseModelQuality): Promise<PoseLandmarker 
         PoseLandmarker.createFromOptions(fileset, {
           baseOptions: { modelAssetPath: MODEL_URLS[quality], delegate },
           runningMode: 'IMAGE',
-          numPoses: 1,
+          numPoses,
         });
       try {
         return await make('GPU');
@@ -93,7 +160,7 @@ async function getLandmarker(quality: PoseModelQuality): Promise<PoseLandmarker 
       return null;
     }
   })();
-  landmarkerPromises.set(quality, promise);
+  landmarkerPromises.set(key, promise);
   return promise;
 }
 
@@ -112,10 +179,13 @@ function loadImage(dataUrl: string): Promise<HTMLImageElement | null> {
  * one-time WASM + model download off the critical path, so the first real
  * detection is fast. Best-effort and never throws.
  */
-export async function warmupPose(quality: PoseModelQuality = 'lite'): Promise<void> {
+export async function warmupPose(
+  quality: PoseModelQuality = 'lite',
+  numPoses = 1,
+): Promise<void> {
   if (typeof window === 'undefined' || !mediapipeEnabled()) return;
   try {
-    await getLandmarker(quality);
+    await getLandmarker(quality, numPoses);
   } catch {
     // Ignore — detection will simply proceed without pose data later.
   }
@@ -130,9 +200,11 @@ export async function warmupPose(quality: PoseModelQuality = 'lite'): Promise<vo
 export async function detectPoses(
   frames: PoseDetectInput[],
   quality: PoseModelQuality = 'lite',
+  options: PoseDetectOptions = {},
 ): Promise<PoseFrame[]> {
   if (typeof window === 'undefined' || frames.length === 0 || !mediapipeEnabled()) return [];
-  const landmarker = await getLandmarker(quality);
+  const numPoses = Math.max(1, Math.floor(options.numPoses ?? 1));
+  const landmarker = await getLandmarker(quality, numPoses);
   if (!landmarker) return [];
 
   // Decode every frame up front in parallel — only the inference itself must run
@@ -146,10 +218,16 @@ export async function detectPoses(
     if (!img) continue;
     try {
       const result = landmarker.detect(img);
-      const lm = result.landmarks?.[0];
+      const people = result.landmarks ?? [];
+      // When several people are in frame, prefer the primary athlete (largest +
+      // most central + best-tracked) instead of MediaPipe's first result.
+      const pick =
+        options.selectPrimary && people.length > 1 ? selectPrimaryPose(people) : 0;
+      const lm = people[pick];
       if (lm && lm.length > 0) {
         out.push({
           timestampSeconds: frames[i].timestampSeconds,
+          personCount: people.length,
           landmarks: lm.map((p) => ({
             x: p.x,
             y: p.y,

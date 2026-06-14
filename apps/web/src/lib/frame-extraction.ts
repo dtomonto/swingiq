@@ -12,6 +12,8 @@
 // for analysis; the original video file never leaves the device.
 // ============================================================
 
+import type { GrayLumaStats } from './frame-enhance';
+
 /**
  * Default number of frames returned for analysis. Concentrated on the detected
  * swing window (plus a setup + finish frame), 10 keys carry the whole motion
@@ -68,6 +70,13 @@ export interface FrameExtractionResult {
   durationSeconds: number;
   /** True when motion-based selection found and targeted a swing window. */
   swingWindowDetected: boolean;
+  /**
+   * Per-kept-frame luma statistics (brightness / contrast / sharpness), aligned
+   * 1:1 with `frames`. Present only when grayscale signatures were readable for
+   * every kept frame (canvas not tainted); undefined otherwise so consumers can
+   * degrade honestly rather than assume a quality they couldn't measure.
+   */
+  frameStats?: GrayLumaStats[];
 }
 
 // ──────────────────────────────────────────────────────────────
@@ -90,6 +99,62 @@ export function motionProfile(signatures: ArrayLike<number>[]): number[] {
     motion[i] = frameDifference(signatures[i - 1], signatures[i]);
   }
   return motion;
+}
+
+/**
+ * Normalized brightness / contrast / sharpness from a grayscale buffer (values
+ * 0–255, row-major `width`×`height`). Used to profile capture quality and to
+ * decide whether a dark/flat clip should be enhanced before a retry detection
+ * pass. Pure — exercised directly in tests.
+ *
+ *  • brightness — mean luma / 255 (0 = black, 1 = white)
+ *  • contrast   — std of luma, scaled into 0–1 (0 = flat, 1 = high spread)
+ *  • sharpness  — mean absolute neighbour gradient, scaled into 0–1
+ *                 (0 = very soft/blurred, 1 = crisp edges)
+ */
+export function grayStats(
+  gray: ArrayLike<number>,
+  width: number = SIG_W,
+  height: number = SIG_H,
+): GrayLumaStats {
+  const n = gray.length;
+  if (n === 0) return { brightness: 0, contrast: 0, sharpness: 0 };
+
+  let sum = 0;
+  for (let i = 0; i < n; i++) sum += gray[i];
+  const meanLuma = sum / n;
+
+  let varSum = 0;
+  for (let i = 0; i < n; i++) varSum += (gray[i] - meanLuma) ** 2;
+  const stdLuma = Math.sqrt(varSum / n);
+
+  // Average absolute gradient to the right + down neighbour (edge energy).
+  let gradSum = 0;
+  let gradCount = 0;
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      const idx = y * width + x;
+      if (idx >= n) break;
+      if (x + 1 < width && idx + 1 < n) {
+        gradSum += Math.abs(gray[idx] - gray[idx + 1]);
+        gradCount++;
+      }
+      if (y + 1 < height && idx + width < n) {
+        gradSum += Math.abs(gray[idx] - gray[idx + width]);
+        gradCount++;
+      }
+    }
+  }
+  const meanGrad = gradCount > 0 ? gradSum / gradCount : 0;
+
+  const clamp01 = (v: number) => Math.max(0, Math.min(1, v));
+  return {
+    brightness: clamp01(meanLuma / 255),
+    // std of ~38 (8-bit) is already healthy contrast → scale so ~0.18 maps high.
+    contrast: clamp01((stdLuma / 255) * 2.4),
+    // crisp 32×32 thumbnails carry ~20+ mean gradient; scale to land near 1.
+    sharpness: clamp01(meanGrad / 28),
+  };
 }
 
 /**
@@ -371,11 +436,21 @@ export async function extractSwingFrames(
       };
     });
 
+    // Per-kept-frame luma stats — only when EVERY kept frame carries a readable
+    // signature, so the array stays 1:1 with `frames`. Otherwise omit (the
+    // quality profiler then honestly reports pixel signals as unavailable).
+    const keptSignatures = keep.map((candIdx) => candidates[candIdx].signature);
+    const frameStats =
+      keptSignatures.length > 0 && keptSignatures.every((s) => s.length > 0)
+        ? keptSignatures.map((s) => grayStats(s))
+        : undefined;
+
     return {
       frames,
       resolution: `${vw}x${vh}`,
       durationSeconds: Number(duration.toFixed(2)),
       swingWindowDetected: window !== null,
+      frameStats,
     };
   } finally {
     revoke();
