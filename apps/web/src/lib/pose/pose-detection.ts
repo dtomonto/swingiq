@@ -68,6 +68,11 @@ export interface PoseDetectInput {
 // Memoize one landmarker per quality tier (each downloads a different model).
 const landmarkerPromises = new Map<PoseModelQuality, Promise<PoseLandmarker | null>>();
 
+// Last engine-load failure, kept for diagnostics so the UI can tell the user
+// WHY there are no overlays ("couldn't load" vs "no person found") instead of a
+// single ambiguous message. Cleared on a successful load.
+let lastLoadError: string | null = null;
+
 /** Lazily create (and memoize) the pose landmarker for a quality. Null on failure. */
 async function getLandmarker(quality: PoseModelQuality): Promise<PoseLandmarker | null> {
   if (!mediapipeEnabled()) return null;
@@ -83,18 +88,49 @@ async function getLandmarker(quality: PoseModelQuality): Promise<PoseLandmarker 
           runningMode: 'IMAGE',
           numPoses: 1,
         });
+      let landmarker: PoseLandmarker;
       try {
-        return await make('GPU');
+        landmarker = await make('GPU');
       } catch {
-        return await make('CPU');
+        landmarker = await make('CPU');
       }
+      lastLoadError = null;
+      return landmarker;
     } catch (err) {
+      lastLoadError = err instanceof Error ? err.message : String(err);
       console.warn('[pose] MediaPipe unavailable — proceeding without pose data.', err);
       return null;
     }
   })();
   landmarkerPromises.set(quality, promise);
   return promise;
+}
+
+export type PoseEngineReason = 'ok' | 'disabled' | 'load-failed';
+
+export interface PoseEngineStatus {
+  /** True when the on-device model is loaded and ready to run. */
+  available: boolean;
+  reason: PoseEngineReason;
+  /** Short technical detail for a 'load-failed' result (for diagnostics/UI). */
+  detail: string | null;
+}
+
+/**
+ * Why pose detection produced (or would produce) no data. Reuses the memoized
+ * landmarker, so calling this right after detectPoses() triggers no extra
+ * download. Lets the UI distinguish "engine couldn't load" (offline / blocked
+ * assets) from "engine ran but found no person" (re-film guidance) instead of
+ * collapsing both into one ambiguous message.
+ */
+export async function getPoseEngineStatus(
+  quality: PoseModelQuality = 'lite',
+): Promise<PoseEngineStatus> {
+  if (typeof window === 'undefined') return { available: false, reason: 'load-failed', detail: null };
+  if (!mediapipeEnabled()) return { available: false, reason: 'disabled', detail: null };
+  const landmarker = await getLandmarker(quality);
+  if (landmarker) return { available: true, reason: 'ok', detail: null };
+  return { available: false, reason: 'load-failed', detail: lastLoadError };
 }
 
 function loadImage(dataUrl: string): Promise<HTMLImageElement | null> {

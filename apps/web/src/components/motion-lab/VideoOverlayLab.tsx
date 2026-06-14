@@ -450,8 +450,20 @@ export function VideoOverlayLab({
         )}
         {empty && (
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
-            <p className="text-sm font-medium text-white">No body pose was detected in this clip.</p>
-            <p className="text-xs text-stage-foreground mt-1">You can still scrub the video — re-film with the full body in frame and good light for overlays.</p>
+            {track.emptyReason === 'engine-unavailable' ? (
+              <>
+                <p className="text-sm font-medium text-white">Couldn’t load the analysis engine.</p>
+                <p className="text-xs text-stage-foreground mt-1">Overlays use a small one-time download on first use. Check your connection and try again — your video never leaves your device.</p>
+                {track.emptyDetail && (
+                  <p className="text-[10px] text-stage-muted mt-2 break-words max-w-[90%]">Details: {track.emptyDetail}</p>
+                )}
+              </>
+            ) : (
+              <>
+                <p className="text-sm font-medium text-white">No body pose was detected in this clip.</p>
+                <p className="text-xs text-stage-foreground mt-1">You can still scrub the video — re-film with the full body in frame and good light for overlays.</p>
+              </>
+            )}
           </div>
         )}
       </div>
