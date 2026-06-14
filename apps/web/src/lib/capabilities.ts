@@ -171,6 +171,20 @@ export function isStripeConfigured(): boolean {
 }
 
 /**
+ * Scheduled OUTBOUND re-engagement (email/push reminders). Distinct from
+ * isEmailConfigured (lead capture): transactional dispatch uses RESEND_API_KEY
+ * directly, and web push uses VAPID. Requires real accounts (Supabase) too,
+ * since an outbound pass enumerates users + their contact server-side. Keyless /
+ * local-only default: OFF — reminders stay in-app only. SERVER-ONLY.
+ */
+export function isReengageOutboundConfigured(): boolean {
+  const email = isConfigured(process.env.RESEND_API_KEY);
+  const push =
+    isConfigured(process.env.VAPID_PUBLIC_KEY) && isConfigured(process.env.VAPID_PRIVATE_KEY);
+  return isSupabaseConfigured && (email || push);
+}
+
+/**
  * Boolean-only capability summary, safe to send to the browser.
  * Used by GET /api/capabilities so client UIs can show honest
  * "active" vs "coming soon / add a key" states without ever
