@@ -30,7 +30,7 @@ export default function NotFound() {
 
         {/* Error */}
         <div className="bg-card border border-border rounded-2xl p-8 shadow-xs mb-6">
-          <p className="text-5xl font-black text-gray-200 mb-4">404</p>
+          <p className="text-5xl font-black text-muted-foreground/40 mb-4">404</p>
           <h1 className="text-xl font-bold text-foreground mb-2">Page Not Found</h1>
           <p className="text-muted-foreground text-sm">
             This page doesn&apos;t exist or may have moved. Use the links below to get back on track.

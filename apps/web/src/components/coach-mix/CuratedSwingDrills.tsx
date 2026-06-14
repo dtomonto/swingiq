@@ -127,9 +127,9 @@ function CuratedSwingDrillsInner({ sport: sportProp, faultId, faultLabel, whyItM
   const drills = [rec.firstDrill, ...rec.alternatives];
 
   return (
-    <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+    <section className="rounded-2xl border border-border bg-card p-5 shadow-sm">
       <header className="mb-3 flex flex-wrap items-center justify-between gap-2">
-        <h2 className="flex items-center gap-2 text-lg font-bold text-gray-900 dark:text-gray-100">
+        <h2 className="flex items-center gap-2 text-lg font-bold text-foreground">
           <Sparkles className="h-5 w-5 text-violet-500" />
           Curated Swing Drills for Your Current Game
         </h2>
@@ -143,10 +143,10 @@ function CuratedSwingDrillsInner({ sport: sportProp, faultId, faultLabel, whyItM
       </header>
 
       {/* Top issue + why */}
-      <div className="mb-3 rounded-xl bg-gray-50 p-3 dark:bg-gray-800/50">
-        <p className="text-xs font-medium uppercase tracking-wide text-gray-500">Your #1 fix right now</p>
-        <p className="font-semibold text-gray-900 dark:text-gray-100">{rec.topIssue}</p>
-        <p className="mt-0.5 text-sm text-gray-600 dark:text-gray-400">{rec.whyItMatters}</p>
+      <div className="mb-3 rounded-xl bg-muted p-3">
+        <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Your #1 fix right now</p>
+        <p className="font-semibold text-foreground">{rec.topIssue}</p>
+        <p className="mt-0.5 text-sm text-muted-foreground">{rec.whyItMatters}</p>
       </div>
 
       {/* Drills (top issue first, then alternatives — capped by the engine) */}
@@ -154,33 +154,33 @@ function CuratedSwingDrillsInner({ sport: sportProp, faultId, faultLabel, whyItM
         {drills.map((d, i) => {
           const action = actions[d.drill.id];
           return (
-            <li key={d.drill.id} className={`rounded-xl border p-3 ${i === 0 ? 'border-violet-300 bg-violet-50/60 dark:border-violet-500/30 dark:bg-violet-500/5' : 'border-gray-200 dark:border-gray-800'}`}>
+            <li key={d.drill.id} className={`rounded-xl border p-3 ${i === 0 ? 'border-violet-300 bg-violet-50/60 dark:border-violet-500/30 dark:bg-violet-500/5' : 'border-border'}`}>
               <div className="flex items-start justify-between gap-2">
                 <div>
-                  <p className="font-semibold text-gray-900 dark:text-gray-100">{d.drill.name}</p>
-                  <p className="mt-0.5 text-sm text-gray-600 dark:text-gray-400">{d.why}</p>
+                  <p className="font-semibold text-foreground">{d.drill.name}</p>
+                  <p className="mt-0.5 text-sm text-muted-foreground">{d.why}</p>
                 </div>
                 {i === 0 && <span className="shrink-0 rounded-full bg-violet-600 px-2 py-0.5 text-[11px] font-semibold text-white">Do first</span>}
               </div>
               {i === 0 && (
-                <div className="mt-2 grid grid-cols-2 gap-2 text-xs text-gray-600 dark:text-gray-400 sm:grid-cols-4">
-                  <span><span className="text-gray-400">Feel:</span> {rec.whatToFeel}</span>
-                  <span><span className="text-gray-400">Time:</span> ~{d.drill.estimatedMinutes} min</span>
-                  <span><span className="text-gray-400">Level:</span> {d.drill.difficulty}</span>
-                  <span><span className="text-gray-400">Gear:</span> {d.drill.equipment.length ? d.drill.equipment.join(', ') : 'none'}</span>
+                <div className="mt-2 grid grid-cols-2 gap-2 text-xs text-muted-foreground sm:grid-cols-4">
+                  <span><span className="text-muted-foreground">Feel:</span> {rec.whatToFeel}</span>
+                  <span><span className="text-muted-foreground">Time:</span> ~{d.drill.estimatedMinutes} min</span>
+                  <span><span className="text-muted-foreground">Level:</span> {d.drill.difficulty}</span>
+                  <span><span className="text-muted-foreground">Gear:</span> {d.drill.equipment.length ? d.drill.equipment.join(', ') : 'none'}</span>
                 </div>
               )}
               <div className="mt-2 flex flex-wrap gap-1.5">
                 <a href={d.drill.youtubeSearchUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 rounded-lg bg-violet-600 px-2.5 py-1 text-xs font-medium text-white hover:bg-violet-700">
                   <Play className="h-3.5 w-3.5" /> Start drill
                 </a>
-                <button onClick={() => setAction(d.drill.id, 'saved')} className={`inline-flex items-center gap-1 rounded-lg border px-2.5 py-1 text-xs font-medium ${action === 'saved' ? 'border-violet-400 text-violet-600 dark:text-violet-300' : 'border-gray-300 text-gray-600 dark:border-gray-700 dark:text-gray-400'}`}>
+                <button onClick={() => setAction(d.drill.id, 'saved')} className={`inline-flex items-center gap-1 rounded-lg border px-2.5 py-1 text-xs font-medium ${action === 'saved' ? 'border-violet-400 text-violet-600 dark:text-violet-300' : 'border-border text-muted-foreground'}`}>
                   <Bookmark className="h-3.5 w-3.5" /> {action === 'saved' ? 'Saved' : 'Save'}
                 </button>
-                <button onClick={() => setAction(d.drill.id, 'completed')} className={`inline-flex items-center gap-1 rounded-lg border px-2.5 py-1 text-xs font-medium ${action === 'completed' ? 'border-emerald-400 text-emerald-600 dark:text-emerald-300' : 'border-gray-300 text-gray-600 dark:border-gray-700 dark:text-gray-400'}`}>
+                <button onClick={() => setAction(d.drill.id, 'completed')} className={`inline-flex items-center gap-1 rounded-lg border px-2.5 py-1 text-xs font-medium ${action === 'completed' ? 'border-emerald-400 text-emerald-600 dark:text-emerald-300' : 'border-border text-muted-foreground'}`}>
                   <CheckCircle2 className="h-3.5 w-3.5" /> {action === 'completed' ? 'Completed' : 'Mark complete'}
                 </button>
-                <button onClick={() => setAction(d.drill.id, 'dismissed')} className={`inline-flex items-center gap-1 rounded-lg border px-2.5 py-1 text-xs font-medium ${action === 'dismissed' ? 'border-gray-400 text-gray-500' : 'border-gray-300 text-gray-600 dark:border-gray-700 dark:text-gray-400'}`}>
+                <button onClick={() => setAction(d.drill.id, 'dismissed')} className={`inline-flex items-center gap-1 rounded-lg border px-2.5 py-1 text-xs font-medium ${action === 'dismissed' ? 'border-border text-muted-foreground' : 'border-border text-muted-foreground'}`}>
                   <XCircle className="h-3.5 w-3.5" /> Not relevant
                 </button>
               </div>
@@ -190,11 +190,11 @@ function CuratedSwingDrillsInner({ sport: sportProp, faultId, faultLabel, whyItM
       </ul>
 
       {/* Retest + honest influence note */}
-      <div className="mt-3 flex items-start gap-2 rounded-xl bg-gray-50 p-3 text-sm dark:bg-gray-800/50">
-        <RefreshCw className="mt-0.5 h-4 w-4 shrink-0 text-gray-400" />
+      <div className="mt-3 flex items-start gap-2 rounded-xl bg-muted p-3 text-sm">
+        <RefreshCw className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
         <div>
-          <p className="text-gray-700 dark:text-gray-300">{rec.howToRetest}</p>
-          <p className="mt-1 text-xs text-gray-500">{rec.influenceSummary}</p>
+          <p className="text-foreground">{rec.howToRetest}</p>
+          <p className="mt-1 text-xs text-muted-foreground">{rec.influenceSummary}</p>
         </div>
       </div>
     </section>

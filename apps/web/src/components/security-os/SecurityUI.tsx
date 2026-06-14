@@ -2,7 +2,7 @@
 // securityOS — shared presentational components (server-safe)
 // ------------------------------------------------------------
 // Pure, hook-free building blocks shared across the securityOS pages so the
-// look stays consistent with the rest of the admin (gray-900 panels, amber
+// look stays consistent with the rest of the admin (theme-aware surfaces, amber
 // accent, tone palette from StatusBadge). No 'use client' — these render in
 // both server and client components.
 // ============================================================
@@ -24,7 +24,7 @@ const SEVERITY_TONE: Record<Severity, string> = {
   high: 'bg-orange-500/15 text-orange-300 border-orange-500/40',
   medium: 'bg-amber-500/15 text-amber-300 border-amber-500/40',
   low: 'bg-sky-500/15 text-sky-300 border-sky-500/40',
-  informational: 'bg-gray-700/40 text-gray-300 border-gray-600/50',
+  informational: 'bg-muted/40 text-muted-foreground border-border/50',
 };
 
 export function SeverityPill({ severity }: { severity: Severity }) {
@@ -39,7 +39,7 @@ const RESULT_TONE: Record<CheckResult, { cls: string; label: string }> = {
   pass: { cls: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/40', label: 'Pass' },
   partial: { cls: 'bg-amber-500/15 text-amber-300 border-amber-500/40', label: 'Partial' },
   fail: { cls: 'bg-red-500/15 text-red-300 border-red-500/40', label: 'Fail' },
-  unknown: { cls: 'bg-gray-700/40 text-gray-400 border-gray-600/50', label: 'Unknown' },
+  unknown: { cls: 'bg-muted/40 text-muted-foreground border-border/50', label: 'Unknown' },
 };
 
 export function ResultChip({ result }: { result: CheckResult }) {
@@ -94,12 +94,12 @@ export function ScoreDial({
         />
       </svg>
       <div className="absolute flex flex-col items-center">
-        <span className="text-3xl font-bold tabular-nums text-gray-100">{score}</span>
+        <span className="text-3xl font-bold tabular-nums text-foreground">{score}</span>
         <span className="text-[11px] font-medium uppercase tracking-wide" style={{ color }}>
           {BAND_LABEL[band]}
         </span>
         {typeof confidence === 'number' && (
-          <span className="mt-0.5 text-[10px] text-gray-500">{confidence}% confidence</span>
+          <span className="mt-0.5 text-[10px] text-muted-foreground">{confidence}% confidence</span>
         )}
       </div>
     </div>
@@ -110,15 +110,15 @@ export function ScoreDial({
 
 export function ScoreBar({ value }: { value: number | null }) {
   if (value === null) {
-    return <span className="text-xs text-gray-500">No signal yet</span>;
+    return <span className="text-xs text-muted-foreground">No signal yet</span>;
   }
   const color = value >= 75 ? '#34d399' : value >= 50 ? '#fbbf24' : '#f87171';
   return (
     <div className="flex items-center gap-2">
-      <div className="h-2 w-full overflow-hidden rounded-full bg-gray-800">
+      <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
         <div className="h-full rounded-full" style={{ width: `${Math.max(0, Math.min(100, value))}%`, background: color }} />
       </div>
-      <span className="w-9 shrink-0 text-right text-xs tabular-nums text-gray-300">{value}</span>
+      <span className="w-9 shrink-0 text-right text-xs tabular-nums text-muted-foreground">{value}</span>
     </div>
   );
 }
@@ -139,7 +139,7 @@ export function FrameworkTags({ frameworks }: { frameworks: FrameworkMapping }) 
         <span
           key={t.label}
           title={t.title}
-          className="rounded border border-gray-700 bg-gray-800/60 px-1.5 py-0.5 text-[10px] font-medium text-gray-400"
+          className="rounded border border-border bg-muted/60 px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground"
         >
           {t.label}
         </span>
@@ -152,11 +152,11 @@ export function FrameworkTags({ frameworks }: { frameworks: FrameworkMapping }) 
 
 export function Panel({ title, hint, children, actions }: { title: ReactNode; hint?: ReactNode; children: ReactNode; actions?: ReactNode }) {
   return (
-    <section className="rounded-xl border border-gray-800 bg-gray-900 p-4">
+    <section className="rounded-xl border border-border bg-card p-4">
       <div className="mb-3 flex items-start justify-between gap-3">
         <div>
-          <h3 className="text-sm font-semibold text-gray-100">{title}</h3>
-          {hint && <p className="mt-0.5 text-xs text-gray-500">{hint}</p>}
+          <h3 className="text-sm font-semibold text-foreground">{title}</h3>
+          {hint && <p className="mt-0.5 text-xs text-muted-foreground">{hint}</p>}
         </div>
         {actions}
       </div>
@@ -168,7 +168,7 @@ export function Panel({ title, hint, children, actions }: { title: ReactNode; hi
 /** A tiny inline sparkline for the security trend. */
 export function Sparkline({ points, color = '#fbbf24', width = 220, height = 44 }: { points: number[]; color?: string; width?: number; height?: number }) {
   if (points.length < 2) {
-    return <p className="text-xs text-gray-500">Not enough history yet — snapshots accrue each day you visit.</p>;
+    return <p className="text-xs text-muted-foreground">Not enough history yet — snapshots accrue each day you visit.</p>;
   }
   const min = Math.min(...points);
   const max = Math.max(...points, min + 1);

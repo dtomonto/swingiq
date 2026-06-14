@@ -219,18 +219,18 @@ export function VideoStudioCockpit({ initial }: { initial: InitialData }) {
   const providerSummary = `${initial.providers.filter((p) => p.configured).length}/${initial.providers.length} providers`;
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-6 text-gray-100">
+    <div className="mx-auto max-w-6xl px-4 py-6 text-foreground">
       {/* Header */}
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="flex items-center gap-2 text-xl font-bold">
             <Sparkles size={20} className="text-emerald-400" /> Video Studio
           </h1>
-          <p className="text-sm text-gray-400">The intelligent video department — scan, generate, place, measure, improve.</p>
+          <p className="text-sm text-muted-foreground">The intelligent video department — scan, generate, place, measure, improve.</p>
         </div>
         <div className="flex items-center gap-2">
-          <Badge className="bg-gray-800 text-gray-300">{providerSummary}</Badge>
-          <Badge className="bg-gray-800 text-gray-300">budget {(initial.budgetCents / 100).toFixed(2)}$/job</Badge>
+          <Badge className="bg-muted text-muted-foreground">{providerSummary}</Badge>
+          <Badge className="bg-muted text-muted-foreground">budget {(initial.budgetCents / 100).toFixed(2)}$/job</Badge>
           <button
             onClick={rescan}
             disabled={busy === 'scan'}
@@ -260,7 +260,7 @@ export function VideoStudioCockpit({ initial }: { initial: InitialData }) {
       )}
 
       {/* Tabs */}
-      <div className="mb-4 flex flex-wrap gap-1 border-b border-gray-800">
+      <div className="mb-4 flex flex-wrap gap-1 border-b border-border">
         {TABS.map((t) => {
           const Icon = t.icon;
           return (
@@ -269,7 +269,7 @@ export function VideoStudioCockpit({ initial }: { initial: InitialData }) {
               onClick={() => setTab(t.id)}
               className={cn(
                 'inline-flex items-center gap-1.5 border-b-2 px-3 py-2 text-sm font-medium transition-colors',
-                tab === t.id ? 'border-emerald-400 text-emerald-300' : 'border-transparent text-gray-400 hover:text-gray-200',
+                tab === t.id ? 'border-emerald-400 text-emerald-300' : 'border-transparent text-muted-foreground hover:text-foreground',
               )}
             >
               <Icon size={15} /> {t.label}
@@ -326,7 +326,7 @@ export function VideoStudioCockpit({ initial }: { initial: InitialData }) {
 
 function PriorityBar({ value }: { value: number }) {
   return (
-    <div className="h-1.5 w-24 overflow-hidden rounded-full bg-gray-800">
+    <div className="h-1.5 w-24 overflow-hidden rounded-full bg-muted">
       <div className="h-full bg-emerald-400" style={{ width: `${value}%` }} />
     </div>
   );
@@ -350,52 +350,52 @@ function OpportunitiesPanel({
 
   return (
     <div className="space-y-3">
-      <label className="flex items-center gap-2 text-sm text-gray-400">
+      <label className="flex items-center gap-2 text-sm text-muted-foreground">
         <input type="checkbox" checked={hideCovered} onChange={(e) => setHideCovered(e.target.checked)} />
         Hide surfaces already covered by a tutorial video
       </label>
       {list.map((o) => (
-        <div key={o.id} className="rounded-xl border border-gray-800 bg-gray-900/60 p-4">
+        <div key={o.id} className="rounded-xl border border-border bg-card/60 p-4">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div className="min-w-0">
               <div className="flex flex-wrap items-center gap-2">
-                <h3 className="font-semibold text-gray-100">{o.businessRationale.split(':')[0]}</h3>
-                <Badge className="bg-gray-800 text-gray-300">{o.recommendedType.replace(/_/g, ' ')}</Badge>
+                <h3 className="font-semibold text-foreground">{o.businessRationale.split(':')[0]}</h3>
+                <Badge className="bg-muted text-muted-foreground">{o.recommendedType.replace(/_/g, ' ')}</Badge>
                 <Badge className={RISK_BADGE[o.riskLevel]}>{o.riskLevel} risk</Badge>
                 {o.requiresApproval ? (
                   <Badge className="bg-amber-500/15 text-amber-300">needs approval</Badge>
                 ) : (
                   <Badge className="bg-success/15 text-success">auto-eligible</Badge>
                 )}
-                {o.alreadyCovered && <Badge className="bg-gray-800 text-gray-400">covered</Badge>}
-                <Badge className="bg-gray-800 text-gray-400">{o.status}</Badge>
+                {o.alreadyCovered && <Badge className="bg-muted text-muted-foreground">covered</Badge>}
+                <Badge className="bg-muted text-muted-foreground">{o.status}</Badge>
               </div>
-              <p className="mt-1 text-sm text-gray-400">
+              <p className="mt-1 text-sm text-muted-foreground">
                 {o.page} · {o.zone}
               </p>
-              <p className="mt-1 text-sm text-gray-300">{o.estimatedImpact}</p>
+              <p className="mt-1 text-sm text-muted-foreground">{o.estimatedImpact}</p>
             </div>
             <div className="flex flex-col items-end gap-1 text-right">
               <div className="flex items-center gap-2">
-                <span className="text-xs text-gray-500">priority</span>
+                <span className="text-xs text-muted-foreground">priority</span>
                 <PriorityBar value={o.priorityScore} />
                 <span className="w-7 text-sm font-bold text-emerald-300">{o.priorityScore}</span>
               </div>
-              <span className="text-xs text-gray-500">confidence {o.confidence} · ~{o.suggestedLengthSec}s · {o.suggestedStyle.replace(/_/g, ' ')}</span>
+              <span className="text-xs text-muted-foreground">confidence {o.confidence} · ~{o.suggestedLengthSec}s · {o.suggestedStyle.replace(/_/g, ' ')}</span>
             </div>
           </div>
           <div className="mt-3 flex flex-wrap gap-2">
             <button
               onClick={() => onApprove(o)}
               disabled={busy === `decide:${o.id}` || o.status === 'approved'}
-              className="inline-flex items-center gap-1 rounded-lg bg-gray-800 px-2.5 py-1.5 text-xs font-medium text-emerald-300 hover:bg-gray-700 disabled:opacity-50"
+              className="inline-flex items-center gap-1 rounded-lg bg-muted px-2.5 py-1.5 text-xs font-medium text-emerald-300 hover:bg-muted disabled:opacity-50"
             >
               <CheckCircle2 size={14} /> Approve
             </button>
             <button
               onClick={() => onReject(o)}
               disabled={busy === `decide:${o.id}`}
-              className="inline-flex items-center gap-1 rounded-lg bg-gray-800 px-2.5 py-1.5 text-xs font-medium text-red-300 hover:bg-gray-700 disabled:opacity-50"
+              className="inline-flex items-center gap-1 rounded-lg bg-muted px-2.5 py-1.5 text-xs font-medium text-red-300 hover:bg-muted disabled:opacity-50"
             >
               <XCircle size={14} /> Reject
             </button>
@@ -433,34 +433,34 @@ function PipelinePanel({
   onView: (a: VideoAsset) => void;
 }) {
   if (!brief) {
-    return <p className="text-sm text-gray-400">Pick an opportunity and click “Generate brief” to start the pipeline.</p>;
+    return <p className="text-sm text-muted-foreground">Pick an opportunity and click “Generate brief” to start the pipeline.</p>;
   }
   const blockers = brief.complianceNotes.filter((n) => n.startsWith('[block]'));
 
   return (
     <div className="grid gap-4 lg:grid-cols-2">
       {/* Brief / approval panel */}
-      <div className="rounded-xl border border-gray-800 bg-gray-900/60 p-4">
-        <h3 className="font-semibold text-gray-100">{brief.seo.title}</h3>
-        <p className="mt-1 text-sm text-gray-400">{brief.objective}</p>
-        <dl className="mt-3 grid grid-cols-2 gap-2 text-xs text-gray-400">
-          <div>Style: <span className="text-gray-200">{brief.visualStyle.replace(/_/g, ' ')}</span></div>
-          <div>Length: <span className="text-gray-200">{brief.durationTargetSec}s</span></div>
-          <div>Aspect: <span className="text-gray-200">{brief.aspectRatio}</span></div>
-          <div>CTA: <span className="text-gray-200">{brief.cta}</span></div>
+      <div className="rounded-xl border border-border bg-card/60 p-4">
+        <h3 className="font-semibold text-foreground">{brief.seo.title}</h3>
+        <p className="mt-1 text-sm text-muted-foreground">{brief.objective}</p>
+        <dl className="mt-3 grid grid-cols-2 gap-2 text-xs text-muted-foreground">
+          <div>Style: <span className="text-foreground">{brief.visualStyle.replace(/_/g, ' ')}</span></div>
+          <div>Length: <span className="text-foreground">{brief.durationTargetSec}s</span></div>
+          <div>Aspect: <span className="text-foreground">{brief.aspectRatio}</span></div>
+          <div>CTA: <span className="text-foreground">{brief.cta}</span></div>
         </dl>
 
-        <h4 className="mt-4 text-xs font-bold uppercase tracking-wide text-gray-500">Script</h4>
-        <ol className="mt-1 space-y-1 text-sm text-gray-300">
+        <h4 className="mt-4 text-xs font-bold uppercase tracking-wide text-muted-foreground">Script</h4>
+        <ol className="mt-1 space-y-1 text-sm text-muted-foreground">
           {brief.script.map((l, i) => (
             <li key={i} className="flex gap-2">
-              <span className="text-gray-600">{i + 1}.</span> {l}
+              <span className="text-muted-foreground">{i + 1}.</span> {l}
             </li>
           ))}
         </ol>
 
         {brief.complianceNotes.length > 0 && (
-          <div className={cn('mt-4 rounded-lg border p-2 text-xs', blockers.length ? 'border-red-500/40 bg-red-500/10 text-red-200' : 'border-gray-700 bg-gray-800/50 text-gray-300')}>
+          <div className={cn('mt-4 rounded-lg border p-2 text-xs', blockers.length ? 'border-red-500/40 bg-red-500/10 text-red-200' : 'border-border bg-muted/50 text-muted-foreground')}>
             <p className="font-semibold">Compliance / guardrails</p>
             <ul className="mt-1 list-disc pl-4">
               {brief.complianceNotes.map((n, i) => (
@@ -481,10 +481,10 @@ function PipelinePanel({
       </div>
 
       {/* Admin preview + publish/place */}
-      <div className="rounded-xl border border-gray-800 bg-gray-900/60 p-4">
-        <h3 className="font-semibold text-gray-100">Preview & publish</h3>
+      <div className="rounded-xl border border-border bg-card/60 p-4">
+        <h3 className="font-semibold text-foreground">Preview & publish</h3>
         {!asset ? (
-          <p className="mt-2 text-sm text-gray-400">Generate the video to preview it here.</p>
+          <p className="mt-2 text-sm text-muted-foreground">Generate the video to preview it here.</p>
         ) : (
           <AdminPreview asset={asset} busy={busy} onPublish={onPublish} onAssign={onAssign} onView={onView} />
         )}
@@ -512,30 +512,30 @@ function AdminPreview({
         type="button"
         onClick={() => onView(asset)}
         aria-label={`Play “${asset.title}”`}
-        className="group relative block w-full overflow-hidden rounded-lg border border-gray-800"
+        className="group relative block w-full overflow-hidden rounded-lg border border-border"
       >
         {asset.poster ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={asset.poster} alt={asset.title} loading="lazy" className="aspect-video w-full object-cover" />
         ) : (
-          <div className="aspect-video w-full bg-gray-800" />
+          <div className="aspect-video w-full bg-muted" />
         )}
         <span className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors group-hover:bg-black/30">
           <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white/90 shadow-lg transition-transform group-hover:scale-105">
-            <Play size={22} className="ml-0.5 text-gray-900" />
+            <Play size={22} className="ml-0.5 text-stage" />
           </span>
         </span>
       </button>
-      <div className="flex flex-wrap items-center gap-2 text-xs text-gray-400">
-        <Badge className={asset.published ? 'bg-success/15 text-success' : 'bg-gray-800 text-gray-400'}>
+      <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+        <Badge className={asset.published ? 'bg-success/15 text-success' : 'bg-muted text-muted-foreground'}>
           {asset.published ? 'published' : 'draft'}
         </Badge>
-        <Badge className="bg-gray-800 text-gray-400">{asset.lifecycle}</Badge>
+        <Badge className="bg-muted text-muted-foreground">{asset.lifecycle}</Badge>
         {asset.isPlaceholder && <Badge className="bg-amber-500/15 text-amber-300">placeholder footage</Badge>}
         <span>{asset.durationSec}s · {asset.aspectRatio} · {asset.captions.length} caption track(s)</span>
       </div>
-      <details className="rounded-lg border border-gray-800 bg-gray-800/40 p-2 text-xs text-gray-300">
-        <summary className="cursor-pointer font-medium text-gray-200">Transcript</summary>
+      <details className="rounded-lg border border-border bg-muted/40 p-2 text-xs text-muted-foreground">
+        <summary className="cursor-pointer font-medium text-foreground">Transcript</summary>
         <pre className="mt-2 whitespace-pre-wrap font-sans">{asset.transcript}</pre>
       </details>
       <div className="flex flex-wrap gap-2">
@@ -549,7 +549,7 @@ function AdminPreview({
         <button
           onClick={() => onAssign(asset)}
           disabled={busy === `place:${asset.id}`}
-          className="rounded-lg bg-gray-800 px-3 py-2 text-sm font-medium text-gray-200 hover:bg-gray-700 disabled:opacity-50"
+          className="rounded-lg bg-muted px-3 py-2 text-sm font-medium text-foreground hover:bg-muted disabled:opacity-50"
         >
           Assign to placement
         </button>
@@ -577,7 +577,7 @@ function LibraryPanel({
 }) {
   if (assets.length === 0) {
     return (
-      <p className="text-sm text-gray-400">
+      <p className="text-sm text-muted-foreground">
         No generated videos in this session yet. Generate one from the Pipeline tab. (Library is hydrated from the current
         session + repo; connect Supabase to keep a durable library.)
       </p>
@@ -588,7 +588,7 @@ function LibraryPanel({
       {assets.map((a) => {
         const placed = placements.filter((p) => p.assetId === a.id);
         return (
-          <div key={a.id} className="rounded-xl border border-gray-800 bg-gray-900/60 p-3">
+          <div key={a.id} className="rounded-xl border border-border bg-card/60 p-3">
             <button
               type="button"
               onClick={() => onView(a)}
@@ -599,25 +599,25 @@ function LibraryPanel({
                 // eslint-disable-next-line @next/next/no-img-element
                 <img src={a.poster} alt={a.title} loading="lazy" className="aspect-video w-full rounded-lg object-cover" />
               ) : (
-                <div className="aspect-video w-full rounded-lg bg-gray-800" />
+                <div className="aspect-video w-full rounded-lg bg-muted" />
               )}
               <span className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors group-hover:bg-black/30">
                 <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/90 shadow-lg transition-transform group-hover:scale-105">
-                  <Play size={18} className="ml-0.5 text-gray-900" />
+                  <Play size={18} className="ml-0.5 text-stage" />
                 </span>
               </span>
             </button>
-            <h3 className="mt-2 truncate text-sm font-semibold text-gray-100">{a.title}</h3>
+            <h3 className="mt-2 truncate text-sm font-semibold text-foreground">{a.title}</h3>
             <div className="mt-1 flex flex-wrap items-center gap-1">
-              <Badge className={a.published ? 'bg-success/15 text-success' : 'bg-gray-800 text-gray-400'}>{a.published ? 'published' : 'draft'}</Badge>
-              <Badge className="bg-gray-800 text-gray-400">{a.lifecycle}</Badge>
-              {placed.length > 0 && <Badge className="bg-gray-800 text-gray-400">{placed.length} placement(s)</Badge>}
+              <Badge className={a.published ? 'bg-success/15 text-success' : 'bg-muted text-muted-foreground'}>{a.published ? 'published' : 'draft'}</Badge>
+              <Badge className="bg-muted text-muted-foreground">{a.lifecycle}</Badge>
+              {placed.length > 0 && <Badge className="bg-muted text-muted-foreground">{placed.length} placement(s)</Badge>}
             </div>
             <div className="mt-2 flex gap-2">
               <button onClick={() => onPublish(a, !a.published)} disabled={busy === `pub:${a.id}`} className="rounded-lg bg-emerald-600 px-2.5 py-1.5 text-xs font-semibold text-white hover:bg-emerald-500 disabled:opacity-50">
                 {a.published ? 'Unpublish' : 'Publish'}
               </button>
-              <button onClick={() => onAssign(a)} disabled={busy === `place:${a.id}`} className="rounded-lg bg-gray-800 px-2.5 py-1.5 text-xs font-medium text-gray-200 hover:bg-gray-700 disabled:opacity-50">
+              <button onClick={() => onAssign(a)} disabled={busy === `place:${a.id}`} className="rounded-lg bg-muted px-2.5 py-1.5 text-xs font-medium text-foreground hover:bg-muted disabled:opacity-50">
                 Place
               </button>
             </div>
@@ -631,15 +631,15 @@ function LibraryPanel({
 // ── Queue ─────────────────────────────────────────────────────
 
 function QueuePanel({ jobs }: { jobs: VideoGenerationJob[] }) {
-  if (jobs.length === 0) return <p className="text-sm text-gray-400">No generation jobs yet.</p>;
+  if (jobs.length === 0) return <p className="text-sm text-muted-foreground">No generation jobs yet.</p>;
   return (
     <div className="space-y-2">
       {jobs.map((j) => (
-        <div key={j.id} className="rounded-lg border border-gray-800 bg-gray-900/60 p-3 text-sm">
+        <div key={j.id} className="rounded-lg border border-border bg-card/60 p-3 text-sm">
           <div className="flex flex-wrap items-center justify-between gap-2">
-            <span className="font-mono text-xs text-gray-400">{j.id}</span>
+            <span className="font-mono text-xs text-muted-foreground">{j.id}</span>
             <div className="flex items-center gap-2">
-              <Badge className="bg-gray-800 text-gray-300">{j.providerId}</Badge>
+              <Badge className="bg-muted text-muted-foreground">{j.providerId}</Badge>
               <Badge
                 className={cn(
                   j.status === 'completed' ? 'bg-success/15 text-success' : j.status === 'failed' ? 'bg-error/15 text-error' : 'bg-amber-500/15 text-amber-300',
@@ -647,10 +647,10 @@ function QueuePanel({ jobs }: { jobs: VideoGenerationJob[] }) {
               >
                 {j.status}
               </Badge>
-              <span className="text-xs text-gray-500">{j.attempts}/{j.maxAttempts} · {j.estimatedCostCents}¢</span>
+              <span className="text-xs text-muted-foreground">{j.attempts}/{j.maxAttempts} · {j.estimatedCostCents}¢</span>
             </div>
           </div>
-          {j.history.length > 0 && <p className="mt-1 text-xs text-gray-500">{j.history[j.history.length - 1].message}</p>}
+          {j.history.length > 0 && <p className="mt-1 text-xs text-muted-foreground">{j.history[j.history.length - 1].message}</p>}
           {j.error && <p className="mt-1 text-xs text-red-300">{j.error}</p>}
         </div>
       ))}
@@ -675,20 +675,20 @@ function ReassessPanel({
         {busy === 'reassess' ? <Loader2 size={15} className="animate-spin" /> : <RefreshCw size={15} />} Run reassessment now
       </button>
       {reassessments.length === 0 ? (
-        <p className="text-sm text-gray-400">No reassessments yet. Publish a video, then run a reassessment (it’s also schedulable via /api/video-studio/reassess with CRON_SECRET).</p>
+        <p className="text-sm text-muted-foreground">No reassessments yet. Publish a video, then run a reassessment (it’s also schedulable via /api/video-studio/reassess with CRON_SECRET).</p>
       ) : (
         reassessments.map((r) => (
-          <div key={r.id} className="rounded-xl border border-gray-800 bg-gray-900/60 p-4">
+          <div key={r.id} className="rounded-xl border border-border bg-card/60 p-4">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="font-mono text-xs text-gray-400">{r.assetId}</span>
+              <span className="font-mono text-xs text-muted-foreground">{r.assetId}</span>
               <Badge className="bg-emerald-500/15 text-emerald-300">{r.primaryAction.replace(/_/g, ' ')}</Badge>
               {r.requiresHuman && <Badge className="bg-amber-500/15 text-amber-300">human review</Badge>}
             </div>
-            <ul className="mt-2 space-y-1 text-sm text-gray-300">
+            <ul className="mt-2 space-y-1 text-sm text-muted-foreground">
               {r.recommendations.map((rec, i) => (
                 <li key={i} className="flex gap-2">
                   <span className="w-8 text-right text-xs font-bold text-emerald-300">{rec.weight}</span>
-                  <span className="text-gray-400">{rec.action.replace(/_/g, ' ')}:</span> {rec.rationale}
+                  <span className="text-muted-foreground">{rec.action.replace(/_/g, ' ')}:</span> {rec.rationale}
                 </li>
               ))}
             </ul>
@@ -712,32 +712,32 @@ function SettingsPanel({
 }) {
   return (
     <div className="space-y-4">
-      <div className="rounded-xl border border-gray-800 bg-gray-900/60 p-4">
-        <h3 className="font-semibold text-gray-100">Storage</h3>
-        <p className="mt-1 text-sm text-gray-400">{storage.label}</p>
+      <div className="rounded-xl border border-border bg-card/60 p-4">
+        <h3 className="font-semibold text-foreground">Storage</h3>
+        <p className="mt-1 text-sm text-muted-foreground">{storage.label}</p>
       </div>
-      <div className="rounded-xl border border-gray-800 bg-gray-900/60 p-4">
-        <h3 className="font-semibold text-gray-100">Spend guardrail</h3>
-        <p className="mt-1 text-sm text-gray-400">
-          Max per job: <span className="text-gray-200">{(budgetCents / 100).toFixed(2)}$</span>. Default is $0 (free mock only).
+      <div className="rounded-xl border border-border bg-card/60 p-4">
+        <h3 className="font-semibold text-foreground">Spend guardrail</h3>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Max per job: <span className="text-foreground">{(budgetCents / 100).toFixed(2)}$</span>. Default is $0 (free mock only).
           Raise <code className="rounded bg-black/30 px-1">VIDEO_STUDIO_MAX_COST_CENTS</code> to allow paid providers.
         </p>
       </div>
-      <div className="rounded-xl border border-gray-800 bg-gray-900/60 p-4">
-        <h3 className="mb-2 font-semibold text-gray-100">Providers</h3>
+      <div className="rounded-xl border border-border bg-card/60 p-4">
+        <h3 className="mb-2 font-semibold text-foreground">Providers</h3>
         <div className="space-y-2">
           {providers.map((p) => (
-            <div key={p.id} className="flex flex-wrap items-center justify-between gap-2 rounded-lg bg-gray-800/40 px-3 py-2">
+            <div key={p.id} className="flex flex-wrap items-center justify-between gap-2 rounded-lg bg-muted/40 px-3 py-2">
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium text-gray-100">{p.label}</span>
-                  <Badge className={p.configured ? 'bg-success/15 text-success' : 'bg-gray-700 text-gray-400'}>{p.configured ? 'configured' : 'not set'}</Badge>
+                  <span className="text-sm font-medium text-foreground">{p.label}</span>
+                  <Badge className={p.configured ? 'bg-success/15 text-success' : 'bg-muted text-muted-foreground'}>{p.configured ? 'configured' : 'not set'}</Badge>
                   {p.enabled && <Badge className="bg-emerald-500/15 text-emerald-300">implemented</Badge>}
                 </div>
-                <p className="text-xs text-gray-500">{p.note}</p>
-                {p.requiredEnv.length > 0 && <p className="mt-0.5 text-[11px] text-gray-600">env: {p.requiredEnv.join(', ')}</p>}
+                <p className="text-xs text-muted-foreground">{p.note}</p>
+                {p.requiredEnv.length > 0 && <p className="mt-0.5 text-[11px] text-muted-foreground">env: {p.requiredEnv.join(', ')}</p>}
               </div>
-              <span className="text-xs text-gray-500">{p.capabilities.join(' · ')}</span>
+              <span className="text-xs text-muted-foreground">{p.capabilities.join(' · ')}</span>
             </div>
           ))}
         </div>
