@@ -159,6 +159,16 @@ body track is stable); the cloud/semantic tier moved to last and is explicitly o
   dynamically-imported optional peer that degrades to "unavailable" when absent). The router runs +
   fuses the validator only when enabled AND the primary read is uncertain; good video keeps the
   single-engine fast path. CSP + `.env.example` document the opt-in.
-- **Roadmap waves complete.** Remaining standalone upgrades: the S-effort self-hosting win
-  (`NEXT_PUBLIC_MEDIAPIPE_*_BASE`); the Playwright video tier to exercise the real MediaPipe path
-  end-to-end (finishes L5); and, when desired, actually installing TF.js to light up MoveNet.
+- **Roadmap waves complete.**
+- **2026-06-14 — Self-hosting (done):** `npm run mediapipe:vendor` (`apps/web/scripts/vendor-mediapipe.mjs`)
+  copies the WASM runtime from the installed package and downloads the pose models into
+  `public/mediapipe/` (gitignored), so setting `NEXT_PUBLIC_MEDIAPIPE_*_BASE` serves them
+  same-origin and the third-party CSP hosts can be dropped. Verified end-to-end (wasm + lite model).
+- **2026-06-14 — MoveNet activated (done):** TensorFlow.js added as **optionalDependencies** (the
+  dynamic string-import keeps it out of the default bundle — a full `next build` passes with zero
+  TF.js/dynamic-import warnings). Flip `NEXT_PUBLIC_MOTION_SECOND_ENGINE=movenet` to light it up.
+- **2026-06-14 — L5 real-browser guard (added):** `e2e/motion-lab-pipeline.spec.ts` guards the
+  DOM/CSP infrastructure Motion Lab depends on (WebAssembly + canvas reads + media fetch under the
+  live production CSP — the #96 failure class). The full multi-person upload→MediaPipe→tracking E2E
+  remains CI-environment work (a browser couldn't be downloaded in the build sandbox); the logic
+  itself is covered by the tracker/fusion/profiler unit suites.
