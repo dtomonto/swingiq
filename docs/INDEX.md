@@ -79,6 +79,7 @@ _179 documents · regenerated 2026-06-14. This file lists everything in `docs/` 
 - [Security Automation Guide](security-automation.md) — This document explains the automated security systems that run on every push and pull request to the SwingVantage repository.
 - [SEO / AEO / GEO strategy for SwingVantage updates](SEO_GEO_AEO_UPDATES_STRATEGY.md) — How the update detail pages earn discoverability in classic search (SEO), AI answer
 - [SEO, GEO, and AEO Strategy](SEO_GEO_AEO.md) — This document explains SwingVantage's strategy for being found by search engines (SEO), AI knowledge systems (GEO — Generative Engine…
+- [Status refresh — 2026-06-13](STATUS_REFRESH_2026-06-13.md) — A point-in-time reconciliation of the planning/audit docs against the actual
 - [SwingLab 2.0 — Phase 2 Scope: The Interactive Lab Map](SWINGLAB_2_PHASE_2_SCOPE.md) — ---
 - [SwingVantage — Analytics Events](analytics-events.md) — This document is the single reference for every analytics event SwingVantage tracks.
 - [SwingVantage — Architecture Audit (AI-Native Master Plan, Phase 0)](swingvantage-architecture-audit.md) — ---
