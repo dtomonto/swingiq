@@ -80,4 +80,57 @@ export default [
       '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     },
   },
+  {
+    // ── Design-system token purity (raw-color guard) ──────────────────────
+    // The audited shared-component surfaces are token-pure: a component must not
+    // reach for a raw Tailwind palette color or a hardcoded hex in className —
+    // those bypass the theme system and break contrast on the non-default themes.
+    // This complements the jest `theme-safety` guard (white-on-light + the shell
+    // denylist): here we catch the neutral/rainbow/hex long tail at lint time.
+    // Scoped to directories VERIFIED clean today; broaden as more areas migrate
+    // (see docs/design-system/figma-structured-usage-audit.md). White/black with
+    // an /alpha (scrims) and CSS-var-backed arbitrary values stay allowed.
+    files: [
+      'src/components/ui/**/*.{ts,tsx}',
+      'src/components/layout/**/*.{ts,tsx}',
+      'src/components/marketing/**/*.{ts,tsx}',
+      'src/components/sport/**/*.{ts,tsx}',
+      'src/components/dashboard/**/*.{ts,tsx}',
+      'src/components/report/**/*.{ts,tsx}',
+      'src/components/trust/**/*.{ts,tsx}',
+      'src/components/proof/**/*.{ts,tsx}',
+      'src/components/features/**/*.{ts,tsx}',
+      'src/components/seo/**/*.{ts,tsx}',
+      'src/components/diagnose/**/*.{ts,tsx}',
+    ],
+    rules: {
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector:
+            "Literal[value=/\\b(?:text|bg|border|ring|from|via|to|fill|stroke|divide|outline|decoration)-(?:gray|slate|zinc|neutral|stone|green|red|blue|yellow|orange|amber|lime|emerald|teal|cyan|sky|indigo|violet|purple|fuchsia|pink|rose)-\\d{2,3}\\b/]",
+          message:
+            'Raw Tailwind palette color in a design-system component — use a semantic theme token (text-foreground / bg-card / text-muted-foreground / text-link / bg-stage …). See docs/design-system/figma-structured-usage-audit.md.',
+        },
+        {
+          selector:
+            "TemplateElement[value.raw=/\\b(?:text|bg|border|ring|from|via|to|fill|stroke|divide|outline|decoration)-(?:gray|slate|zinc|neutral|stone|green|red|blue|yellow|orange|amber|lime|emerald|teal|cyan|sky|indigo|violet|purple|fuchsia|pink|rose)-\\d{2,3}\\b/]",
+          message:
+            'Raw Tailwind palette color in a design-system component — use a semantic theme token. See docs/design-system/figma-structured-usage-audit.md.',
+        },
+        {
+          selector:
+            "Literal[value=/(?:bg|text|border|ring|fill|stroke|from|via|to|decoration|outline|divide|shadow)-\\[#[0-9a-fA-F]/]",
+          message:
+            'Hardcoded hex color in a design-system component — use a semantic theme token (e.g. bg-stage, text-foreground) or a CSS-var-backed value. See docs/design-system/figma-structured-usage-audit.md.',
+        },
+        {
+          selector:
+            "TemplateElement[value.raw=/(?:bg|text|border|ring|fill|stroke|from|via|to|decoration|outline|divide|shadow)-\\[#[0-9a-fA-F]/]",
+          message:
+            'Hardcoded hex color in a design-system component — use a semantic theme token or a CSS-var-backed value. See docs/design-system/figma-structured-usage-audit.md.',
+        },
+      ],
+    },
+  },
 ];

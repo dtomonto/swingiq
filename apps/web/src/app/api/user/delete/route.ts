@@ -19,6 +19,7 @@
 import { NextResponse } from 'next/server';
 import { getAuthenticatedUser } from '@/lib/supabase-server';
 import { createSupabaseAdminClient } from '@/lib/supabase-admin';
+import { countResidualUserRows } from '@/lib/db/cloud-repo';
 
 export const dynamic = 'force-dynamic';
 
@@ -85,6 +86,24 @@ export async function POST() {
       { error: 'Account deletion failed. Please try again or contact privacy@swingvantage.com.' },
       { status: 500 },
     );
+  }
+
+  // Best-effort: verify the cascade actually removed every owned row. The auth
+  // user is already gone (deletion succeeded), so we still report success — but
+  // if rows remain, a cascade constraint was dropped and data was orphaned, so
+  // surface it loudly for an admin/observability to catch. Never fail a
+  // completed deletion on this check.
+  try {
+    const residualRows = await countResidualUserRows(admin, user.id);
+    if (residualRows > 0) {
+      console.error(
+        `[user/delete] cascade incomplete: ${residualRows} row(s) still owned by ${user.id} ` +
+          'after auth-user deletion — check ON DELETE CASCADE constraints.',
+      );
+      return NextResponse.json({ deleted: true, residualRows });
+    }
+  } catch {
+    /* verification is best-effort — a hiccup here must not undo a real deletion */
   }
 
   return NextResponse.json({ deleted: true });

@@ -20,7 +20,7 @@ export const LESSONS: Lesson[] = [
     walkthrough: [
       'SwingVantage is a multi-sport AI swing-performance platform. A user records or uploads a swing (or imports launch-monitor data), and the product returns the single highest-priority thing to work on, a drill to fix it, and a way to track whether it actually improved.',
       'It supports golf, tennis, baseball, slow-pitch softball, and fast-pitch softball — one app, multiple sports, with sport-specific models and guidance.',
-      'It is try-first: users can get value before creating an account. Signing in saves their progress to a private account and syncs it across devices. Their full swing video stays on their device — only sampled still frames are sent when AI video analysis runs.',
+      'It is try-first: users can get value before creating an account. Signing in saves their progress to a private account and syncs it across devices. Their full swing video stays on their device — only a small sample is sent when AI video analysis runs.',
     ],
     scenario:
       'A friend asks, "What does your company make?" You should be able to answer in ~10 seconds without jargon or overpromising.',
@@ -155,7 +155,7 @@ export const LESSONS: Lesson[] = [
       'The quality of everything downstream — the analysis, the drills, the confidence — depends on the input video. Most "the AI is wrong" reports are really capture problems. Mastering this single topic resolves the majority of support tickets and makes every demo land.',
     walkthrough: [
       'Users can record directly in the app (the in-app recorder includes a "where to stand" overlay and front/back camera) or upload an existing video file. They can also skip video entirely and import launch-monitor data for some sports.',
-      'When AI video analysis runs, the full video stays on the device; only a few sampled still frames are sent for analysis. This is a genuine privacy feature — state it exactly that way, never "we upload your video."',
+      'When AI video analysis runs, the full video stays on the device; only a small sample of the swing is sent for analysis. This is a genuine privacy feature — state it exactly that way, never "we upload your video."',
       'The analyzer needs to see the whole swing, in frame, from a sport-appropriate angle, with the athlete well lit. Get those three things right and results are dramatically better.',
     ],
     scenario:

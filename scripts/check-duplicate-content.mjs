@@ -168,6 +168,31 @@ const registry = registryFiles.flatMap(parseRegistry);
 const publishedRegistry = new Map();
 for (const e of registry) if (e.publishStatus === 'published') publishedRegistry.set(e.slug, e);
 
+// Tech-education registry (lib/learn/tech-education.ts): the /learn technology
+// explainer pages whose metadata comes from buildTechEducationMetadata(slug).
+// Parse it so this gate resolves their title/description/direct-answer (and
+// treats them as self-canonical) exactly like the SEO registry pages.
+function parseTechEdu() {
+  const file = join(ROOT, 'apps/web/src/lib/learn/tech-education.ts');
+  if (!existsSync(file)) return new Map();
+  const src = readFileSync(file, 'utf8');
+  const map = new Map();
+  const slugRe = new RegExp(`slug:\\s*${STR}`, 'g');
+  const marks = [];
+  let m;
+  while ((m = slugRe.exec(src)) !== null) marks.push({ slug: m[1], idx: m.index });
+  for (let i = 0; i < marks.length; i++) {
+    const block = src.slice(marks[i].idx, i + 1 < marks.length ? marks[i + 1].idx : src.length);
+    map.set(marks[i].slug, {
+      title: firstString(block, 'title'),
+      description: firstString(block, 'description'),
+      directAnswer: firstString(block, 'answerSummary'),
+    });
+  }
+  return map;
+}
+const techEdu = parseTechEdu();
+
 // ── 2. walk page files, resolve metadata ────────────────────────────────────
 
 const pages = []; // { route, file, title, description, indexable, canonical, hasMeta, dynamic }
@@ -182,6 +207,8 @@ for (const file of walk(APP_DIR)) {
 
   const layoutSrc = layoutMetaSrc(file);
   const usesBuildMeta = /buildMetadata\(/.test(src);
+  // Registry-backed tech-education pages: metadata via buildTechEducationMetadata(SLUG).
+  const usesTechEdu = /buildTechEducationMetadata\(/.test(src);
   const rawMeta = /export const metadata\b/.test(src);
   const dynamic = /export async function generateMetadata|export function generateMetadata/.test(src);
   // A 'use client' page can't export metadata — its sibling/ancestor layout does.
@@ -196,7 +223,11 @@ for (const file of walk(APP_DIR)) {
   const regSlug = slugMatch?.[1] || route.replace(/^\//, '');
   const regEntry = publishedRegistry.get(regSlug);
 
-  if (/title:\s*page\.title/.test(src) && regEntry) {
+  const techEntry = usesTechEdu ? techEdu.get(regSlug) : null;
+  if (techEntry) {
+    title = techEntry.title;
+    description = techEntry.description;
+  } else if (/title:\s*page\.title/.test(src) && regEntry) {
     title = regEntry.title;
     description = regEntry.metaDescription;
   } else {
@@ -215,11 +246,13 @@ for (const file of walk(APP_DIR)) {
   const hasPath = /\bpath:\s*[`'"A-Za-z_]/.test(src);
   const layoutHasCanonical =
     !!layoutSrc && (/buildMetadata\(/.test(layoutSrc) || /alternates:\s*\{[^}]*canonical/.test(layoutSrc));
-  const hasCanonical = usesBuildMeta
-    ? hasPath
-    : /alternates:\s*\{[^}]*canonical/.test(src) || (metaFromLayout && layoutHasCanonical);
+  const hasCanonical = usesTechEdu
+    ? true // buildTechEducationMetadata always sets a self-canonical from the slug
+    : usesBuildMeta
+      ? hasPath
+      : /alternates:\s*\{[^}]*canonical/.test(src) || (metaFromLayout && layoutHasCanonical);
 
-  const hasMeta = usesBuildMeta || rawMeta || dynamic || metaFromLayout;
+  const hasMeta = usesBuildMeta || usesTechEdu || rawMeta || dynamic || metaFromLayout;
 
   const page = {
     route,
@@ -260,7 +293,7 @@ for (const file of walk(APP_DIR)) {
   // buildMetadata appends " | SwingVantage" unless the title already contains
   // the brand — measure the TRUE rendered <title> length, not the raw string.
   const rendered =
-    (usesBuildMeta || dynamic) && title && !title.includes('SwingVantage')
+    (usesBuildMeta || usesTechEdu || dynamic) && title && !title.includes('SwingVantage')
       ? `${title} | SwingVantage`
       : title;
   if (rendered && rendered.length > TITLE_MAX && !TITLE_LENGTH_EXEMPT.has(route)) {
@@ -315,8 +348,11 @@ function reportDuplicates(field, label) {
 reportDuplicates('title', 'title');
 reportDuplicates('description', 'meta description');
 
-// registry direct-answer uniqueness (published only)
-const da = [...publishedRegistry.values()].filter((e) => e.directAnswer);
+// registry direct-answer uniqueness (published SEO pages + tech-education AEO leads)
+const da = [
+  ...publishedRegistry.values(),
+  ...[...techEdu.entries()].map(([slug, e]) => ({ slug, directAnswer: e.directAnswer })),
+].filter((e) => e.directAnswer);
 const daExact = new Map();
 for (const e of da) {
   const k = e.directAnswer.trim().toLowerCase();

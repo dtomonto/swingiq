@@ -82,7 +82,7 @@ const FREE_SWING_ANALYSIS: SeoPage = {
     'SwingVantage gives you a genuinely free swing analysis for golf, tennis, baseball, and softball. Upload a swing video or import launch monitor data and you get your single highest-priority issue, three beginner-safe drills, and a simple practice plan — with no account, no credit card, and your data private by default.',
   problemExplanation: [
     'Most "free" analysis tools are demos that gate the useful part behind a paywall, or they bury you in numbers without telling you what to fix first. SwingVantage leads with one priority and a plan.',
-    'Because SwingVantage keeps your full swing video on your device and your data private by default, you can try it with confidence before deciding to save anything. When you run Motion Lab\'s AI vision review, only a few selected still frames are sent for review — never your whole video.',
+    'Because SwingVantage keeps your full swing video on your device and your data private by default, you can try it with confidence before deciding to save anything. When you run Motion Lab\'s AI vision review, only a small sample of your swing is sent for review — never your whole video.',
   ],
   diagnosisSteps: [
     'Pick your sport.',
@@ -111,7 +111,7 @@ const FREE_SWING_ANALYSIS: SeoPage = {
     'SwingVantage is built to make your practice and your coaching more effective — not to replace a coach. For injury concerns or advanced technique work, bring your SwingVantage priority to a qualified coach.',
   faqs: [
     { question: 'Is it really free?', answer: 'Yes. The core analysis, drills, and practice plan are free, with no account or credit card required.' },
-    { question: 'Do you keep my video?', answer: 'Your full swing video stays on your device — analysis runs in your browser and only optional still frames are ever sent for AI review. Your data is private to you and never shared publicly.' },
+    { question: 'Do you keep my video?', answer: 'Your full swing video stays on your device — analysis runs in your browser and only a small, optional sample is ever sent for AI review. Your data is private to you and never shared publicly.' },
     { question: 'Which sports are supported?', answer: 'Golf, tennis, pickleball, padel, baseball, slow-pitch softball, and fast-pitch softball — each with its own diagnostic engine.' },
   ],
   relatedLinks: [

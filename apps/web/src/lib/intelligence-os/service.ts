@@ -13,12 +13,22 @@ import {
 import type { ActionTask } from './types';
 import { genId } from './router';
 import { knowledgeFingerprint, semanticFingerprint, summarize } from './fingerprint';
-import { embedText, isEmbeddingsConfigured } from './embeddings';
+import { embedText, isEmbeddingsConfigured, currentEmbeddingModel } from './embeddings';
 
 /** Best-effort embedding — null when keyless or on error (never throws). */
 async function embedIfConfigured(text: string): Promise<number[] | null> {
   if (!isEmbeddingsConfigured()) return null;
   try { return await embedText(text); } catch { return null; }
+}
+
+/**
+ * Best-effort embedding plus the model that produced it. `embeddingModel` is
+ * non-null only when a vector was produced, so it stays in lock-step with
+ * `embedding` and lets backfill detect a model change later.
+ */
+async function embedWithModel(text: string): Promise<{ embedding: number[] | null; embeddingModel: string | null }> {
+  const embedding = await embedIfConfigured(text);
+  return { embedding, embeddingModel: embedding ? currentEmbeddingModel() : null };
 }
 import type {
   KnowledgeItem, CanonicalAnswer, EvaluationRecord, AnswerFormat, ValidationStatus, SafetyFlag, Audience,
@@ -43,6 +53,7 @@ export interface CreateKnowledgeInput {
 
 export async function createKnowledge(input: CreateKnowledgeInput): Promise<KnowledgeItem> {
   const now = new Date().toISOString();
+  const { embedding, embeddingModel } = await embedWithModel(input.canonicalQuestion);
   const item: KnowledgeItem = {
     id: genId('know'),
     title: input.title,
@@ -67,7 +78,8 @@ export async function createKnowledge(input: CreateKnowledgeInput): Promise<Know
     successCount: 0,
     failureCount: 0,
     lastUsedAt: null,
-    embedding: await embedIfConfigured(input.canonicalQuestion),
+    embedding,
+    embeddingModel,
     dataSource: 'real',
     createdAt: now,
     updatedAt: now,
@@ -82,7 +94,11 @@ export async function reviewKnowledge(id: string, status: ValidationStatus, admi
     patch.approvedByAdmin = adminEmail;
     // Compute the embedding on approval so it's ready for retrieval.
     const existing = await knowledgeRepo.get(id);
-    if (existing && !existing.embedding) patch.embedding = await embedIfConfigured(existing.canonicalQuestion);
+    if (existing && !existing.embedding) {
+      const { embedding, embeddingModel } = await embedWithModel(existing.canonicalQuestion);
+      patch.embedding = embedding;
+      patch.embeddingModel = embeddingModel;
+    }
   }
   if (status === 'archived') patch.archived = true;
   return knowledgeRepo.update(id, patch);
@@ -96,7 +112,9 @@ export async function updateKnowledge(id: string, patch: Partial<KnowledgeItem>)
   merged.fingerprint = knowledgeFingerprint({ userIntent: merged.userIntent, sport: merged.sport, topic: merged.topic, answer: merged.canonicalAnswer });
   const finalPatch: Partial<KnowledgeItem> = { ...patch, fingerprint: merged.fingerprint };
   if (patch.canonicalQuestion && patch.canonicalQuestion !== existing.canonicalQuestion) {
-    finalPatch.embedding = await embedIfConfigured(patch.canonicalQuestion);
+    const { embedding, embeddingModel } = await embedWithModel(patch.canonicalQuestion);
+    finalPatch.embedding = embedding;
+    finalPatch.embeddingModel = embeddingModel;
   }
   return knowledgeRepo.update(id, finalPatch);
 }
@@ -124,6 +142,7 @@ export interface CreateCanonicalInput {
 
 export async function createCanonicalAnswer(input: CreateCanonicalInput): Promise<CanonicalAnswer> {
   const now = new Date().toISOString();
+  const { embedding, embeddingModel } = await embedWithModel(input.canonicalQuestion);
   const answer: CanonicalAnswer = {
     id: genId('canon'),
     canonicalQuestion: input.canonicalQuestion,
@@ -147,7 +166,8 @@ export async function createCanonicalAnswer(input: CreateCanonicalInput): Promis
     aiCallsAvoided: 0,
     tokensAvoided: 0,
     estimatedCostSavedCents: 0,
-    embedding: await embedIfConfigured(input.canonicalQuestion),
+    embedding,
+    embeddingModel,
     dataSource: 'real',
     createdAt: now,
     updatedAt: now,
@@ -182,27 +202,35 @@ export async function updateCanonical(id: string, patch: Partial<CanonicalAnswer
   const next: Partial<CanonicalAnswer> = { ...patch };
   if (patch.canonicalQuestion) {
     next.semanticFingerprint = semanticFingerprint(patch.canonicalQuestion);
-    next.embedding = await embedIfConfigured(patch.canonicalQuestion);
+    const { embedding, embeddingModel } = await embedWithModel(patch.canonicalQuestion);
+    next.embedding = embedding;
+    next.embeddingModel = embeddingModel;
   }
   return canonicalRepo.update(id, next);
 }
 
 /**
- * Backfill missing embeddings on approved/usable records. Best-effort; no-op
- * when embeddings aren't configured. Returns how many of each were embedded.
+ * Backfill embeddings on approved/usable records. Re-embeds rows that are
+ * either missing a vector OR were embedded with a different model than the one
+ * currently configured (`AI_EMBEDDINGS_MODEL`) — so a model upgrade refreshes
+ * stored vectors instead of leaving a mismatched-dimension/space mix. Best-
+ * effort; no-op when embeddings aren't configured. Returns how many of each
+ * were (re-)embedded.
  */
 export async function backfillEmbeddings(limit = 200): Promise<{ knowledge: number; canonical: number; backend: 'embeddings' | 'lexical' }> {
   if (!isEmbeddingsConfigured()) return { knowledge: 0, canonical: 0, backend: 'lexical' };
+  const model = currentEmbeddingModel();
+  const stale = (x: { embedding: number[] | null; embeddingModel: string | null }) => !x.embedding || x.embeddingModel !== model;
   let k = 0; let c = 0;
-  const knowledge = (await knowledgeRepo.list()).filter((x) => !x.embedding && !x.archived).slice(0, limit);
+  const knowledge = (await knowledgeRepo.list()).filter((x) => !x.archived && stale(x)).slice(0, limit);
   for (const item of knowledge) {
     const vec = await embedIfConfigured(item.canonicalQuestion);
-    if (vec) { await knowledgeRepo.update(item.id, { embedding: vec }); k += 1; }
+    if (vec) { await knowledgeRepo.update(item.id, { embedding: vec, embeddingModel: model }); k += 1; }
   }
-  const canonical = (await canonicalRepo.list()).filter((x) => !x.embedding).slice(0, limit);
+  const canonical = (await canonicalRepo.list()).filter((x) => stale(x)).slice(0, limit);
   for (const item of canonical) {
     const vec = await embedIfConfigured(item.canonicalQuestion);
-    if (vec) { await canonicalRepo.update(item.id, { embedding: vec }); c += 1; }
+    if (vec) { await canonicalRepo.update(item.id, { embedding: vec, embeddingModel: model }); c += 1; }
   }
   return { knowledge: k, canonical: c, backend: 'embeddings' };
 }

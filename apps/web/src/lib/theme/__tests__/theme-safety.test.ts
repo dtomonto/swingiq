@@ -24,7 +24,12 @@ const SRC = resolve(__dirname, '../../..');
 
 // ── Layer 1: strict per-file denylist ──────────────────────────────────
 
-/** Audited shell / nav / sport / overlay components that must stay token-pure. */
+/**
+ * Audited token-critical modules that must stay token-pure: the shell / nav /
+ * sport / overlay components, plus the shared label + score utilities whose
+ * class strings fan out to many badges (a raw `text-gray-400` here breaks the
+ * light Coach Mode the admin renders in).
+ */
 const GUARDED_FILES = [
   'components/layout/AppShell.tsx',
   'components/layout/Sidebar.tsx',
@@ -32,6 +37,8 @@ const GUARDED_FILES = [
   'components/ui/PWAInstallBanner.tsx',
   'components/ui/UsageCategoryModal.tsx',
   'components/ui/CookieBanner.tsx',
+  'lib/growth/labels.ts',
+  'lib/utils.ts',
 ];
 
 /** Raw, un-themeable color utilities that must not appear in guarded files. */
@@ -174,5 +181,30 @@ describe('theme safety — app-wide white-on-light scan', () => {
           `token instead:\n${report.join('\n')}`,
       );
     }
+  });
+});
+
+describe('theme safety — media viewers use the always-dark stage surface', () => {
+  const VIEWER_FILES = [
+    'components/motion-lab/Motion3DViewer.tsx',
+    'components/motion-lab/VideoOverlayLab.tsx',
+    'components/motion-lab/MotionAvatarViewer.tsx',
+    'components/motion-lab/MotionResultsDashboard.tsx',
+    'components/motion-lab/ImplementPathCard.tsx',
+    'components/video/SwingVideoPlayer.tsx',
+  ];
+
+  // The 3D/video viewers render on an always-dark "stage" — the dark twin of the
+  // always-light report `--surface-document`. Their chrome must use the
+  // `--surface-stage` tokens (`bg-stage` / `bg-stage-panel` / `text-stage-*`),
+  // never a raw hex canvas or the slate palette, so the viewer look stays
+  // retunable design-system-wide instead of silently locking to one shade.
+  // Decorative data-viz accents (axis sky/amber, phase fills) are allowed: they
+  // live ONLY on this dark surface, so they're fixed-context and contrast-safe.
+  it.each(VIEWER_FILES)('%s tokenizes its surface (no bg-[#…] hex / no slate-*)', (file) => {
+    const src = read(file);
+    expect(src).not.toMatch(/\bbg-\[#[0-9a-fA-F]/);
+    expect(src).not.toMatch(/\b(?:text|bg|border)-slate-\d{2,3}\b/);
+    expect(src).toMatch(/\bbg-stage\b/);
   });
 });

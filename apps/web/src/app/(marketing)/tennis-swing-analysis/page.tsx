@@ -1,5 +1,8 @@
 import { SportAnalysisHero } from '@/components/marketing/SportAnalysisHero';
 import { MarketingCTA } from '@/components/marketing/MarketingCTA';
+import { HowItWorksGrid } from '@/components/marketing/HowItWorksGrid';
+import { MetricsGrid } from '@/components/marketing/MetricsGrid';
+import { FAQSection } from '@/components/marketing/FAQSection';
 import { RelatedGuides } from '@/components/seo/RelatedGuides';
 import { FeatureHighlights } from '@/components/features/FeatureHighlights';
 import { buildMetadata } from '@/lib/seo/metadata';
@@ -110,42 +113,14 @@ export default function TennisSwingAnalysisPage() {
       />
 
       {/* How it works */}
-      <section className="bg-card py-14">
-        <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-2xl font-bold text-foreground text-center mb-10">
-            How Tennis Stroke Analysis Works
-          </h2>
-          <ol className="grid sm:grid-cols-3 gap-6">
-            {howSteps.map((s, i) => (
-              <li key={s.name} className="flex flex-col items-center text-center">
-                <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground font-black text-lg flex items-center justify-center mb-4">
-                  {i + 1}
-                </div>
-                <h3 className="font-bold text-foreground mb-2">{s.name}</h3>
-                <p className="text-sm text-muted-foreground">{s.text}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
+      <HowItWorksGrid heading="How Tennis Stroke Analysis Works" steps={howSteps} />
 
       {/* Strokes */}
-      <section className="bg-muted py-14">
-        <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-2xl font-bold text-foreground mb-3">Tennis Strokes SwingVantage Covers</h2>
-          <p className="text-muted-foreground mb-8 text-sm">
-            Each stroke has a dedicated phase checklist aligned with ATP/WTA technical models.
-          </p>
-          <ul className="grid sm:grid-cols-2 gap-4">
-            {strokes.map(({ name, focus }) => (
-              <li key={name} className="bg-card rounded-xl border border-border px-4 py-4">
-                <h3 className="font-semibold text-foreground text-sm mb-1">{name}</h3>
-                <p className="text-xs text-muted-foreground">{focus}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
+      <MetricsGrid
+        heading="Tennis Strokes SwingVantage Covers"
+        intro="Each stroke has a dedicated phase checklist aligned with ATP/WTA technical models."
+        items={strokes.map(({ name, focus }) => ({ label: name, detail: focus }))}
+      />
 
       {/* Feature cross-links — inbound links to the per-feature guides */}
       <FeatureHighlights
@@ -170,19 +145,7 @@ export default function TennisSwingAnalysisPage() {
       />
 
       {/* FAQ */}
-      <section className="bg-card py-14">
-        <div className="max-w-3xl mx-auto px-4">
-          <h2 className="text-2xl font-bold text-foreground mb-8">Frequently Asked Questions</h2>
-          <dl className="space-y-6">
-            {faqItems.map(({ question, answer }) => (
-              <div key={question}>
-                <dt className="font-semibold text-foreground mb-1">{question}</dt>
-                <dd className="text-sm text-muted-foreground leading-relaxed">{answer}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-      </section>
+      <FAQSection items={faqItems} />
 
       <RelatedGuides sport="tennis" />
 

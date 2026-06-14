@@ -11,6 +11,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { isAuthorizedAdmin } from '@/lib/social/admin-guard';
 import { sweepReportRetention } from '@/lib/intelligence-os/reports';
+import { runRetentionSweep } from '@/lib/intelligence-os/retention';
+import { backfillEmbeddings } from '@/lib/intelligence-os/service';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -29,8 +31,19 @@ export async function GET(req: NextRequest) {
   if (!(await authorized(req))) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401, headers: { 'Cache-Control': 'no-store' } });
   }
-  const result = await sweepReportRetention();
-  return NextResponse.json({ ok: true, ...result }, { headers: { 'Cache-Control': 'no-store' } });
+  // One daily maintenance pass:
+  //  • demote reports hot→warm→cold (drop bodies as they age)
+  //  • summarize/archive aged AI activity events per IntelligenceSettings
+  //  • backfill embeddings on approved records (no-op unless configured)
+  const [reports, events, embeddings] = await Promise.all([
+    sweepReportRetention(),
+    runRetentionSweep(),
+    backfillEmbeddings(),
+  ]);
+  return NextResponse.json(
+    { ok: true, reports, events, embeddings },
+    { headers: { 'Cache-Control': 'no-store' } },
+  );
 }
 
 // Allow a manual admin "run now" via POST too.

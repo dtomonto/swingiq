@@ -45,6 +45,12 @@ import { format } from 'date-fns';
 import { useSport } from '@/contexts/SportContext';
 import { useDesignV2 } from '@/lib/design-v2-client';
 import { DashboardNextAction } from '@/components/dashboard/DashboardNextAction';
+import { DeterministicWhyPanel } from '@/components/report/DeterministicWhyPanel';
+import { DeterministicPlanCard } from '@/components/report/DeterministicPlanCard';
+import { analyzeDeterministicSession } from '@/lib/intelligence/diagnose';
+import { deriveRetestSignals } from '@/lib/intelligence/retest-feedback';
+import type { SkillLevel } from '@/lib/intelligence/diagnose-types';
+import { useRetests } from '@/lib/retest';
 import { BackupStatusPill } from '@/components/sync/BackupStatusPill';
 import { RetestNudge } from '@/components/dashboard/RetestNudge';
 import { useMemo, useState, type ReactNode } from 'react';
@@ -226,14 +232,43 @@ export function DashboardContent({ children }: { children?: ReactNode }) {
     }
   }, [clubs]);
 
+  // Deterministic read of the athlete's self-reported miss — a token-free,
+  // explainable estimate used ONLY when there is no measured diagnosis yet, so
+  // it never competes with or contradicts the measured engine. Omitted unless
+  // the engine confidently matched a curated cause.
+  // Completed retests feed back into the read: a fix that keeps failing on the
+  // same miss raises urgency, lowers confidence, and tips toward a deeper look.
+  const { results: retestResults } = useRetests();
+  const hasMeasuredDiagnosis = Boolean(activeDiagnosis);
+  const deterministicRead = useMemo(() => {
+    const miss = profile?.current_miss?.trim();
+    if (hasMeasuredDiagnosis || !miss) return null;
+    const signals = deriveRetestSignals(miss, 'golf', retestResults);
+    const d = analyzeDeterministicSession({
+      sport: 'golf',
+      issue: miss,
+      skillLevel: (profile?.skill_level ?? 'intermediate') as SkillLevel,
+      ...signals,
+    });
+    return d.primary.generated ? null : d;
+  }, [hasMeasuredDiagnosis, profile?.current_miss, profile?.skill_level, retestResults]);
+
   // Design V2: the single "next action" headline, derived from data the page
-  // already has — no fabricated "plan day" counter. Active fix → plan; else a
-  // diagnose / upload prompt depending on whether any session exists yet.
-  const nextAction = activeDiagnosis
+  // already has — no fabricated "plan day" counter. Active (measured) fix →
+  // plan; else the deterministic read of the reported miss; else a diagnose /
+  // upload prompt depending on whether any session exists yet.
+  const nextAction: { headline: string; ctaHref: string; ctaLabel: string; note?: string } = activeDiagnosis
     ? { headline: `Work your #1 fix: ${activeDiagnosis.title}`, ctaHref: '/training', ctaLabel: 'Open your plan' }
-    : mostRecentSession
-      ? { headline: 'Run your diagnosis to find your #1 fix', ctaHref: '/diagnose', ctaLabel: 'Diagnose now' }
-      : { headline: 'Upload your first swing to get your #1 fix', ctaHref: '/video', ctaLabel: 'Upload a swing' };
+    : deterministicRead
+      ? {
+          headline: `Your likely #1 fix: ${deterministicRead.primary.name}`,
+          ctaHref: '/diagnose',
+          ctaLabel: 'Confirm with a diagnosis',
+          note: 'Estimated from your reported miss — run a diagnosis to confirm.',
+        }
+      : mostRecentSession
+        ? { headline: 'Run your diagnosis to find your #1 fix', ctaHref: '/diagnose', ctaLabel: 'Diagnose now' }
+        : { headline: 'Upload your first swing to get your #1 fix', ctaHref: '/video', ctaLabel: 'Upload a swing' };
 
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-6">
@@ -272,7 +307,21 @@ export function DashboardContent({ children }: { children?: ReactNode }) {
           headline={nextAction.headline}
           ctaHref={nextAction.ctaHref}
           ctaLabel={nextAction.ctaLabel}
+          note={nextAction.note}
         />
+      )}
+
+      {/* Explainable read of the reported miss (collapsed). Only shows pre-
+          measurement, so it complements — never contradicts — a measured diagnosis. */}
+      {deterministicRead && (
+        <>
+          <DeterministicWhyPanel diagnosis={deterministicRead} />
+          <DeterministicPlanCard
+            diagnosis={deterministicRead}
+            skillLevel={(profile?.skill_level ?? 'intermediate') as SkillLevel}
+            surface="dashboard"
+          />
+        </>
       )}
 
       {/* BodySync: today's readiness + recommended session (only when enabled) */}

@@ -2,7 +2,7 @@
 
 # SwingVantage docs index
 
-_121 documents · regenerated 2026-06-09. This file lists everything in `docs/` so it stays current as docs are added._
+_180 documents · regenerated 2026-06-14. This file lists everything in `docs/` so it stays current as docs are added._
 
 ## docs/
 
@@ -10,6 +10,8 @@ _121 documents · regenerated 2026-06-09. This file lists everything in `docs/` 
 - [Admin AI Tools — Roadmap](admin-ai-tools-roadmap.md) — Status of the AI-flavored tools in the admin operating system. The house style is
 - [Admin Dashboard & AI Tools — Audit](admin-dashboard-ai-tools-audit.md) — Date: 2026-06-08
 - [Admin Dashboard System](admin-dashboard-system.md) — How the SwingVantage admin operating system is structured, how it is protected,
+- [Admin: GAI Operating Mode](admin-operating-mode.md) — Where: /admin/operating-mode (Operate → Video Analysis). Read needs
+- [Agent & contributor workflow (keep `master` green, avoid churn)](AGENT_WORKFLOW.md) — Multiple agents work this repo at once. When several edit the shared master
 - [Agent Worktree Convention](AGENT_WORKTREE_CONVENTION.md) — Last updated: June 2026
 - [AI Visual Swing Analysis](AI_VISUAL_ANALYSIS.md) — SwingVantage can now actually look at your swing video using AI, instead of giving
 - [Analytics OS (PostHog control center)](ANALYTICS_OS.md) — One place in the admin to manage everything PostHog does — product & web
@@ -27,16 +29,25 @@ _121 documents · regenerated 2026-06-09. This file lists everything in `docs/` 
 - [Connect a Database — Supabase Setup Walkthrough (one page)](SUPABASE_SETUP_WALKTHROUGH.md) — A click-by-click guide to giving SwingVantage a free cloud database, so people can make real accounts and sync across devices. Cost: $0. Time:…
 - [Daily Notes — Tell Us How You Played, in Your Own Words](DAILY_NOTES.md) — Most of your reps happen out on the course, court, or field — not in front of a
 - [Data Portability Guide](DATA_PORTABILITY.md) — This document explains how SwingVantage handles your data — what you can export, how to import it back, what the backup file contains, and how the…
+- [Design Tokens — Figma ⇄ code interchange](design-tokens.md) — SwingVantage's visual system is token-driven: every theme redefines the same
+- [Design V2 — token axes, components, and the redesign flag](DESIGN_V2.md) — This is the engineering reference for the Design V2 redesign of apps/web.
+- [Deterministic Intelligence — Engine Guide](deterministic-intelligence.md) — This document covers the deterministic intelligence layer: the weighted,
 - [Digital Asset Library](DIGITAL_ASSET_LIBRARY.md) — The Digital Asset Library at /admin/assets (Admin → Content → "Asset
 - [Duplicate-Content & Originality Audit](SEO_DUPLICATE_CONTENT_AUDIT.md) — You asked: "make sure 0% of the pages could be questioned as being a duplicate,
 - [Feature Education Engine (FEE)](FEATURE_EDUCATION_ENGINE.md) — Every time you ship a feature, this system makes sure that feature gets taught —
+- [Figma MCP — environment setup](figma-mcp-setup.md) — This repo declares a Figma MCP server in .mcp.json so a Claude
+- [First-Party Intelligence OS](INTELLIGENCE_OS.md) — Strategic goal: third-party models teach the system once; SwingVantage
 - [Floating Utility Dock](FLOATING_UTILITY_DOCK.md) — The app has small round helper buttons that float in the bottom-right corner
 - [Future-Proofing Guide](FUTURE_PROOFING.md) — This document explains how SwingVantage is built to stay relevant, adaptable, and trustworthy over the long term. It covers the architectural…
+- [GAI AI Cost Controls](ai-cost-controls.md) — Cost governance is enforced server-side. The GAI routing layer reads the
+- [GAI Heuristic Engine](heuristic-engine.md) — The deterministic engine behind the free Instant Estimate tier and the safe
+- [GAI Intelligence Routing](intelligence-routing.md) — Heuristics first. AI when needed. Premium value always.
 - [Growth / Conversion / Activation — Gap Map](growth-conversion-gap-map.md) — Audited: 2026-06-08 · Fixes shipped: origin/master 9e9046d (live)
 - [How to publish a developer update](HOW_TO_PUBLISH_DEVELOPER_UPDATE.md) — Developer updates are the technical engineering log at /dev-updates. They may
 - [How to publish a product update](HOW_TO_PUBLISH_PRODUCT_UPDATE.md) — Product updates are the plain-English, athlete-facing changelog at /updates.
 - [How to Publish a SwingVantage Product Update](HOW_TO_PUBLISH_UPDATES.md) — This guide explains how to add a new entry to the SwingVantage Updates page at /updates.
 - [i18n Upkeep Report](i18n-upkeep-report.md) — In Plain English (start here): this checks whether the translated
+- [Intelligence OS — Session Handoff](INTELLIGENCE_OS_HANDOFF.md) — The First-Party Intelligence OS is built, merged to master, and closed-loop
 - [Link Intelligence Agent](LINK_INTELLIGENCE_AGENT.md) — The Link Intelligence Agent is GrowthOS's "links brain." It reads your real
 - [Master Improvement Plan — Status vs. Reality](master-plan-status.md) — Audit date: 2026-06-07 • Source: the "SwingVantage Master Improvement Plan" (14 workstreams, 30/90/180-day plans).
 - [Master Scheduled Audit Report](master-audit-report.md) — Consolidated: 2026-06-01 · Branch: chore/seo-audit/2026-06 · Status: local working document — nothing pushed
@@ -44,6 +55,7 @@ _121 documents · regenerated 2026-06-09. This file lists everything in `docs/` 
 - [Monetization Ethics & No-Dark-Pattern Rules](MONETIZATION_ETHICS.md) — This is the standard for §10 of FIVEPERSONAMASTERPLAN.md. It is policy + a map of what already enforces it — most of it is already implemented.
 - [Motion Lab — 3D Motion Analysis](motion-lab.md) — Motion Lab is a new page in SwingVantage where someone can upload (or record) a short
 - [Multilingual Marketing — Self-Maintaining Localization](I18N_LOCALIZATION.md) — SwingVantage's public pages used to be English-only. This system lets them appear
+- [Outbound re-engagement reminders](OUTBOUND_REMINDERS.md) — Last updated: 2026-06-13
 - [Performance & Core Web Vitals](PERFORMANCE.md) — Audit: 2026-06-09 (Sprint 2 of the growth program).
 - [Phase 1 — UX Foundations (clutter, onboarding memory, sign-out)](PHASE_1_UX_FOUNDATIONS.md) — After signing in, the app felt busy: several cards and pop-ups competed for
 - [Phase 10 — Golf Grading, Player Profiles & Benchmarks](PHASE_10_GRADING.md) — SwingVantage now grades your golf against your own level, not against tour
@@ -54,25 +66,36 @@ _121 documents · regenerated 2026-06-09. This file lists everything in `docs/` 
 - [Pickleball & Padel Expansion](PICKLEBALL_PADEL_EXPANSION.md) — What this is: SwingVantage now supports two new racket sports — Pickleball and Padel — as first-class sports, alongside golf, tennis, baseball,…
 - [Player Recruiting Hub](recruiting-hub.md) — This is the feature that turns everything an athlete already does in SwingVantage —
 - [pose3d — Proprietary 3D Pose Reconstruction](pose3d.md) — Single-camera "3D" can only ever estimate depth. This module adds two genuinely
+- [PostHog Implementation Audit — SwingVantage](POSTHOG_AUDIT_2026-06.md) — Audit date: 2026-06-12. Method: full working-tree inspection. No tracking code was
+- [PublishingOS](publishing-os.md) — PublishingOS replaces the old dead-end ("View-only here. Publishing edits a
+- [Push & lifecycle delivery](PUSH_NOTIFICATIONS.md) — SwingVantage can nudge an athlete back to practice through two channels —
+- [Racquet Motion Lab — slow-motion video overlay lab](RACQUET_MOTION_LAB.md) — Created 2026-06-10. Scope note for the Motion Lab's racquet-sports (tennis ·
+- [Re-recording the walkthrough / tutorial videos](tutorials-rerecord.md) — The in-app tutorial walkthroughs (/tutorial, the floating coach, the per-page
 - [Rebrand Completion Report — SwingIQ → SwingVantage](REBRAND_SWINGVANTAGE_REPORT.md) — The whole product is now SwingVantage (domain swingvantage.com). Everything a user,
+- [RecordAssist Vision + Kinetic Tracking OS](RECORD_ASSIST.md) — SwingVantage's guided, privacy-first, on-device self-recording system. It helps a
+- [Regenerating visual-regression baselines](REGENERATING_VISUAL_BASELINES.md) — Last updated: June 2026
 - [SearchIntelligenceOS — GrowthOS Visibility Command Center](SEARCH_INTELLIGENCE_OS.md) — An internal, Ahrefs-class Search Intelligence Operating System inside GrowthOS. It tells you
 - [Security and Privacy Guide](SECURITY_AND_PRIVACY.md) — This document covers everything related to keeping SwingVantage users safe — how data is protected, what security measures are built in, what…
 - [Security Automation Guide](security-automation.md) — This document explains the automated security systems that run on every push and pull request to the SwingVantage repository.
 - [SEO / AEO / GEO strategy for SwingVantage updates](SEO_GEO_AEO_UPDATES_STRATEGY.md) — How the update detail pages earn discoverability in classic search (SEO), AI answer
 - [SEO, GEO, and AEO Strategy](SEO_GEO_AEO.md) — This document explains SwingVantage's strategy for being found by search engines (SEO), AI knowledge systems (GEO — Generative Engine…
+- [Status refresh — 2026-06-13](STATUS_REFRESH_2026-06-13.md) — A point-in-time reconciliation of the planning/audit docs against the actual
 - [SwingLab 2.0 — Phase 2 Scope: The Interactive Lab Map](SWINGLAB_2_PHASE_2_SCOPE.md) — ---
 - [SwingVantage — Analytics Events](analytics-events.md) — This document is the single reference for every analytics event SwingVantage tracks.
+- [SwingVantage — Architecture Audit (AI-Native Master Plan, Phase 0)](swingvantage-architecture-audit.md) — ---
 - [SwingVantage — Athlete General Intelligence: Product & Monetization Strategy](ATHLETE_GI_STRATEGY.md) — The single source of truth for how Athlete General Intelligence (AGI) fits SwingVantage's
 - [SwingVantage — Automation](automation.md) — What runs automatically, what you run manually, and — importantly — what we
 - [SwingVantage — Automation Opportunity Audit](AUTOMATION_OPPORTUNITY_AUDIT_2026-06.md) — Date: 2026-06-07 · Status: strategic audit — nothing implemented yet · Author: automation-architecture review
 - [SwingVantage — Beginner Start Here](BEGINNER_START_HERE.md) — Read this first. Every step is numbered. Do not skip steps.
 - [SwingVantage — Behavioral Science, UX, Engagement & Retention Audit](swingiq-behavioral-ux-retention-audit-2026-06.md) — Date: June 2, 2026
+- [SwingVantage — Data Handling, Portability & Retention](DATA_HANDLING.md) — Plain-English summary of what data SwingVantage holds, where it lives, how long
 - [SwingVantage — Data Import Guide](DATA_IMPORT_GUIDE.md) — How to get your performance data into SwingVantage for every sport.
 - [SwingVantage — Feature How-To Guide](FEATURE_HOWTO_GUIDE.md) — The do-this-then-that companion to every feature. Where
 - [SwingVantage — Five-Persona Master Implementation Plan](FIVE_PERSONA_MASTER_PLAN.md) — ---
 - [SwingVantage — Growth Implementation Guide](growth-implementation.md) — This document tracks the SwingVantage Growth Operating System: what is built, what is
 - [SwingVantage — Implementation Notes](IMPLEMENTATION_NOTES.md) — Last updated: 2026-06-05. This document is maintained alongside the codebase.
 - [SwingVantage — Integrations Setup Checklist](INTEGRATIONS_SETUP.md) — Last updated: June 2026
+- [SwingVantage — Intelligence Learning Plan (25 Priorities)](INTELLIGENCE_LEARNING_AUDIT_PLAN.md) — 1. Never fabricate. Every metric/aggregate carries an honest DataSource label (real / estimated / imported / placeholder / mock). No…
 - [SwingVantage — Monetization Checklist (the least-expensive path to your first paying user)](MONETIZATION_CHECKLIST.md) — Built from the master audit (docs/master-audit-report.md) + a read of the actual billing code. Last updated: June 2026.
 - [SwingVantage — Monetization Strategy (the north star)](MONETIZATION_STRATEGY.md) — The single source of truth for how and in what order SwingVantage makes money.
 - [SwingVantage — Observability, Analytics & Test Gates](OBSERVABILITY.md) — Companion to AUTOMATIONOPPORTUNITYAUDIT2026-06.md. Covers the foundation automations A1, A2, A3, A4, A10.
@@ -84,6 +107,7 @@ _121 documents · regenerated 2026-06-09. This file lists everything in `docs/` 
 - [SwingVantage — Update Publishing Engine](UPDATES_PUBLISHING_ENGINE.md) — One unified engine powers both the plain-English product changelog (/updates)
 - [SwingVantage — Web App Guide](WEB_APP_GUIDE.md) — A plain-English guide to every feature in the app.
 - [SwingVantage "10x Upgrade" Master-Prompt Audit — June 2026](swingiq-10x-upgrade-audit-2026-06.md) — ---
+- [SwingVantage `/learn` Education System — Build Roadmap & Handoff](learn-education-roadmap.md) — Last updated: 2026-06-13 · Status: Tier 0 + Tier 1 + Tier 2 + most of Tier 3 shipped.
 - [SwingVantage Academy — Internal Enablement Platform](SWINGVANTAGE_ACADEMY.md) — Status: Phase 1 in progress (foundation + core learner experience). Internal-only, lives at
 - [SwingVantage Admin & Operations Roadmap](ADMIN_OPERATIONS_ROADMAP.md) — Last updated: June 2026
 - [SwingVantage Admin Dashboard](ADMIN_DASHBOARD.md) — This is the control center for running SwingVantage — one place to see what's
@@ -103,7 +127,9 @@ _121 documents · regenerated 2026-06-09. This file lists everything in `docs/` 
 - [Tutorial Video Production Guide](tutorial-video-production-guide.md) — This is the recording recipe book. The app's tutorial placements are already
 - [Tutorial Video QA Checklist](tutorial-video-qa-checklist.md) — Before shipping new tutorial recordings (or after changing the player), walk this list.
 - [Tutorial Video System](tutorial-video-system.md) — SwingVantage already had a Tutorial Center at /tutorial — a library of short
+- [Video Analysis Pipeline — Job Lifecycle (G3)](video-analysis-pipeline.md) — Swing analysis was fire-and-forget: the pipeline ran on-device, produced a
 - [Video Library](VIDEO_LIBRARY.md) — The Video Library at /library is the one place to browse every video in
+- [Video SEO — the strict contract](VIDEO_SEO.md) — Every public, recorded video on SwingVantage — tutorial walkthroughs
 - [Video Studio — the AI video department](VIDEO_STUDIO.md) — SwingVantage can already show videos (the Tutorial Center). Video Studio is
 
 ## docs/audits/
@@ -116,6 +142,48 @@ _121 documents · regenerated 2026-06-09. This file lists everything in `docs/` 
 
 - [SwingVantage — Brand Guide](brand/BRAND_GUIDE.md) — This is the short rulebook for how SwingVantage should look and sound. If you're
 - [SwingVantage — Rebrand Owner Checklist](brand/REBRAND_OWNER_CHECKLIST.md) — The codebase is now fully SwingVantage. But a brand also lives in places code can't
+
+## docs/connector-os/
+
+- [ConnectorOS — Architecture](connector-os/architecture.md) — ConnectorOS is one coherent operating layer over the connectors SwingVantage
+- [ConnectorOS — Environment Variables](connector-os/env-vars.md) — All ConnectorOS env vars are optional and OFF by default (keyless-first). A var
+- [ConnectorOS — Event Taxonomy](connector-os/event-taxonomy.md) — Single source of truth: packages/core/src/analytics/events.ts (ANALYTICSEVENTS).
+- [ConnectorOS — Figma MCP (design-truth bridge)](connector-os/figma-mcp.md) — The Figma MCP server lets an MCP client (Claude Code, the desktop app, IDE
+- [ConnectorOS — Implementation Roadmap](connector-os/implementation-roadmap.md) — Staged so the minimum viable connector stack lands first and paid/account-bound
+- [ConnectorOS — Privacy & Data Retention](connector-os/privacy-and-data-retention.md) — SwingVantage is privacy-forward with a junior-athlete audience. Every connector must
+- [ConnectorOS — Repository Audit (Phase 0)](connector-os/audit.md) — ---
+- [ConnectorOS — SEO / AEO / GEO & Indexing](connector-os/seo-indexing.md) — SwingVantage already has a strong technical-SEO base: a curated, self-maintaining
+
+## docs/maintenance/
+
+- [Branch / worktree / remote cleanup — 2026-06-10](maintenance/branch-cleanup-2026-06-10.md) — A governance cleanup of merged and redundant Git refs, run by an interactive agent with
+
+## docs/plans/
+
+- [Live-DB smoke test — Player Experience Overhaul](plans/player-experience-overhaul/SMOKE-TEST.md) — Run this against a real Supabase project (the parts unit tests can't exercise: RLS policies,
+- [Player Experience Overhaul — Delivery Report (WS-13)](plans/player-experience-overhaul/DELIVERY-REPORT.md) — Branch claude/busy-pascal-5cteca · PR #80 → master. Delivered 12 of 13 workstreams
+- [Player Experience Overhaul — Master Plan](plans/player-experience-overhaul/README.md) — This directory breaks one giant request into 13 self-contained workstreams that can
+- [Player Experience Overhaul — PROGRESS & HANDOFF](plans/player-experience-overhaul/PROGRESS.md) — Branch: claude/busy-pascal-5cteca (all work pushed). Open PR: claude/busy-pascal-5cteca → master.
+- [WS-01 — Fix Today data overload (focused, capped Today)](plans/player-experience-overhaul/WS-01-today-focus.md) — - WS-04 (player profile) for profile completion + archetype + skill level.
+- [WS-02 — Dashboard as a premium player-selection screen](plans/player-experience-overhaul/WS-02-dashboard-player-card.md) — - WS-04 (player profile) — archetype, strengths, focus, confidence, skill level.
+- [WS-03 — Auto-generated athlete skill tree](plans/player-experience-overhaul/WS-03-skill-tree.md) — - WS-08 (data model): skilltreenodes table + types + shared enums (SkillNodeStatus).
+- [WS-04 — Player profile as the organized intelligence hub](plans/player-experience-overhaul/WS-04-player-profile-hub.md) — - WS-08 (data model): playerprofiles table + types in apps/web/src/lib/supabase.ts.
+- [WS-05 — Secure friends / social foundation](plans/player-experience-overhaul/WS-05-friends-foundation.md) — - WS-08 (data model) must land first: it provides the friendships table, the
+- [WS-06 — Upload-for-friend video workflow](plans/player-experience-overhaul/WS-06-upload-for-friend.md) — - WS-05 (friends): depends on apps/web/src/lib/friends/authz.ts
+- [WS-07 — Athlete journey + wire everything together (capstone)](plans/player-experience-overhaul/WS-07-journey-integration.md) — - Runs after WS-01..WS-06 land (or as they land). This is the integration capstone that
+- [WS-08 — Data model additions & migrations (FOUNDATION)](plans/player-experience-overhaul/WS-08-data-model.md) — - Work in your own worktree: npm run wt create data-model → cd ../swiq-agents/data-model → npm install.
+- [WS-09 — Services / components integration notes](plans/player-experience-overhaul/INTEGRATION-NOTES.md) — Cross-cutting hygiene record for the Player Experience Overhaul. Confirms the shared
+- [WS-09 — Shared services/components hygiene (cross-cutting)](plans/player-experience-overhaul/WS-09-services-components.md) — This workstream is a living guide + reviewer, not a big feature drop. Its job is to prevent
+- [WS-10 — Analytics events (foundation-ish, cross-cutting)](plans/player-experience-overhaul/WS-10-analytics.md) — Owns packages/core/src/analytics/events.ts. Lands the full set of new event names early
+- [WS-11 — Production-readiness (authz, privacy, a11y, states)](plans/player-experience-overhaul/WS-11-production-readiness.md) — Hardening + audit pass over WS-01..WS-08. Run continuously as a checklist and as a focused
+- [WS-11 — Production-readiness audit](plans/player-experience-overhaul/PROD-READINESS-AUDIT.md) — Audit of the Player Experience Overhaul (Waves 1–4 + WS-07). Evidence captured 2026-06-13 on
+- [WS-12 — Acceptance-criteria verification](plans/player-experience-overhaul/ACCEPTANCE-REPORT.md) — Each criterion from the original request, with status + evidence. Verified 2026-06-13 on
+- [WS-12 — Acceptance-criteria verification (closeout)](plans/player-experience-overhaul/WS-12-acceptance-qa.md) — - Worktree: npm run wt create acceptance-qa → cd ../swiq-agents/acceptance-qa → npm install.
+- [WS-13 — Final delivery report (closeout)](plans/player-experience-overhaul/WS-13-final-report.md) — - Read-only-ish: this WS writes documentation, not features. Worktree optional
+
+## docs/reliability-os/
+
+- [ReliabilityOS — Founder Operating Guide](reliability-os/founder-guide.md) — ReliabilityOS is your operational-health command center, at /admin/reliability.
 
 ## docs/security/
 
@@ -139,3 +207,12 @@ _121 documents · regenerated 2026-06-09. This file lists everything in `docs/` 
 - [Technical SEO Architecture — SwingVantage](seo/technical-seo-architecture.md) — How crawlability, canonicalization, sitemaps, and structured data are wired, and
 - [Tiered Indexation Strategy — SwingVantage](seo/tiered-indexation-strategy.md) — Submit pages to Google in tiers so crawl equity flows to the strongest pages
 - [Weekly GSC Monitoring — SwingVantage (owner)](seo/weekly-gsc-monitoring.md) — A 15-minute weekly pass in Google Search Console. Do it the same day each week so
+
+## docs/system-audit/
+
+- [SwingVantage — Video Analysis / Plans / Dashboards System Audit](system-audit/video-analysis-dashboard-plan-audit.md) — Read-only diagnostic audit (4 parallel subsystem investigations), then targeted fixes.
+
+## docs/uiux-master-rebuild/
+
+- [Admin-shell audit](uiux-master-rebuild/admin-shell-audit.md) — Inventory of every /admin/ route against the admin-shell contract: registered
+- [Homepage conversion audit (#1 Phase 5)](uiux-master-rebuild/homepage-conversion-audit.md) — | # | Conversion section | On the page? | Where |

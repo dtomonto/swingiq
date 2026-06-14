@@ -6,10 +6,11 @@ import { IntentPicker } from '@/components/intent/IntentPicker';
 import { FirstWeekPlanCard } from '@/components/onboarding/FirstWeekPlanCard';
 import { FoundingProgressNudge } from '@/components/founding/FoundingProgressNudge';
 import { TodaysTasks } from '@/components/agi/TodaysTasks';
+import { DashboardPlayerCard } from '@/components/dashboard/DashboardPlayerCard';
 import { useSport } from '@/contexts/SportContext';
 
 export default function DashboardPage() {
-  const { isGolf } = useSport();
+  const { isGolf, activeSport } = useSport();
 
   // These render INSIDE the dashboard, immediately under the "Welcome back"
   // greeting — so the personal greeting leads, with Founding-Member progress
@@ -17,6 +18,9 @@ export default function DashboardPage() {
   // first-week plan. Each self-hides when not relevant.
   const topNudges = (
     <>
+      {/* Premium player-selection card — archetype, stage, confidence,
+          skill-tree snapshot. Leads the dashboard for all sports. */}
+      <DashboardPlayerCard sport={activeSport} />
       {/* Personal Founding-Member progress (profile + sessions). Self-hides
           once qualified or when the campaign is full. */}
       <FoundingProgressNudge />

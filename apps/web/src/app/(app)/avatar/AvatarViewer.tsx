@@ -139,8 +139,8 @@ function VideoAvatarView({ session }: { session: MotionSession }) {
       <div className="flex items-start gap-2 p-3 bg-warning/10 border border-warning/30 rounded-lg mb-5">
         <Info size={16} className="text-warning shrink-0 mt-0.5" />
         <p className="text-xs text-warning">
-          <strong>Estimated 3D reconstruction.</strong> This avatar is built from on-device pose
-          detection on your video&apos;s frames. Single-camera depth is an estimate, not a lab-grade
+          <strong>Estimated 3D.</strong> This avatar is built on your device from your video&apos;s
+          frames. Single-camera depth is an estimate, not a lab-grade
           measurement — orbit, zoom, and scrub to inspect your motion.
         </p>
       </div>

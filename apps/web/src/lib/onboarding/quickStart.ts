@@ -20,6 +20,8 @@
 
 import type { AgentConfidence } from '@/lib/agents';
 import type { LeadSource } from '@/lib/email/capture';
+import { analyzeDeterministicSession } from '@/lib/intelligence/diagnose';
+import type { DeterministicDiagnosis, SkillLevel } from '@/lib/intelligence/diagnose-types';
 
 // ── Identity ──────────────────────────────────────────────────
 
@@ -463,12 +465,32 @@ export interface QuickResult {
   retestDate: string;
   /** Optional, tone-tailored note for parents. */
   parentNote?: string;
+  /**
+   * The deterministic engine's ranked, explainable read of the same reported
+   * miss — likely cause(s), evidence, what would change it, and whether a deeper
+   * look is worth it. Present only when the engine confidently matched a curated
+   * cause (otherwise the curated outcome copy above stands on its own).
+   */
+  diagnosis?: DeterministicDiagnosis;
+  /**
+   * The inputs used to produce `diagnosis`, so the UI can RE-RUN the engine with
+   * extra intake answers and sharpen the read before any AI. Present only when
+   * `diagnosis` is.
+   */
+  engineSeed?: { sport: OnboardingSportId; issue: string; symptoms: string[]; skillLevel: SkillLevel };
 }
 
 const SKILL_LABEL: Record<StartSkillLevel, string> = {
   new: 'new to it',
   developing: 'still developing',
   experienced: 'experienced',
+};
+
+/** Map the onboarding skill buckets onto the engine's skill levels. */
+const SKILL_TO_ENGINE: Record<StartSkillLevel, SkillLevel> = {
+  new: 'beginner',
+  developing: 'intermediate',
+  experienced: 'advanced',
 };
 
 /** ISO date string N days from `from` (default now). */
@@ -523,6 +545,19 @@ export function buildQuickResult(args: {
         'Avoid stacking corrections — one focus at a time. If anything causes pain, stop and check with a qualified coach or professional.'
       : undefined;
 
+  // Run the token-free deterministic engine over the same reported miss to add
+  // a ranked, explainable read (likely cause, evidence, what would change it).
+  // We only surface it when it confidently matched a curated cause — otherwise
+  // the curated outcome copy above already stands on its own honestly.
+  const engineSeed = {
+    sport: args.sportId,
+    issue: args.symptom,
+    symptoms: [outcome.label],
+    skillLevel: SKILL_TO_ENGINE[args.skill],
+  };
+  const engineRead = analyzeDeterministicSession(engineSeed);
+  const diagnosis = engineRead.primary.generated ? undefined : engineRead;
+
   return {
     sportId: sport.id,
     sportLabel: sport.label,
@@ -539,5 +574,7 @@ export function buildQuickResult(args: {
     whatImproves,
     retestDate: addDaysISO(7),
     parentNote,
+    diagnosis,
+    engineSeed: diagnosis ? engineSeed : undefined,
   };
 }

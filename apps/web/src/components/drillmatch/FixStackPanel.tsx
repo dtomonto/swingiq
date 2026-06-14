@@ -12,7 +12,7 @@
 // fabricate a fix — it points the user to a real analysis.
 // ============================================================
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import { Sparkles, Compass } from 'lucide-react';
 import { Card, CardBody } from '@/components/ui/Card';
@@ -92,6 +92,29 @@ export function FixStackPanel() {
         confidence: fixStack.confidence.level,
       });
     }
+  }, [fixStack]);
+
+  // Feed the First-Party Intelligence OS: report the deterministic Fix Stack
+  // (drill + retest) so recurring fixes dedupe into pattern memories and become
+  // reusable first-party knowledge. Fire-and-forget, deduped per (sport, fault,
+  // drill), error-swallowed — never blocks or changes what the athlete sees.
+  const observedRef = useRef<string | null>(null);
+  useEffect(() => {
+    if (!fixStack) return;
+    const { sport: fsSport, faultId, faultName, drill, retest } = fixStack;
+    const sig = `${fsSport}|${faultId}|${drill.id}`;
+    if (observedRef.current === sig) return;
+    observedRef.current = sig;
+    const intent = `${fsSport}: ${faultName}`;
+    const observe = (kind: 'drill' | 'retest', recommendation: string, feature: string) =>
+      void fetch('/api/intelligence-os/observe', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ kind, intent, recommendation, sport: fsSport, feature }),
+        keepalive: true,
+      }).catch(() => {});
+    observe('drill', `${drill.name} — ${drill.why}`, 'fix-stack');
+    observe('retest', `${retest.whatToReassess} — ${retest.improvedWhen}`, 'fix-stack-retest');
   }, [fixStack]);
 
   if (!ready) return <Skeleton />;

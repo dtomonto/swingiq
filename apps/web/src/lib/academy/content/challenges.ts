@@ -52,7 +52,7 @@ export const CHALLENGES: Challenge[] = [
       'Explained that only sampled frames are sent and the full video stays on device',
       'Gave a clear next step and an escalation path if input was fine',
     ],
-    sampleSolution: 'Empathize, then guide: "Sorry for the frustration! Nine times out of ten this is the camera angle. Could you re-record side-on with the whole body in frame and good lighting? Your full video stays on your device — only a few still frames are analyzed. If it still looks off after a clean re-record, reply here and I’ll escalate with your example."',
+    sampleSolution: 'Empathize, then guide: "Sorry for the frustration! Nine times out of ten this is the camera angle. Could you re-record side-on with the whole body in frame and good lighting? Your full video stays on your device — only a small sample of your swing is analyzed. If it still looks off after a clean re-record, reply here and I’ll escalate with your example."',
   },
   {
     id: 'ch-coach-demo', title: 'Run a product demo for a coach persona', kind: 'roleplay',

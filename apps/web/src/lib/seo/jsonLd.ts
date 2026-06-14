@@ -63,6 +63,13 @@ export interface ArticleInput {
   path: string;
   datePublished?: string;
   dateModified?: string;
+  /**
+   * CSS selectors for the page regions an answer engine / voice assistant may
+   * read aloud (schema.org SpeakableSpecification). Point these at the H1 and
+   * the on-page direct-answer lead — the AEO/GEO "citable" block. Only emitted
+   * when provided, and only ever reference content that is actually on the page.
+   */
+  speakableSelectors?: string[];
 }
 
 export function articleSchema(input: ArticleInput): Json {
@@ -76,6 +83,14 @@ export function articleSchema(input: ArticleInput): Json {
     publisher: { '@id': ORG_ID },
     ...(input.datePublished ? { datePublished: input.datePublished } : {}),
     ...(input.dateModified ? { dateModified: input.dateModified } : {}),
+    ...(input.speakableSelectors && input.speakableSelectors.length
+      ? {
+          speakable: {
+            '@type': 'SpeakableSpecification',
+            cssSelector: input.speakableSelectors,
+          },
+        }
+      : {}),
   };
 }
 

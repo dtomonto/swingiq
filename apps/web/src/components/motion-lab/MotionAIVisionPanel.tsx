@@ -72,7 +72,7 @@ export function MotionAIVisionPanel({ file, capture, sportLabel, emoji }: Props)
           <Loader2 className="w-7 h-7 animate-spin text-primary mx-auto mb-2" />
           <h3 className="text-base font-semibold text-foreground">Running AI vision review</h3>
           <p className="text-sm text-muted-foreground mt-1">
-            Sampling still frames and asking an AI vision model what it can see. You can keep using
+            Taking a closer look at your swing with AI vision. You can keep using
             Motion Lab — this finishes in the background.
           </p>
         </div>
@@ -120,8 +120,8 @@ export function MotionAIVisionPanel({ file, capture, sportLabel, emoji }: Props)
         </div>
         <p className="text-sm text-muted-foreground leading-relaxed">
           {emoji && <span className="mr-1">{emoji}</span>}
-          On top of the on-device 3D reconstruction, get a second read from an AI vision model — it
-          samples still frames across your {sportLabel.toLowerCase()} and describes what it can
+          On top of the on-device 3D analysis, get a second read from AI vision — it
+          reviews your {sportLabel.toLowerCase()} and describes what it can
           actually see, with honest confidence and a phase-by-phase priority list.
         </p>
 
@@ -139,10 +139,9 @@ export function MotionAIVisionPanel({ file, capture, sportLabel, emoji }: Props)
         <div className="flex items-start gap-2 rounded-lg bg-card border border-border p-2.5">
           <ShieldCheck className="w-4 h-4 text-primary shrink-0 mt-0.5" />
           <p className="text-xs text-muted-foreground leading-relaxed">
-            A few sampled still frames are sent to a third-party AI provider (such as Google or
-            OpenAI) and processed in that provider&apos;s cloud. Your full video is never uploaded,
-            and the frames are not stored. Everything else in Motion Lab stays entirely on your
-            device.
+            A small sample of your swing is sent to a third-party AI provider and processed in that
+            provider&apos;s cloud. Your full video is never uploaded, and it is not stored.
+            Everything else in Motion Lab stays entirely on your device.
           </p>
         </div>
       </CardBody>

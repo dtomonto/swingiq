@@ -1,10 +1,11 @@
 import Link from 'next/link';
-import { ArrowRight, Lock, UserX, Zap, type LucideIcon } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { designV2EnabledFromEnv } from '@/lib/design-v2';
+import { TrustChips, DEFAULT_TRUST_CHIPS, type TrustChip } from '@/components/marketing/TrustChips';
 
 type Cta = { label: string; href: string };
-type Chip = { icon: LucideIcon; label: string };
+type Chip = TrustChip;
 
 /**
  * The "Dark Performance" (B) hero for the per-sport SEO landing pages
@@ -20,11 +21,7 @@ type Chip = { icon: LucideIcon; label: string };
  * sport color clearing contrast as TEXT on the dark background.
  */
 
-const DEFAULT_CHIPS: Chip[] = [
-  { icon: UserX, label: 'No account required' },
-  { icon: Zap, label: '100% free' },
-  { icon: Lock, label: 'Private by default' },
-];
+const DEFAULT_CHIPS: Chip[] = DEFAULT_TRUST_CHIPS;
 
 export function SportAnalysisHero({
   accentVar,
@@ -120,16 +117,7 @@ export function SportAnalysisHero({
           </Link>
         </div>
 
-        {chips.length > 0 && (
-          <ul className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
-            {chips.map(({ icon: Icon, label }) => (
-              <li key={label} className="flex items-center gap-2">
-                <Icon size={16} className="shrink-0 text-link" aria-hidden="true" />
-                {label}
-              </li>
-            ))}
-          </ul>
-        )}
+        <TrustChips chips={chips} align="center" />
       </div>
     </header>
   );

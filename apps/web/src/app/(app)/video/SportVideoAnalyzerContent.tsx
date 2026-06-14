@@ -221,8 +221,8 @@ export function SportVideoAnalyzerContent() {
           <div className="flex items-start gap-2">
             <Info className="w-4 h-4 text-accent-secondary shrink-0 mt-0.5" />
             <p className="text-xs text-accent-secondary">
-              <strong>Real AI video review.</strong> SwingVantage samples still frames across your whole
-              swing and an AI vision model assesses what it can actually see — with an honest
+              <strong>Real AI video review.</strong> SwingVantage reviews your whole
+              swing with AI vision and assesses what it can actually see — with an honest
               confidence level and video-quality notes.
             </p>
           </div>
@@ -327,9 +327,9 @@ export function SportVideoAnalyzerContent() {
         </Button>
 
         <p className="text-center text-xs text-muted-foreground">
-          To analyze your swing, a few sampled still frames are sent to a third-party AI provider
-          (such as Google or OpenAI) and processed in that provider&apos;s cloud. Your full video is
-          never uploaded, and SwingVantage does not store the frames. For analysis that stays
+          To analyze your swing, a small sample of your swing is sent to a third-party AI provider
+          and processed in that provider&apos;s cloud. Your full video is
+          never uploaded, and SwingVantage does not store it. For analysis that stays
           entirely on your device, use Motion Lab.
         </p>
       </div>

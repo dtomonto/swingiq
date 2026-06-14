@@ -154,6 +154,9 @@ const PUBLIC_PREFIXES = [
   // Intelligence OS retention sweep cron — same rationale; the route
   // self-protects with CRON_SECRET. See api/intelligence-os/cron.
   '/api/intelligence-os/cron',
+  // Outbound re-engagement cron — same rationale; the route self-protects with
+  // CRON_SECRET and is a no-op until outbound is configured. See api/reengage/cron.
+  '/api/reengage/cron',
   // External-auditor packet — an unauthenticated auditor (e.g. ChatGPT) must
   // reach it without a Supabase session; the route self-protects with
   // AUDIT_ACCESS_TOKEN and returns 404 when that token is unset (fully off
