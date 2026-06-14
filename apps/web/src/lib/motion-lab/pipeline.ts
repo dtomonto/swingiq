@@ -13,7 +13,7 @@
 // ============================================================
 
 import { extractSwingFrames } from '@/lib/frame-extraction';
-import { detectPoses, type PoseDetectInput, type PoseModelQuality } from '@/lib/pose';
+import { detectPoses, getPoseEngineStatus, type PoseDetectInput, type PoseModelQuality } from '@/lib/pose';
 import { liftAvailable, enrichFrameWithLift, rigPreset, syncViews, selfCalibrate, type RigPreset } from '@/lib/pose3d';
 import type { ViewLandmarks } from './multiview';
 import type {
@@ -138,6 +138,18 @@ export async function runMotionAnalysis(
   const nominalFps =
     options.estimatedFps && options.estimatedFps > 0 ? Math.round(options.estimatedFps) : 30;
 
+  // No frames means one of two very different things. Ask the (memoized) engine
+  // whether it ever loaded so the UI can say WHY — "couldn't load" (offline /
+  // blocked assets) vs "no person found" (re-film) — instead of one ambiguous
+  // message. Reuses the cached landmarker, so this triggers no extra download.
+  let emptyReason: MotionPoseTrack['emptyReason'];
+  let emptyDetail: string | null | undefined;
+  if (frames.length === 0) {
+    const status = await getPoseEngineStatus(modelQuality);
+    emptyReason = status.available ? 'no-pose-found' : 'engine-unavailable';
+    emptyDetail = status.detail;
+  }
+
   let track: MotionPoseTrack = {
     schema: 'mediapipe_pose_33',
     fps: nominalFps,
@@ -145,6 +157,8 @@ export async function runMotionAnalysis(
     attemptedFrames: extraction.frames.length,
     trackingConfidence: visCount > 0 ? +(visSum / visCount).toFixed(3) : 0,
     basis: frames.length > 0 ? 'estimated' : 'placeholder',
+    emptyReason,
+    emptyDetail,
   };
 
   // 3) Reconstruct / stabilise the 3D estimate (temporal smoothing).

@@ -70,6 +70,16 @@ export interface MotionPoseTrack {
   /** Mean landmark visibility across the track (0–1). */
   trackingConfidence: number;
   basis: MotionBasis;
+  /**
+   * When `frames` is empty, WHY — so the UI can show honest, actionable copy:
+   *   • 'engine-unavailable' — the on-device engine couldn't load (offline /
+   *     blocked assets / unsupported device); retry once online.
+   *   • 'no-pose-found'      — the engine ran but detected no person; re-film.
+   * Absent whenever frames exist.
+   */
+  emptyReason?: 'engine-unavailable' | 'no-pose-found';
+  /** Short technical detail for an 'engine-unavailable' result (diagnostics). */
+  emptyDetail?: string | null;
 }
 
 // ── Camera-quality gate ───────────────────────────────────────
