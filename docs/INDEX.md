@@ -2,7 +2,7 @@
 
 # SwingVantage docs index
 
-_179 documents · regenerated 2026-06-14. This file lists everything in `docs/` so it stays current as docs are added._
+_180 documents · regenerated 2026-06-14. This file lists everything in `docs/` so it stays current as docs are added._
 
 ## docs/
 
@@ -55,6 +55,7 @@ _179 documents · regenerated 2026-06-14. This file lists everything in `docs/` 
 - [Monetization Ethics & No-Dark-Pattern Rules](MONETIZATION_ETHICS.md) — This is the standard for §10 of FIVEPERSONAMASTERPLAN.md. It is policy + a map of what already enforces it — most of it is already implemented.
 - [Motion Lab — 3D Motion Analysis](motion-lab.md) — Motion Lab is a new page in SwingVantage where someone can upload (or record) a short
 - [Multilingual Marketing — Self-Maintaining Localization](I18N_LOCALIZATION.md) — SwingVantage's public pages used to be English-only. This system lets them appear
+- [Outbound re-engagement reminders](OUTBOUND_REMINDERS.md) — Last updated: 2026-06-13
 - [Performance & Core Web Vitals](PERFORMANCE.md) — Audit: 2026-06-09 (Sprint 2 of the growth program).
 - [Phase 1 — UX Foundations (clutter, onboarding memory, sign-out)](PHASE_1_UX_FOUNDATIONS.md) — After signing in, the app felt busy: several cards and pop-ups competed for
 - [Phase 10 — Golf Grading, Player Profiles & Benchmarks](PHASE_10_GRADING.md) — SwingVantage now grades your golf against your own level, not against tour
