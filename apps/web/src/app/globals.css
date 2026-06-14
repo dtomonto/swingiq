@@ -165,6 +165,12 @@
   --font-sans: Inter, system-ui, sans-serif;
   --font-mono: JetBrains Mono, Fira Code, monospace;
 
+  /* Button corner radius (utility: `rounded-button`). Tokenized so a theme — or
+     Figma — can set the button radius personality in ONE place. Defaults to the
+     prior `rounded-lg` (0.5rem), so it's a no-op render today; override
+     `--button-radius` per theme to retune. */
+  --radius-button: var(--button-radius, 0.5rem);
+
   --animate-fade-in: fadeIn 0.3s ease-in-out;
   --animate-slide-up: slideUp 0.3s ease-out;
   --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
@@ -1316,6 +1322,8 @@
     --surface-stage-panel: 220 49% 8%;
     --surface-stage-foreground: 214 32% 91%;
     --surface-stage-muted: 215 20% 65%;
+    /* Button radius (consumed via `rounded-button`). Default = prior rounded-lg. */
+    --button-radius: 0.5rem;
 
     /* Text roles */
     --text-primary: var(--foreground);
