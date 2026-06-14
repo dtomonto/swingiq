@@ -67,10 +67,16 @@ interface Motion3DViewerProps {
   ghost?: MotionPoseTrack | null;
   /** Estimated implement (club/bat/racket) path overlay. */
   implement?: ObjectTrackingResult | null;
+  /**
+   * Phase selected in the external "Motion Phases" timeline. When it changes the
+   * viewer jumps the scrubber to that phase's representative frame and pauses, so
+   * picking a phase lands on that part of the swing.
+   */
+  activePhaseKey?: string | null;
   className?: string;
 }
 
-export function Motion3DViewer({ track, phases, accent = '#22C55E', ghost = null, implement = null, className }: Motion3DViewerProps) {
+export function Motion3DViewer({ track, phases, accent = '#22C55E', ghost = null, implement = null, activePhaseKey = null, className }: Motion3DViewerProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
   const cursorRef = useRef(0);
@@ -346,6 +352,30 @@ export function Motion3DViewer({ track, phases, accent = '#22C55E', ghost = null
   // redraw on static control changes when paused
   useEffect(() => { if (!playing) draw(); }, [draw, playing, frame]);
 
+  // Jump the scrubber to a specific frame (and pause). Shared by frame-stepping
+  // and external phase selection so both land on an exact frame the same way.
+  const seekToFrame = useCallback((target: number) => {
+    if (empty) return;
+    setPlaying(false);
+    const clamped = Math.max(0, Math.min(frameCount - 1, target));
+    cursorRef.current = clamped;
+    setFrame(Math.round(clamped));
+  }, [empty, frameCount]);
+
+  // External "Motion Phases" timeline → jump the scrubber to the picked phase's
+  // representative frame and pause on it, so each phase connects to that part of
+  // the swing.
+  useEffect(() => {
+    if (!activePhaseKey || empty) return;
+    const p = phases?.find((ph) => ph.key === activePhaseKey);
+    if (!p) return;
+    // Reflect the externally-selected phase into the transport (pause + playhead).
+    // State is required to update the controls; the effect runs only on an explicit
+    // phase pick and sets nothing it depends on, so there is no cascading loop.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    seekToFrame(p.keyFrame);
+  }, [activePhaseKey, phases, empty, seekToFrame]);
+
   // ── Pointer orbit ─────────────────────────────────────────
   const onPointerDown = (e: React.PointerEvent) => {
     dragRef.current = { x: e.clientX, y: e.clientY };
@@ -363,12 +393,10 @@ export function Motion3DViewer({ track, phases, accent = '#22C55E', ghost = null
 
   const setView = (v: ViewPreset) => { setYaw(PRESETS[v].yaw); setPitch(PRESETS[v].pitch); };
   const stepFrame = (dir: number) => {
-    setPlaying(false);
     let c = Math.round(cursorRef.current) + dir;
     if (c < 0) c = frameCount - 1;
     if (c > frameCount - 1) c = 0;
-    cursorRef.current = c;
-    setFrame(c);
+    seekToFrame(c);
   };
   const scrubToClientX = (clientX: number) => {
     const el = scrubRef.current;

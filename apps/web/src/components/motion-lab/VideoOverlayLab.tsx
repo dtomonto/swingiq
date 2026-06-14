@@ -92,10 +92,16 @@ interface Props {
   sport: SportId;
   accent?: string;
   className?: string;
+  /**
+   * Phase selected in the external "Motion Phases" timeline. When it changes the
+   * player seeks to that phase's representative frame, so picking a phase jumps
+   * the clip to that part of the swing.
+   */
+  activePhaseKey?: string | null;
 }
 
 export function VideoOverlayLab({
-  videoUrl, track, phases = [], objectTracking = null, handedness, accent = '#22C55E', className,
+  videoUrl, track, phases = [], objectTracking = null, handedness, accent = '#22C55E', className, activePhaseKey = null,
 }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -337,6 +343,15 @@ export function VideoOverlayLab({
     setPlaying(false);
     video.currentTime = Math.max(0, Math.min(video.duration || seconds, seconds));
   }, []);
+
+  // External "Motion Phases" timeline → seek the clip to the picked phase's
+  // representative frame so each phase connects to that part of the swing.
+  useEffect(() => {
+    if (!activePhaseKey || empty) return;
+    const p = phases.find((ph) => ph.key === activePhaseKey);
+    if (!p) return;
+    seekTo((frames[p.keyFrame]?.tMs ?? p.startMs) / 1000);
+  }, [activePhaseKey, phases, frames, empty, seekTo]);
 
   const stepFrame = useCallback((dir: 1 | -1) => {
     if (empty) return;
