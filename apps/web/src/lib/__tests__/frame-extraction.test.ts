@@ -4,6 +4,7 @@ import {
   motionProfile,
   findSwingWindow,
   selectFrameIndices,
+  pickSharpestSpread,
   grayStats,
 } from '../frame-extraction';
 
@@ -121,5 +122,40 @@ describe('grayStats', () => {
 
   test('empty buffer is safe', () => {
     expect(grayStats([], 0, 0)).toEqual({ brightness: 0, contrast: 0, sharpness: 0 });
+  });
+});
+
+describe('pickSharpestSpread', () => {
+  test('picks the sharpest candidate in each temporal bin', () => {
+    // 6 candidates, 3 bins → [0,1],[2,3],[4,5]; sharpest in each = 1, 2, 5.
+    const sharp = [0.1, 0.9, 0.8, 0.2, 0.3, 0.7];
+    expect(pickSharpestSpread([0, 1, 2, 3, 4, 5], 3, sharp)).toEqual([1, 2, 5]);
+  });
+
+  test('preserves temporal order and bin spread', () => {
+    const sharp = [0.5, 0.5, 0.5, 0.5, 0.5, 0.5]; // all equal → first of each bin
+    const out = pickSharpestSpread([0, 1, 2, 3, 4, 5], 3, sharp);
+    expect(out).toEqual([0, 2, 4]);
+  });
+
+  test('k >= length returns everything; empty is safe', () => {
+    expect(pickSharpestSpread([0, 1, 2], 5, [0.1, 0.2, 0.3])).toEqual([0, 1, 2]);
+    expect(pickSharpestSpread([], 3, [])).toEqual([]);
+  });
+});
+
+describe('selectFrameIndices with sharpness', () => {
+  test('without sharpness, behaviour is unchanged (even sampling)', () => {
+    expect(selectFrameIndices(6, 3, null)).toEqual(selectFrameIndices(6, 3, null, undefined));
+  });
+
+  test('with sharpness, the window keeps sharper frames over blurry ones', () => {
+    // 10 candidates; window [2,7]; frame 5 is razor-sharp, neighbours blurry.
+    const sharp = [0.5, 0.5, 0.1, 0.1, 0.1, 0.95, 0.1, 0.1, 0.5, 0.5];
+    const idx = selectFrameIndices(10, 5, { start: 2, end: 7 }, sharp);
+    expect(idx).toContain(5); // the sharp frame is kept
+    expect(idx).toContain(0); // setup retained
+    expect(idx).toContain(9); // finish retained
+    expect(new Set(idx).size).toBe(idx.length);
   });
 });

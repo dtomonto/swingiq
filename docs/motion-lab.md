@@ -180,8 +180,15 @@ pipeline now defends against that **on-device**, without ever fabricating data:
    detection**, adopting the retry **only when it recovers more real poses**.
    Enhancement changes whether MediaPipe can *see* the athlete — it never moves
    or invents landmarks (the original frames are kept; `modelVersion` is tagged
-   `+enhanced`). We deliberately do **not** aggressively sharpen (that can
-   hallucinate edges and pull landmarks off the body).
+   `+enhanced`). For soft/blurred clips the retry also applies a **mild, bounded
+   unsharp** (`applyUnsharp`, low amount + clamped) — enough to firm up edges,
+   too weak to hallucinate them.
+2b. **Blur-aware frame selection** — before detection even runs, `pickSharpestSpread`
+   keeps the **sharpest** candidate in each temporal segment (one per bin, so the
+   timing/spread is preserved) instead of a fixed position. Selection beats
+   repair: the crispest available frames are analysed, with zero pixel
+   manipulation. Falls back to even sampling when sharpness can't be measured
+   (and the multi-view path keeps uniform sampling for cross-view correspondence).
 3. **Primary-athlete selection + cross-frame tracking** — `detectPeople` returns
    all people per frame, and `trackPrimaryAthlete` (`lib/pose/athlete-tracker.ts`)
    maintains stable track identities across frames (gap-tolerant greedy

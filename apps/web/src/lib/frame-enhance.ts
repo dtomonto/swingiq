@@ -11,13 +11,13 @@
 // HONESTY: enhancement only changes whether the detector can SEE the
 // athlete — it never moves or invents landmarks. The original frames are
 // always kept, and the pipeline only adopts an enhanced pass when it
-// recovers MORE real poses. We deliberately do NOT sharpen aggressively
-// (the brief's "avoid over-processing" rule): an unsharp pass can hallucinate
-// edges that pull landmarks off the body. The plan records a `sharpen`
-// intent for telemetry, but the applied transform is tone-only.
+// recovers MORE real poses (keep-if-better). Sharpening, when the plan flags a
+// soft/blurred clip, is a MILD, BOUNDED unsharp (low amount, clamped) — enough
+// to firm up soft edges, deliberately too weak to hallucinate edges that pull
+// landmarks off the body (the brief's "avoid over-processing" rule).
 //
-// The pure planning core (no DOM) is unit-tested; the canvas applier is a
-// best-effort browser helper that returns the original frame on any failure.
+// The pure cores (planning + the unsharp math) are unit-tested; the canvas
+// applier is a best-effort browser helper that returns the original on failure.
 // ============================================================
 
 /** Normalized (0–1) luma statistics for one frame or an aggregate of frames. */
@@ -104,6 +104,45 @@ export function buildToneLut(plan: Pick<EnhancementPlan, 'gamma' | 'blackPoint' 
 }
 
 /**
+ * Bounded unsharp mask over an RGBA pixel buffer, in place: each channel is
+ * pushed away from its 3×3 neighbourhood mean by `amount`. Low `amount` keeps it
+ * a gentle edge-firming pass, never an edge-fabricating one. Pure (no DOM) so it
+ * is unit-tested. No-op on tiny buffers or amount ≤ 0.
+ */
+export function applyUnsharp(
+  data: Uint8ClampedArray,
+  width: number,
+  height: number,
+  amount = 0.5,
+): void {
+  if (width <= 2 || height <= 2 || amount <= 0) return;
+  const orig = Uint8ClampedArray.from(data);
+  const at = (x: number, y: number): number => (y * width + x) * 4;
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      const i = at(x, y);
+      for (let c = 0; c < 3; c++) {
+        let sum = 0;
+        let n = 0;
+        for (let dy = -1; dy <= 1; dy++) {
+          const yy = y + dy;
+          if (yy < 0 || yy >= height) continue;
+          for (let dx = -1; dx <= 1; dx++) {
+            const xx = x + dx;
+            if (xx < 0 || xx >= width) continue;
+            sum += orig[at(xx, yy) + c];
+            n++;
+          }
+        }
+        const blur = sum / n;
+        const v = orig[i + c] + amount * (orig[i + c] - blur);
+        data[i + c] = v < 0 ? 0 : v > 255 ? 255 : v; // Uint8ClampedArray also clamps
+      }
+    }
+  }
+}
+
+/**
  * Apply an enhancement plan to a JPEG/PNG data URL in the browser and return a
  * new data URL. Best-effort: returns the ORIGINAL url unchanged when the DOM /
  * canvas is unavailable or anything fails — analysis must never break here.
@@ -135,6 +174,8 @@ export async function enhanceFrameDataUrl(dataUrl: string, plan: EnhancementPlan
       px[i + 2] = lut[px[i + 2]]; // B
       // alpha untouched
     }
+    // Mild, bounded edge-firming for soft/blurred clips (after tone mapping).
+    if (plan.sharpen) applyUnsharp(px, canvas.width, canvas.height, 0.5);
     ctx.putImageData(image, 0, 0);
     return canvas.toDataURL('image/jpeg', 0.82);
   } catch {

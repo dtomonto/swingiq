@@ -202,6 +202,34 @@ function pickEven(arr: number[], k: number): number[] {
   return [...new Set(out)];
 }
 
+/**
+ * Split `arr` (a time-ordered index list) into `k` contiguous bins and pick the
+ * SHARPEST candidate in each bin (by `sharpness[index]`). This preserves the
+ * temporal spread of even sampling — one frame per segment — while avoiding the
+ * blurriest frame in each segment, so motion blur near the strike doesn't poison
+ * the analysed frames. Pure; exercised directly in tests.
+ */
+export function pickSharpestSpread(arr: number[], k: number, sharpness: number[]): number[] {
+  if (k <= 0 || arr.length === 0) return [];
+  if (k >= arr.length) return arr.slice();
+  const out: number[] = [];
+  for (let bin = 0; bin < k; bin++) {
+    const lo = Math.floor((bin * arr.length) / k);
+    const hi = Math.floor(((bin + 1) * arr.length) / k); // exclusive
+    let best = arr[lo];
+    let bestS = sharpness[arr[lo]] ?? 0;
+    for (let j = lo + 1; j < hi; j++) {
+      const s = sharpness[arr[j]] ?? 0;
+      if (s > bestS) {
+        bestS = s;
+        best = arr[j];
+      }
+    }
+    out.push(best);
+  }
+  return [...new Set(out)];
+}
+
 function range(start: number, end: number): number[] {
   const out: number[] = [];
   for (let i = start; i <= end; i++) out.push(i);
@@ -212,25 +240,35 @@ function range(start: number, end: number): number[] {
  * Choose which of `n` scanned candidates to keep for analysis. When a swing
  * window is given, the budget concentrates inside it while always retaining a
  * setup (first) and finish (last) frame; otherwise it samples evenly.
+ *
+ * When per-candidate `sharpness` is supplied, each temporal segment keeps its
+ * SHARPEST candidate instead of a fixed position — same spread, fewer blurry
+ * frames. Without it, behaviour is unchanged (used by the multi-view path, which
+ * needs uniform sampling for cross-view correspondence).
+ *
  * Returns a sorted, unique list of candidate indices (length ≤ count).
  */
 export function selectFrameIndices(
   n: number,
   count: number,
   window: { start: number; end: number } | null,
+  sharpness?: number[],
 ): number[] {
   if (n <= 0) return [];
   if (count >= n) return range(0, n - 1);
 
-  if (!window) return pickEven(range(0, n - 1), count);
+  const pick = (arr: number[], k: number): number[] =>
+    sharpness ? pickSharpestSpread(arr, k, sharpness) : pickEven(arr, k);
+
+  if (!window) return pick(range(0, n - 1), count);
 
   const selected = new Set<number>([0, n - 1]);
   const inWindow = range(window.start, window.end).filter((i) => !selected.has(i));
-  for (const idx of pickEven(inWindow, count - selected.size)) selected.add(idx);
+  for (const idx of pick(inWindow, count - selected.size)) selected.add(idx);
 
-  // If the window was small, top up with evenly-spaced global frames.
+  // If the window was small, top up with the (sharpest) spread of global frames.
   if (selected.size < count) {
-    for (const idx of pickEven(range(0, n - 1), count)) {
+    for (const idx of pick(range(0, n - 1), count)) {
       if (selected.size >= count) break;
       selected.add(idx);
     }
@@ -431,7 +469,13 @@ export async function extractSwingFrames(
         ? findSwingWindow(motionProfile(candidates.map((c) => c.signature)))
         : null;
 
-    const keep = selectFrameIndices(candidates.length, count, window);
+    // Per-candidate sharpness biases selection toward the crispest frame in each
+    // temporal segment (only when every candidate has a readable signature).
+    const candidateSharpness =
+      signaturesUsable && candidates.every((c) => c.signature.length > 0)
+        ? candidates.map((c) => grayStats(c.signature).sharpness)
+        : undefined;
+    const keep = selectFrameIndices(candidates.length, count, window, candidateSharpness);
 
     const frames: ExtractedFrame[] = keep.map((candIdx, i) => {
       const c = candidates[candIdx];

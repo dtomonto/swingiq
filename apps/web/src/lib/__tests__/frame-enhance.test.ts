@@ -2,7 +2,7 @@
 // Tests for the frame-enhancement recovery layer (pure core).
 // ============================================================
 
-import { planEnhancement, buildToneLut, type GrayLumaStats } from '../frame-enhance';
+import { planEnhancement, buildToneLut, applyUnsharp, type GrayLumaStats } from '../frame-enhance';
 
 const stats = (over: Partial<GrayLumaStats>): GrayLumaStats => ({
   brightness: 0.5,
@@ -74,5 +74,56 @@ describe('buildToneLut', () => {
     expect(lut[200]).toBe(255);
     expect(lut[20]).toBe(0); // clamped below the black point
     expect(lut[230]).toBe(255); // clamped above the white point
+  });
+});
+
+describe('applyUnsharp', () => {
+  // Build a W×H RGBA buffer from a per-pixel gray value function.
+  const make = (w: number, h: number, val: (x: number, y: number) => number): Uint8ClampedArray => {
+    const data = new Uint8ClampedArray(w * h * 4);
+    for (let y = 0; y < h; y++) {
+      for (let x = 0; x < w; x++) {
+        const i = (y * w + x) * 4;
+        const v = val(x, y);
+        data[i] = v;
+        data[i + 1] = v;
+        data[i + 2] = v;
+        data[i + 3] = 255;
+      }
+    }
+    return data;
+  };
+
+  it('leaves a uniform image unchanged (nothing to sharpen)', () => {
+    const w = 5;
+    const h = 5;
+    const data = make(w, h, () => 120);
+    const before = Uint8ClampedArray.from(data);
+    applyUnsharp(data, w, h, 0.8);
+    expect(Array.from(data)).toEqual(Array.from(before));
+  });
+
+  it('increases contrast across an edge (edge firming)', () => {
+    const w = 6;
+    const h = 6;
+    // Left half dark (80), right half bright (160).
+    const data = make(w, h, (x) => (x < 3 ? 80 : 160));
+    const idx = (x: number, y: number) => (y * w + x) * 4;
+    const edgeDiffBefore = data[idx(3, 2)] - data[idx(2, 2)];
+    applyUnsharp(data, w, h, 1);
+    const edgeDiffAfter = data[idx(3, 2)] - data[idx(2, 2)];
+    expect(edgeDiffAfter).toBeGreaterThan(edgeDiffBefore);
+  });
+
+  it('is a no-op on tiny buffers or zero amount', () => {
+    const tiny = make(2, 2, () => 100);
+    const snap = Uint8ClampedArray.from(tiny);
+    applyUnsharp(tiny, 2, 2, 1);
+    expect(Array.from(tiny)).toEqual(Array.from(snap));
+
+    const data = make(5, 5, (x) => (x < 3 ? 80 : 160));
+    const snap2 = Uint8ClampedArray.from(data);
+    applyUnsharp(data, 5, 5, 0);
+    expect(Array.from(data)).toEqual(Array.from(snap2));
   });
 });

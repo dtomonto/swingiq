@@ -149,4 +149,8 @@ body track is stable); the cloud/semantic tier moved to last and is explicitly o
 - **2026-06-14 — Wave 2 L3 (done):** cross-frame athlete tracker (`lib/pose/athlete-tracker.ts`)
   with gap-tolerant greedy association; `detectPoses` now layers on a new `detectPeople`
   (all-people) call, and the router locks onto the primary athlete's continuous track.
-- **Next:** Wave 2 L1 (blur-aware frame selection), then Wave 3 (MoveNet + fusion).
+- **2026-06-14 — Wave 2 L1 (done):** blur-aware frame selection — `pickSharpestSpread` keeps the
+  sharpest candidate per temporal segment (selection beats repair, zero manipulation), plus a
+  mild, bounded unsharp in the enhancer's keep-if-better retry path for soft clips.
+- **Wave 2 complete.** Next: **Wave 3** (MoveNet + fusion — the only dep/CSP-heavy wave), and
+  separately the S-effort self-hosting win (`NEXT_PUBLIC_MEDIAPIPE_*_BASE`).
