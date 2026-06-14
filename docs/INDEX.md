@@ -2,7 +2,7 @@
 
 # SwingVantage docs index
 
-_157 documents · regenerated 2026-06-13. This file lists everything in `docs/` so it stays current as docs are added._
+_179 documents · regenerated 2026-06-14. This file lists everything in `docs/` so it stays current as docs are added._
 
 ## docs/
 
@@ -31,7 +31,7 @@ _157 documents · regenerated 2026-06-13. This file lists everything in `docs/` 
 - [Data Portability Guide](DATA_PORTABILITY.md) — This document explains how SwingVantage handles your data — what you can export, how to import it back, what the backup file contains, and how the…
 - [Design Tokens — Figma ⇄ code interchange](design-tokens.md) — SwingVantage's visual system is token-driven: every theme redefines the same
 - [Design V2 — token axes, components, and the redesign flag](DESIGN_V2.md) — This is the engineering reference for the Design V2 redesign of apps/web.
-- [Deterministic Intelligence — Engine Guide](deterministic-intelligence.md) — This document covers the deterministic diagnosis engine: the weighted,
+- [Deterministic Intelligence — Engine Guide](deterministic-intelligence.md) — This document covers the deterministic intelligence layer: the weighted,
 - [Digital Asset Library](DIGITAL_ASSET_LIBRARY.md) — The Digital Asset Library at /admin/assets (Admin → Content → "Asset
 - [Duplicate-Content & Originality Audit](SEO_DUPLICATE_CONTENT_AUDIT.md) — You asked: "make sure 0% of the pages could be questioned as being a duplicate,
 - [Feature Education Engine (FEE)](FEATURE_EDUCATION_ENGINE.md) — Every time you ship a feature, this system makes sure that feature gets taught —
@@ -78,6 +78,7 @@ _157 documents · regenerated 2026-06-13. This file lists everything in `docs/` 
 - [Security Automation Guide](security-automation.md) — This document explains the automated security systems that run on every push and pull request to the SwingVantage repository.
 - [SEO / AEO / GEO strategy for SwingVantage updates](SEO_GEO_AEO_UPDATES_STRATEGY.md) — How the update detail pages earn discoverability in classic search (SEO), AI answer
 - [SEO, GEO, and AEO Strategy](SEO_GEO_AEO.md) — This document explains SwingVantage's strategy for being found by search engines (SEO), AI knowledge systems (GEO — Generative Engine…
+- [Status refresh — 2026-06-13](STATUS_REFRESH_2026-06-13.md) — A point-in-time reconciliation of the planning/audit docs against the actual
 - [SwingLab 2.0 — Phase 2 Scope: The Interactive Lab Map](SWINGLAB_2_PHASE_2_SCOPE.md) — ---
 - [SwingVantage — Analytics Events](analytics-events.md) — This document is the single reference for every analytics event SwingVantage tracks.
 - [SwingVantage — Architecture Audit (AI-Native Master Plan, Phase 0)](swingvantage-architecture-audit.md) — ---
@@ -105,6 +106,7 @@ _157 documents · regenerated 2026-06-13. This file lists everything in `docs/` 
 - [SwingVantage — Update Publishing Engine](UPDATES_PUBLISHING_ENGINE.md) — One unified engine powers both the plain-English product changelog (/updates)
 - [SwingVantage — Web App Guide](WEB_APP_GUIDE.md) — A plain-English guide to every feature in the app.
 - [SwingVantage "10x Upgrade" Master-Prompt Audit — June 2026](swingiq-10x-upgrade-audit-2026-06.md) — ---
+- [SwingVantage `/learn` Education System — Build Roadmap & Handoff](learn-education-roadmap.md) — Last updated: 2026-06-13 · Status: Tier 0 + Tier 1 + Tier 2 + most of Tier 3 shipped.
 - [SwingVantage Academy — Internal Enablement Platform](SWINGVANTAGE_ACADEMY.md) — Status: Phase 1 in progress (foundation + core learner experience). Internal-only, lives at
 - [SwingVantage Admin & Operations Roadmap](ADMIN_OPERATIONS_ROADMAP.md) — Last updated: June 2026
 - [SwingVantage Admin Dashboard](ADMIN_DASHBOARD.md) — This is the control center for running SwingVantage — one place to see what's
@@ -154,6 +156,29 @@ _157 documents · regenerated 2026-06-13. This file lists everything in `docs/` 
 ## docs/maintenance/
 
 - [Branch / worktree / remote cleanup — 2026-06-10](maintenance/branch-cleanup-2026-06-10.md) — A governance cleanup of merged and redundant Git refs, run by an interactive agent with
+
+## docs/plans/
+
+- [Live-DB smoke test — Player Experience Overhaul](plans/player-experience-overhaul/SMOKE-TEST.md) — Run this against a real Supabase project (the parts unit tests can't exercise: RLS policies,
+- [Player Experience Overhaul — Delivery Report (WS-13)](plans/player-experience-overhaul/DELIVERY-REPORT.md) — Branch claude/busy-pascal-5cteca · PR #80 → master. Delivered 12 of 13 workstreams
+- [Player Experience Overhaul — Master Plan](plans/player-experience-overhaul/README.md) — This directory breaks one giant request into 13 self-contained workstreams that can
+- [Player Experience Overhaul — PROGRESS & HANDOFF](plans/player-experience-overhaul/PROGRESS.md) — Branch: claude/busy-pascal-5cteca (all work pushed). Open PR: claude/busy-pascal-5cteca → master.
+- [WS-01 — Fix Today data overload (focused, capped Today)](plans/player-experience-overhaul/WS-01-today-focus.md) — - WS-04 (player profile) for profile completion + archetype + skill level.
+- [WS-02 — Dashboard as a premium player-selection screen](plans/player-experience-overhaul/WS-02-dashboard-player-card.md) — - WS-04 (player profile) — archetype, strengths, focus, confidence, skill level.
+- [WS-03 — Auto-generated athlete skill tree](plans/player-experience-overhaul/WS-03-skill-tree.md) — - WS-08 (data model): skilltreenodes table + types + shared enums (SkillNodeStatus).
+- [WS-04 — Player profile as the organized intelligence hub](plans/player-experience-overhaul/WS-04-player-profile-hub.md) — - WS-08 (data model): playerprofiles table + types in apps/web/src/lib/supabase.ts.
+- [WS-05 — Secure friends / social foundation](plans/player-experience-overhaul/WS-05-friends-foundation.md) — - WS-08 (data model) must land first: it provides the friendships table, the
+- [WS-06 — Upload-for-friend video workflow](plans/player-experience-overhaul/WS-06-upload-for-friend.md) — - WS-05 (friends): depends on apps/web/src/lib/friends/authz.ts
+- [WS-07 — Athlete journey + wire everything together (capstone)](plans/player-experience-overhaul/WS-07-journey-integration.md) — - Runs after WS-01..WS-06 land (or as they land). This is the integration capstone that
+- [WS-08 — Data model additions & migrations (FOUNDATION)](plans/player-experience-overhaul/WS-08-data-model.md) — - Work in your own worktree: npm run wt create data-model → cd ../swiq-agents/data-model → npm install.
+- [WS-09 — Services / components integration notes](plans/player-experience-overhaul/INTEGRATION-NOTES.md) — Cross-cutting hygiene record for the Player Experience Overhaul. Confirms the shared
+- [WS-09 — Shared services/components hygiene (cross-cutting)](plans/player-experience-overhaul/WS-09-services-components.md) — This workstream is a living guide + reviewer, not a big feature drop. Its job is to prevent
+- [WS-10 — Analytics events (foundation-ish, cross-cutting)](plans/player-experience-overhaul/WS-10-analytics.md) — Owns packages/core/src/analytics/events.ts. Lands the full set of new event names early
+- [WS-11 — Production-readiness (authz, privacy, a11y, states)](plans/player-experience-overhaul/WS-11-production-readiness.md) — Hardening + audit pass over WS-01..WS-08. Run continuously as a checklist and as a focused
+- [WS-11 — Production-readiness audit](plans/player-experience-overhaul/PROD-READINESS-AUDIT.md) — Audit of the Player Experience Overhaul (Waves 1–4 + WS-07). Evidence captured 2026-06-13 on
+- [WS-12 — Acceptance-criteria verification](plans/player-experience-overhaul/ACCEPTANCE-REPORT.md) — Each criterion from the original request, with status + evidence. Verified 2026-06-13 on
+- [WS-12 — Acceptance-criteria verification (closeout)](plans/player-experience-overhaul/WS-12-acceptance-qa.md) — - Worktree: npm run wt create acceptance-qa → cd ../swiq-agents/acceptance-qa → npm install.
+- [WS-13 — Final delivery report (closeout)](plans/player-experience-overhaul/WS-13-final-report.md) — - Read-only-ish: this WS writes documentation, not features. Worktree optional
 
 ## docs/reliability-os/
 

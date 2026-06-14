@@ -1,5 +1,10 @@
 # SwingVantage — Automation Opportunity Audit
 
+> ⚠️ **Partially superseded (2026-06-13).** Some opportunities here have since
+> shipped — notably A1 (E2E critical-journey gate in CI) and A4 (Jest + a11y
+> gate in CI). See **[STATUS_REFRESH_2026-06-13.md](STATUS_REFRESH_2026-06-13.md)**
+> for the current, code-verified status before acting on any item below.
+
 _Date: 2026-06-07 · Status: **strategic audit — nothing implemented yet** · Author: automation-architecture review_
 
 > **📘 In Plain English (start here).** This document looks at the whole SwingVantage
