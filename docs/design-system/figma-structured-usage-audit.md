@@ -222,42 +222,41 @@ pages prerender), plus tsc, eslint, jest (`src/lib/theme` + marketing, 569),
 
 ## Remaining backlog (prioritized)
 
-### ✅ Done (this + the follow-up pass)
-- **`--surface-stage` token + Motion-Lab migration** (the 5 viewer files).
-- **ESLint raw-color rule** (scoped, error) + **viewer stage guard** in jest;
-  `lib/growth/labels.ts` + `lib/utils.ts` added to `GUARDED_FILES`.
+### ✅ Done (audit + two follow-up passes)
+- **`--surface-stage` token** + migration of the 5 Motion-Lab viewers **and
+  `SwingVideoPlayer`** (`VideoRecorder` keeps its camera scrims by design).
+- **ESLint raw-color rule** (scoped, error) + **viewer-stage guard** in jest;
+  `labels.ts` / `utils.ts` in `GUARDED_FILES`. Rule **broadened** to
+  `dashboard` / `report` / `trust` / `proof` / `features` / `seo` / `diagnose`.
 - **Layout primitives** `Section` / `SectionHeading` / `FAQSection` /
-  `HowItWorksGrid` / `MetricsGrid` + migration of the 4 sport-analysis pages.
-- `TrustChips`, `scoreToColor`, GrowthOS badges, `Button` `asChild`.
+  `HowItWorksGrid` / `MetricsGrid` (4 sport pages) **+ `IndexGrid` / `BenefitGrid`
+  / `CtaLink`** (tools, challenges, audience pages).
+- `TrustChips`, `scoreToColor`, GrowthOS badges, `Button` `asChild`,
+  **`--button-radius` / `rounded-button`**.
 
-### 🔴 Critical (theme-breaking, user-facing)
-1. **`SwingVideoPlayer` / `VideoRecorder` controls** → `bg-stage` + token text
-   (still on `gray-*`); keep `bg-black/NN` scrims (intentional, AA-paired). The
-   `--surface-stage` token now exists, so this is a mechanical follow-on.
-
-### 🟠 High (structure + enforcement)
-2. **Finish the marketing primitive set** — add `BenefitGrid`, `IndexGrid`,
-   `CtaLink`, and migrate the remaining ~46 marketing pages (audience/feature/
-   index/tools) onto `Section` + the grids. The library now exists; this is
-   mechanical, page-by-page. (Avoid the snapshot-covered routes — home, pricing,
-   sample-report, trust — unless updating baselines in the keyless env.)
-3. **Broaden the ESLint rule + jest `GUARDED_FILES`** to more dirs as they're
-   cleaned (next: `components/dashboard`, `components/report`).
+### 🟠 High (structure)
+1. **Migrate the remaining ~46 marketing pages** onto the primitives, page-by-page
+   — the library is complete, so this is mechanical. Avoid the snapshot-covered
+   routes (home, pricing, sample-report, trust) unless updating baselines.
+2. **Homepage benefit/CTA migration** — `LocalizedHome`'s richer icon-led benefit
+   cards + CTAs (a `BenefitGrid` variant + `CtaLink`); baseline-aware (home is
+   snapshot-covered).
 
 ### 🟡 Medium
-4. **Adopt `<Card>`** as the default surface in marketing (replace ~26 inline
-   `bg-card` divs); add a `padding` variant.
-5. **`--button-radius` token** + `rounded-button`; switch `Button` off `rounded-lg`.
-6. **Unify status tones** — one `Badge` tone map reused by GrowthOS labels and
-   `priorityToColor`.
-7. **`AdminShell` logo gradient** + `LiveKinematicPanel` `#ff4d4d` → tokens.
+3. **Adopt `<Card>`** as the default marketing surface (~26 inline `bg-card`
+   divs); add a `padding` variant.
+4. **Unify status tones** — one `Badge` tone map reused by GrowthOS labels +
+   `priorityToColor` (Badge renders on snapshot-covered surfaces → baseline-aware).
+5. **`LiveKinematicPanel` `#ff4d4d`** → `--error` (renders on the snapshot-covered
+   homepage → baseline-aware). `AdminShell`'s logo gradient is an intentional
+   **brand mark** (logotype exemption) — leave, or theme it deliberately.
 
 ### 🟢 Nice-to-have
-8. **Finish Figma Code Connect** — replace `node-id=TODO-REPLACE` (needs a Figma
-   Org/Enterprise Dev seat), then `figma:publish`.
-9. `Button` `focus` → `focus-visible`.
-10. `swinglab`/`lab` dark heroes → confirm intent; tokenize (now `bg-stage`) or annotate.
-11. `prefers-color-scheme` on `global-error.tsx`.
+6. **Finish Figma Code Connect** node-ids (needs a Figma Org/Enterprise Dev seat),
+   then `figma:publish`.
+7. `Button` `focus` → `focus-visible`.
+8. `swinglab` / `lab` dark heroes → tokenize (`bg-stage`) or annotate.
+9. `prefers-color-scheme` on `global-error.tsx`.
 
 ---
 
