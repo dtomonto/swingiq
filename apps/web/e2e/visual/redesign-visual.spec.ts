@@ -45,12 +45,12 @@ const ROUTES = [
   { name: 'sample-report', path: '/sample-report' },
   { name: 'trust', path: '/trust' },
   // NOTE: /dashboard is intentionally excluded. Its anonymous render contains a
-  // time/date-dependent block, so a committed full-page pixel baseline drifts at
-  // the day boundary and produces false failures (a stale baseline can pass for
-  // hours, then fail the next calendar day with no code change). Full-page visual
-  // regression here guards the STATIC redesign surfaces; dynamic app screens like
-  // the dashboard need a frozen clock + masked regions, which is out of scope for
-  // this safety net.
+  // time/date-dependent block, so a committed full-page pixel baseline drifts and
+  // produces false failures (a stale baseline can pass for hours, then fail with
+  // no code change). The suite now pins the wall clock (see setFixedTime below),
+  // which removes the day/year drift, but the dashboard still needs its dynamic
+  // regions masked before it can rejoin this full-page matrix — out of scope for
+  // this safety net, which guards the STATIC redesign surfaces.
   { name: 'diagnose-report', path: '/diagnose' },
 ] as const;
 
@@ -73,6 +73,17 @@ test.describe('design-v2 visual regression', () => {
           );
           await page.emulateMedia({ reducedMotion: 'reduce' });
           await page.setViewportSize({ width: vp.width, height: vp.height });
+
+          // Freeze the wall clock so date-dependent render is deterministic.
+          // The public footer prints the copyright year via
+          // `new Date().getFullYear()` (PublicFooter.tsx), so without this every
+          // committed baseline would silently drift at the New Year boundary and
+          // fail with no code change — the same flake class that forced /dashboard
+          // out of this matrix, but suite-wide. setFixedTime pins Date while
+          // leaving real timers running, so networkidle/animation waits are
+          // unaffected. Pinned within the year the baselines were captured (2026),
+          // so current PNGs stay pixel-identical.
+          await page.clock.setFixedTime(new Date('2026-06-14T12:00:00Z'));
 
           const res = await page.goto(route.path, { waitUntil: 'networkidle' });
           test.skip(!res || res.status() >= 400, `route ${route.path} unavailable keyless`);
