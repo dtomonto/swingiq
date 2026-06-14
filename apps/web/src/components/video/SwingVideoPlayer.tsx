@@ -115,11 +115,11 @@ export function SwingVideoPlayer({
       </div>
 
       {/* Controls bar */}
-      <div className="bg-gray-900 px-4 py-3 space-y-2">
+      <div className="bg-stage-panel px-4 py-3 space-y-2">
         {/* Seek bar */}
         <div
           ref={seekBarRef}
-          className="relative h-2 bg-gray-700 rounded-full cursor-pointer group focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
+          className="relative h-2 bg-white/15 rounded-full cursor-pointer group focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
           onMouseDown={(e) => { setIsDragging(true); seekFromPointer(e); }}
           onClick={seekFromPointer}
           onKeyDown={(e) => {
@@ -153,7 +153,7 @@ export function SwingVideoPlayer({
             {/* Step back */}
             <button
               onClick={() => stepFrame(-1)}
-              className="text-gray-300 hover:text-white p-1.5 rounded-sm hover:bg-gray-700 transition-colors"
+              className="text-stage-foreground hover:text-white p-1.5 rounded-sm hover:bg-white/10 transition-colors"
               title="Previous frame"
             >
               <SkipBack className="w-4 h-4" />
@@ -174,7 +174,7 @@ export function SwingVideoPlayer({
             {/* Step forward */}
             <button
               onClick={() => stepFrame(1)}
-              className="text-gray-300 hover:text-white p-1.5 rounded-sm hover:bg-gray-700 transition-colors"
+              className="text-stage-foreground hover:text-white p-1.5 rounded-sm hover:bg-white/10 transition-colors"
               title="Next frame"
             >
               <SkipForward className="w-4 h-4" />
@@ -182,7 +182,7 @@ export function SwingVideoPlayer({
           </div>
 
           {/* Timestamp */}
-          <span className="text-xs text-gray-400 font-mono tabular-nums">
+          <span className="text-xs text-stage-muted font-mono tabular-nums">
             {formatDuration(currentTime)} / {formatDuration(duration)}
           </span>
 
@@ -190,7 +190,7 @@ export function SwingVideoPlayer({
           <div className="relative">
             <button
               onClick={() => setShowSpeedMenu((v) => !v)}
-              className="flex items-center gap-1.5 text-xs text-gray-300 hover:text-white bg-gray-800 hover:bg-gray-700 px-2.5 py-1.5 rounded-lg transition-colors"
+              className="flex items-center gap-1.5 text-xs text-stage-foreground hover:text-white bg-white/10 hover:bg-white/15 px-2.5 py-1.5 rounded-lg transition-colors"
               title="Playback speed"
             >
               <Gauge className="w-3.5 h-3.5" />
@@ -198,7 +198,7 @@ export function SwingVideoPlayer({
             </button>
 
             {showSpeedMenu && (
-              <div className="absolute bottom-full mb-1 right-0 bg-gray-800 rounded-lg shadow-xl border border-gray-700 overflow-hidden z-10 min-w-[80px]">
+              <div className="absolute bottom-full mb-1 right-0 bg-stage-panel rounded-lg shadow-xl border border-white/10 overflow-hidden z-10 min-w-[80px]">
                 {PLAYBACK_SPEEDS.map((s) => (
                   <button
                     key={s}
@@ -206,8 +206,8 @@ export function SwingVideoPlayer({
                     className={cn(
                       'w-full text-left px-3 py-2 text-xs transition-colors',
                       s === playbackSpeed
-                        ? 'text-green-400 bg-gray-700 font-semibold'
-                        : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                        ? 'text-green-400 bg-white/10 font-semibold'
+                        : 'text-stage-foreground hover:bg-white/10 hover:text-white',
                     )}
                   >
                     {s === 1 ? '1× (Normal)' : `${s}× Slow`}
