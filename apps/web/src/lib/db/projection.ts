@@ -489,3 +489,123 @@ export function rowToAgent(r: Row | null): AgentClientState {
 }
 
 export const EMPTY_SPORT_EQUIPMENT = DEFAULT_SPORT_EQUIPMENT;
+
+// ════════════════════════════════════════════════════════════
+//  Player Experience Overhaul — row builders (WS-08 foundation)
+// ------------------------------------------------------------
+//  Pure STATE → ROW projections for the new overhaul tables. Feature
+//  workstreams (WS-03/04/05/06) wire these into cloud-repo sync; kept
+//  here so the column lists live in one place and never drift.
+// ════════════════════════════════════════════════════════════
+
+export interface PlayerProfileInput {
+  display_name?: string | null;
+  handle?: string | null;
+  primary_sport?: string | null;
+  sports?: string[];
+  skill_level?: string | null;
+  player_type?: string | null;
+  goals?: unknown;
+  common_issues?: unknown;
+  preferences?: Record<string, unknown>;
+  profile_intelligence_summary?: Record<string, unknown>;
+  journey_state?: Record<string, unknown>;
+  skill_tree_state?: Record<string, unknown>;
+}
+
+export function playerProfileRow(p: PlayerProfileInput, userId: string): Row {
+  return {
+    user_id: userId,
+    display_name: p.display_name ?? null,
+    handle: p.handle ?? null,
+    primary_sport: p.primary_sport ?? null,
+    sports: p.sports ?? [],
+    skill_level: p.skill_level ?? null,
+    player_type: p.player_type ?? null,
+    goals: p.goals ?? [],
+    common_issues: p.common_issues ?? [],
+    preferences: p.preferences ?? {},
+    profile_intelligence_summary: p.profile_intelligence_summary ?? {},
+    journey_state: p.journey_state ?? {},
+    skill_tree_state: p.skill_tree_state ?? {},
+  };
+}
+
+export interface SkillTreeNodeInput {
+  player_profile_id: string;
+  sport: string;
+  category?: string | null;
+  name: string;
+  description?: string | null;
+  status?: string;
+  level?: number;
+  progress_score?: number | null;
+  confidence_score?: number | null;
+  evidence_summary?: Record<string, unknown>;
+  source_session_ids?: string[];
+  source_report_ids?: string[];
+  retest_dates?: unknown;
+}
+
+export function skillTreeNodeRow(n: SkillTreeNodeInput, userId: string): Row {
+  return {
+    player_profile_id: n.player_profile_id,
+    user_id: userId,
+    sport: n.sport,
+    category: n.category ?? null,
+    name: n.name,
+    description: n.description ?? null,
+    status: n.status ?? 'locked',
+    level: n.level ?? 0,
+    progress_score: num(n.progress_score),
+    confidence_score: num(n.confidence_score),
+    evidence_summary: n.evidence_summary ?? {},
+    source_session_ids: n.source_session_ids ?? [],
+    source_report_ids: n.source_report_ids ?? [],
+    retest_dates: n.retest_dates ?? [],
+    last_updated_at: new Date().toISOString(),
+  };
+}
+
+export interface FriendshipInput {
+  requester_user_id: string;
+  receiver_user_id: string;
+  status?: string;
+  permissions?: Record<string, boolean>;
+}
+
+export function friendshipRow(f: FriendshipInput): Row {
+  return {
+    requester_user_id: f.requester_user_id,
+    receiver_user_id: f.receiver_user_id,
+    status: f.status ?? 'pending',
+    permissions: f.permissions ?? {
+      view_profile: true,
+      view_reports: false,
+      allow_upload_for_me: false,
+    },
+  };
+}
+
+export interface UploadAuditInput {
+  athlete_user_id: string;
+  session_id?: string | null;
+  video_analysis_id?: string | null;
+  action: string;
+  context?: string;
+  permission_status?: string | null;
+  metadata?: Record<string, unknown>;
+}
+
+export function uploadAuditRow(a: UploadAuditInput, actorUserId: string): Row {
+  return {
+    actor_user_id: actorUserId,
+    athlete_user_id: a.athlete_user_id,
+    session_id: a.session_id ?? null,
+    video_analysis_id: a.video_analysis_id ?? null,
+    action: a.action,
+    context: a.context ?? 'self',
+    permission_status: a.permission_status ?? null,
+    metadata: a.metadata ?? {},
+  };
+}

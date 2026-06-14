@@ -27,13 +27,11 @@ import {
 import { supabase } from '@/lib/supabase';
 import { useAuth } from '@/lib/auth/useAuth';
 import { useSwingVantageStore } from '@/store';
-import type { SwingVantageState, SportEquipment } from '@/store';
-import { exportUserData } from '@/lib/backup/export';
-import { mergeRestore } from '@/lib/backup/restore';
 import { logSyncFailure } from '@/lib/reliability-os/capture';
 import {
-  loadAll, reconcile, fillDefaults, freshCaches, primeCaches, isSchemaMissing, type SyncCaches,
+  loadAll, reconcile, freshCaches, primeCaches, isSchemaMissing, type SyncCaches,
 } from './cloud-repo';
+import { mergeOnSignIn } from './sign-in-merge';
 import {
   pullAndMergeDocuments, pushChangedDocuments, freshDocSyncState, type DocSyncState,
 } from './document-sync';
@@ -44,7 +42,6 @@ import {
   syncCommunityAnalytics, freshCommunityAnalyticsSync, type CommunityAnalyticsSyncState,
 } from './community-analytics-sync';
 import { loadBase, saveBase, computeBase } from './sync-base';
-import { threeWayMerge } from './three-way-merge';
 
 export type CloudSyncStatus =
   | 'unavailable' // Supabase not configured / schema not applied → local-only
@@ -72,21 +69,15 @@ const DEBOUNCE_MS = 2000;
 /** How often to flush out-of-store feature mirrors (they change outside Zustand). */
 const DOC_POLL_MS = 7000;
 
-function mergeById<T extends { id: string }>(a: T[], b: T[]): T[] {
-  const seen = new Set(a.map((i) => i.id));
-  return [...a, ...b.filter((i) => !seen.has(i.id))];
-}
-
-function mergeSportEquipment(a: SportEquipment, b: SportEquipment): SportEquipment {
-  return {
-    tennis: mergeById(a.tennis, b.tennis),
-    pickleball: mergeById(a.pickleball, b.pickleball),
-    padel: mergeById(a.padel, b.padel),
-    baseball: mergeById(a.baseball, b.baseball),
-    softball_slow: mergeById(a.softball_slow, b.softball_slow),
-    softball_fast: mergeById(a.softball_fast, b.softball_fast),
-  };
-}
+// ── Transient-failure retry (exponential backoff, capped) ──
+// A failed write marks the sync 'offline'. Connectivity/visibility events and
+// the next edit already re-try, but if none of those fire the device would sit
+// 'offline' forever. These bound an automatic catch-up retry: back off 4s → 8s
+// → … up to 60s, and give up after MAX_RETRIES so a permanently-broken network
+// can't spin a retry loop indefinitely. A success or a fresh edit resets it.
+const RETRY_BASE_MS = 4000;
+const RETRY_MAX_MS = 60000;
+const RETRY_MAX_ATTEMPTS = 5;
 
 export function RelationalSyncProvider({ children }: { children: React.ReactNode }) {
   const { user, status: authStatus, mode } = useAuth();
@@ -101,6 +92,8 @@ export function RelationalSyncProvider({ children }: { children: React.ReactNode
   const runningRef = useRef(false);
   const pendingRef = useRef(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const retryTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const retryAttemptsRef = useRef(0);
   const docPollRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const docsAvailableRef = useRef(true);
   const docsPrimedRef = useRef(false);
@@ -187,6 +180,7 @@ export function RelationalSyncProvider({ children }: { children: React.ReactNode
         // Cloud now matches the store → record it as the new agreed base.
         saveBase(uid, computeBase(store.getState()));
         syncFailReportedRef.current = false; // healthy again
+        clearRetry(); // recovered → reset the backoff budget
         setStatus('synced');
         if (mainChanged || docsChanged) setLastSyncedAt(new Date().toISOString());
       } catch (err) {
@@ -198,7 +192,8 @@ export function RelationalSyncProvider({ children }: { children: React.ReactNode
           unsubStore?.();
           return;
         }
-        setStatus('offline'); // transient (network) — retried below
+        setStatus('offline'); // transient (network) — retried below + via backoff
+        scheduleRetry();
       } finally {
         runningRef.current = false;
         if (pendingRef.current) { pendingRef.current = false; scheduleReconcile(); }
@@ -206,44 +201,50 @@ export function RelationalSyncProvider({ children }: { children: React.ReactNode
     };
 
     const scheduleReconcile = () => {
+      // A fresh edit means the user is active and likely back online — give the
+      // automatic backoff a clean budget so it doesn't give up prematurely.
+      retryAttemptsRef.current = 0;
       if (timerRef.current) clearTimeout(timerRef.current);
       timerRef.current = setTimeout(() => { void runReconcile(); }, DEBOUNCE_MS);
     };
 
-    const onOnline = () => { void runReconcile(); };
+    const clearRetry = () => {
+      retryAttemptsRef.current = 0;
+      if (retryTimerRef.current) { clearTimeout(retryTimerRef.current); retryTimerRef.current = null; }
+    };
+
+    // Auto catch-up after a transient failure: back off exponentially up to a
+    // cap, and stop after MAX_ATTEMPTS so a permanently-broken network can't
+    // spin forever. Connectivity/visibility events and edits still retry too.
+    const scheduleRetry = () => {
+      if (retryAttemptsRef.current >= RETRY_MAX_ATTEMPTS) return;
+      const delay = Math.min(RETRY_BASE_MS * 2 ** retryAttemptsRef.current, RETRY_MAX_MS);
+      retryAttemptsRef.current += 1;
+      if (retryTimerRef.current) clearTimeout(retryTimerRef.current);
+      retryTimerRef.current = setTimeout(() => { void runReconcile(); }, delay);
+    };
+
+    const onOnline = () => { retryAttemptsRef.current = 0; void runReconcile(); };
     const onHidden = () => { if (document.visibilityState === 'hidden') void runReconcile(); };
 
     (async () => {
       setStatus('syncing');
       try {
         const local = store.getState();
-        const { state: cloud, isEmpty, presence } = await loadAll(client, uid);
+        const load = await loadAll(client, uid);
         if (!active) return;
 
         cachesRef.current = freshCaches();
 
-        if (isEmpty) {
-          // Brand-new account: keep this device's data and push it all up
-          // (migrates a guest's trial data in). Empty caches → reconcile
-          // inserts everything and deletes nothing.
-        } else {
-          const cloudFull = fillDefaults(cloud);
-          const base = loadBase(uid);
-          if (base) {
-            // 3-way merge against the last agreed base → cross-device deletes
-            // propagate (no resurrection) while new items on either side stay.
-            store.setState(threeWayMerge(base, local, cloudFull, presence));
-          } else {
-            // First sign-in on this device with no base → non-destructive union
-            // so nothing is lost; a base is saved after this sync.
-            const cloudBackup = exportUserData({ ...local, ...cloud } as SwingVantageState);
-            const merged = mergeRestore(cloudBackup, local);
-            store.setState({
-              ...merged,
-              sportEquipment: mergeSportEquipment(local.sportEquipment, cloudFull.sportEquipment),
-            });
-          }
+        // Decide what signing in does to this device's data (pure + tested):
+        // empty account → keep local & migrate up; returning device → 3-way
+        // merge; first sign-in here → non-destructive union. Never loses data.
+        const { apply, cloudFull } = mergeOnSignIn(local, load, loadBase(uid));
+        if (apply) {
+          store.setState(apply);
           store.getState().computeSetupStep();
+        }
+        if (cloudFull) {
           // Seed caches with what the cloud CURRENTLY holds so this reconcile
           // deletes the rows the merge dropped (propagating deletes upward) and
           // upserts the rest.
@@ -290,6 +291,7 @@ export function RelationalSyncProvider({ children }: { children: React.ReactNode
     return () => {
       active = false;
       if (timerRef.current) clearTimeout(timerRef.current);
+      if (retryTimerRef.current) clearTimeout(retryTimerRef.current);
       if (docPollRef.current) clearInterval(docPollRef.current);
       unsubStore?.();
       window.removeEventListener('online', onOnline);
