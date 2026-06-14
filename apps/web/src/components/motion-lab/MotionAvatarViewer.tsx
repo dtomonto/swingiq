@@ -372,15 +372,15 @@ export function MotionAvatarViewer({ track, phases, accent = '#22C55E', classNam
 
   const activePhase = phases?.find((p) => frame >= p.startFrame && frame <= p.endFrame);
   const scrubTotal = phases && phases.length ? Math.max(1, phases[phases.length - 1].endFrame) : Math.max(1, frameCount - 1);
-  const btn = 'inline-flex items-center justify-center rounded-md p-1.5 text-slate-200 hover:bg-white/10 transition-colors';
+  const btn = 'inline-flex items-center justify-center rounded-md p-1.5 text-stage-foreground hover:bg-white/10 transition-colors';
 
   return (
-    <div ref={wrapRef} className={cn('rounded-xl overflow-hidden border border-border bg-[#060a12]', className)}>
+    <div ref={wrapRef} className={cn('rounded-xl overflow-hidden border border-border bg-stage', className)}>
       <div className="relative">
         {empty ? (
           <div className="h-[360px] sm:h-[420px] flex flex-col items-center justify-center text-center px-6">
-            <p className="text-sm text-slate-300">No body pose was detected in this clip.</p>
-            <p className="text-xs text-slate-400 mt-1">Re-film with the full body in frame and good light.</p>
+            <p className="text-sm text-stage-foreground">No body pose was detected in this clip.</p>
+            <p className="text-xs text-stage-muted mt-1">Re-film with the full body in frame and good light.</p>
           </div>
         ) : (
           <canvas
@@ -393,7 +393,7 @@ export function MotionAvatarViewer({ track, phases, accent = '#22C55E', classNam
             onWheel={onWheel}
           />
         )}
-        <div className="absolute top-2 left-2 text-[10px] font-medium text-slate-300/80 bg-black/40 rounded px-1.5 py-0.5">
+        <div className="absolute top-2 left-2 text-[10px] font-medium text-stage-foreground/80 bg-black/40 rounded px-1.5 py-0.5">
           {track.basis === 'measured' ? 'Measured 3D avatar · multi-view · drag to orbit' : 'Estimated 3D avatar · generic mannequin posed by your pose · drag to orbit'}
         </div>
         {activePhase && (
@@ -404,7 +404,7 @@ export function MotionAvatarViewer({ track, phases, accent = '#22C55E', classNam
         {!empty && (
           <div className="absolute bottom-2 left-2 flex gap-1">
             {(['front', 'side', 'top'] as ViewPreset[]).map((v) => (
-              <button key={v} onClick={() => setView(v)} className="text-[11px] font-medium text-slate-200 bg-black/40 hover:bg-black/60 rounded px-2 py-1 capitalize">
+              <button key={v} onClick={() => setView(v)} className="text-[11px] font-medium text-stage-foreground bg-black/40 hover:bg-black/60 rounded px-2 py-1 capitalize">
                 {v}
               </button>
             ))}
@@ -413,7 +413,7 @@ export function MotionAvatarViewer({ track, phases, accent = '#22C55E', classNam
       </div>
 
       {!empty && (
-        <div className="bg-[#0b1220] border-t border-white/10 px-3 py-2 space-y-2">
+        <div className="bg-stage-panel border-t border-white/10 px-3 py-2 space-y-2">
           <div className="flex items-center gap-1">
             <button className={btn} onClick={() => setPlaying((p) => !p)} aria-label={playing ? 'Pause' : 'Play'}>
               {playing ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
@@ -455,11 +455,11 @@ export function MotionAvatarViewer({ track, phases, accent = '#22C55E', classNam
                 style={{ left: `${(frame / Math.max(1, frameCount - 1)) * 100}%` }}
               />
             </div>
-            <span className="text-[11px] text-slate-400 tabular-nums w-14 text-right">{frame + 1}/{frameCount}</span>
+            <span className="text-[11px] text-stage-muted tabular-nums w-14 text-right">{frame + 1}/{frameCount}</span>
           </div>
           <div className="flex items-center gap-1 flex-wrap">
             {[0.25, 0.5, 1].map((s) => (
-              <button key={s} onClick={() => setSpeed(s)} className={cn('text-[11px] rounded px-1.5 py-0.5', speed === s ? 'bg-sky-500 text-white' : 'text-slate-300 hover:bg-white/10')}>
+              <button key={s} onClick={() => setSpeed(s)} className={cn('text-[11px] rounded px-1.5 py-0.5', speed === s ? 'bg-sky-500 text-white' : 'text-stage-foreground hover:bg-white/10')}>
                 {s}×
               </button>
             ))}

@@ -98,6 +98,20 @@
   --color-document-fg: hsl(var(--surface-document-foreground));
   --color-document-accent: hsl(var(--surface-document-accent));
 
+  /* ── "Stage" surface — media / 3D viewers render as an always-dark canvas ──
+     The dark twin of `--surface-document`: a 3D/video viewer reads as a dark
+     "stage" in EVERY theme (like a cinema screen or a video player), so its
+     chrome never inherits a light theme. These map the theme-independent stage
+     channels to Tailwind utilities (`bg-stage`, `bg-stage-panel`,
+     `text-stage-foreground`, `text-stage-muted`) so a viewer never has to reach
+     for a raw `bg-[#0b1220]` / `text-slate-300`. Decorative data-viz accents
+     (axis sky/amber, phase fills) stay raw — they live ONLY on this dark
+     surface, so they are fixed-context and contrast-safe by construction. */
+  --color-stage: hsl(var(--surface-stage));
+  --color-stage-panel: hsl(var(--surface-stage-panel));
+  --color-stage-foreground: hsl(var(--surface-stage-foreground));
+  --color-stage-muted: hsl(var(--surface-stage-muted));
+
   /* ── Active-sport identity accent (the `data-sport` axis) ───────────────
      One identity color per sport, layered ON TOP of the theme via
      `[data-sport]` (see the sport-identity layer below). These map the
@@ -1293,6 +1307,15 @@
     --surface-inset: var(--secondary);
     --surface-overlay: var(--popover);
     --surface-scrim: 0 0% 0%; /* use as hsl(var(--surface-scrim) / 0.5) */
+
+    /* Stage — always-dark media/3D viewer surface (theme-independent), the dark
+       twin of the always-light `--surface-document`. Values mirror the viewers'
+       prior hardcoded chrome (#060a12 canvas / #0b1220 panel / slate-200 text /
+       slate-400 muted) so tokenizing is a 1:1 visual no-op on the dark default. */
+    --surface-stage: 220 50% 5%;
+    --surface-stage-panel: 220 49% 8%;
+    --surface-stage-foreground: 214 32% 91%;
+    --surface-stage-muted: 215 20% 65%;
 
     /* Text roles */
     --text-primary: var(--foreground);
